@@ -24,7 +24,6 @@
   flex-direction: column;
   align-items: start;
   overflow: hidden;
-  background: url("/gradient.svg") no-repeat center center;
   background-size: cover;
 
   h1 {
@@ -39,6 +38,10 @@
   }
 }
 
+.rightSection {
+  margin-bottom: 75px;
+}
+
 .downloadButton {
   display: flex;
   padding: 0.75rem 5rem;
@@ -48,6 +51,8 @@
   border-radius: 0.5rem;
   font-size: 1.2rem;
   cursor: pointer;
+  border: 1px solid;
+  border-color: var(--color-border);
 
   transition: transform 0.2s ease-in;
 
@@ -61,4 +66,24 @@
     transform: scale(1.02);
     text-decoration: underline;
   }
+}
+
+.imageContainer {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.tagsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.tagItem {
+  background-color: var(--color-yellow);
+  padding: 0.5rem;
+  margin: 1rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 1.1rem;
+  cursor: pointer;
 }

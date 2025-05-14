@@ -14,7 +14,7 @@
   /* custom colors */
   --color-red: #f25f5c;
   --color-border: rgb(229, 229, 229);
-  
+
   --color-purple: #9B5DE5;
   --color-pink: #F15BB5;
   --color-yellow: #FEE440;
@@ -102,9 +102,6 @@ body {
   padding: 0px;
   color: var(--foreground);
   background: var(--background);
-}
-body {
-  height: 100vh;
 }
 
 .dark {
