@@ -1,2 +1,2 @@
 export { addNewPage, getLastPrompts, getPages, getPagesById } from "./page.ts";
-export { getDatabaseClient } from "./db.ts";
+export { getDatabaseClient, setupDatabasePool } from "./db.ts";

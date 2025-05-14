@@ -1,0 +1,64 @@
+.mainContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.featured {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  overflow: hidden;
+  background: url("/blurry-gradient-haikei.svg") no-repeat center center;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.leftSection {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: start;
+  overflow: hidden;
+  background: url("/gradient.svg") no-repeat center center;
+  background-size: cover;
+
+  h1 {
+    font-size: 4rem;
+    font-weight: 500;
+    color: white;
+  }
+
+  h2 {
+    font-size: 2rem;
+    color: white;
+  }
+}
+
+.downloadButton {
+  display: flex;
+  padding: 0.75rem 5rem;
+  background-color: var(--color-purple);
+  color: white;
+  margin-top: 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+
+  transition: transform 0.2s ease-in;
+
+  margin-left: 0.5rem;
+
+  >:first-child {
+    margin-right: 1rem;
+  }
+
+  &:hover {
+    transform: scale(1.02);
+    text-decoration: underline;
+  }
+}
