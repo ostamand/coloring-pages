@@ -1,7 +1,7 @@
 import { Router } from "jsr:@oak/oak";
 
 import { getClientFromPool } from "../lib/db/db.ts";
-import { getPages, getPagesById } from "../lib/db/mod.ts";
+import { getPages, getPagesById, searchPages } from "../lib/db/mod.ts";
 
 export const pagesRouter = new Router();
 
@@ -26,9 +26,16 @@ pagesRouter.get("/:id", async (ctx) => {
 pagesRouter.get("/", async (ctx) => {
     const client = await getClientFromPool();
     const { searchParams } = ctx.request.url;
+
     const limit = Number(searchParams.get("limit")) || 10;
+    const searchQuery = searchParams.get("search");
     try {
-        const results = await getPages(client, limit);
+        let results: any = {};
+        if (searchQuery) {
+            results = await searchPages(client, searchQuery, limit);
+        } else {
+            results = await getPages(client, limit);
+        }
         ctx.response.body = results;
     } catch (error) {
         console.error(error);

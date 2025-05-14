@@ -160,3 +160,21 @@ export async function getPages(db: Client, limit: number) {
   );
   return result.rows;
 }
+
+export async function searchPages(db: Client, query: string, limit: number) {
+  const result = await db.queryObject(
+    `
+        SELECT DISTINCT p.*
+        FROM pages p
+        LEFT JOIN page_tags pt ON p.id = pt.page_id
+        LEFT JOIN tags t ON pt.tag_id = t.id
+        WHERE 
+            p.collection_name ILIKE '%' || $1 || '%' OR
+            t.name ILIKE '%' || $1 || '%' OR
+            p.name ILIKE '%' || $1 || '%'
+        LIMIT $2
+        `,
+    [query, limit]
+  );
+  return result.rows;
+}
