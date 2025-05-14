@@ -1,4 +1,5 @@
 import styles from "./home.styles.module.scss";
+import tagStyles from "../styles/tag.styles.module.scss";
 
 import Image from "next/image";
 import { Download } from "lucide-react";
@@ -46,10 +47,10 @@ export default async function Home() {
                     </div>
                 </div>
                 <div className={styles.rightSection}>
-                    <div className={styles.tagsContainer}>
+                    <div className={tagStyles.tagsContainer}>
                         {featuredPage.tags.map((tag, index) => {
                             return (
-                                <div className={styles.tagItem} key={index}>
+                                <div className={tagStyles.tagItem} key={index}>
                                     {tag}
                                 </div>
                             );
@@ -79,11 +80,11 @@ export default async function Home() {
                                 className={styles.previouslyImageContent}
                                 key={page.id}
                             >
-                                <div className={styles.tagsContainer}>
+                                <div className={tagStyles.tagsContainer}>
                                     {page.tags.map((tag, index) => {
                                         return (
                                             <div
-                                                className={styles.tagItem}
+                                                className={tagStyles.tagItem}
                                                 key={index}
                                             >
                                                 {tag}

@@ -73,23 +73,6 @@
     cursor: pointer;
 }
 
-.tagsContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.tagItem {
-    background-color: var(--color-yellow);
-    padding: 0.5rem;
-    margin: 1rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 1.1rem;
-    cursor: pointer;
-    border: 2px solid;
-    border-color: var(--color-border);
-}
-
 .previously {
     width: 100%;
     .previouslyHeading {

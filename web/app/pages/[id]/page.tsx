@@ -1,10 +1,23 @@
 "use server";
 
 import styles from "../pages.styles.module.scss";
+import buttonStyles from "../../../styles/button.styles.module.scss";
+import tagStyles from "../../../styles/tag.styles.module.scss";
 
 import Image from "next/image";
+import Link from "next/link";
+import { Download } from "lucide-react";
 
 import { Page } from "@/lib/api/types";
+
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export async function generateStaticParams() {
     const endpoint = `${process.env.API_URL}/pages?limit=10`;
@@ -54,16 +67,65 @@ export default async function DetailedPage({
 
     return (
         <div className={styles.detailedContainer}>
-            <div className={styles.content}>
-                <div className={styles.leftSection}></div>
-                <div className={styles.rightSection}>
-                    <Image
-                        src={page.coloring_path}
-                        alt="Coloring Pages Logo"
-                        width={500}
-                        height={750}
-                        unoptimized
-                    />
+            <div className={styles.breadCrumbContent}>
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <Link href="/">Home</Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <Link href="/pages">Pages</Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <p>{page.collection_name}</p>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </div>
+
+            <div className={styles.centerContainer}>
+                <div className={styles.content}>
+                    <div className={styles.leftSection}>
+                        <Image
+                            src={page.coloring_path}
+                            alt="Coloring Pages Logo"
+                            width={600}
+                            height={900}
+                        />
+                    </div>
+                    <div className={styles.rightSection}>
+                        <div className={buttonStyles.downloadButton}>
+                            <Download />
+                            Download
+                        </div>
+                        <div className={tagStyles.tagsContainer}>
+                            {page.tags.map((tag, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className={tagStyles.tagItem}
+                                    >
+                                        {tag}
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        <div className={styles.promptContent}>
+                            <h2>Description</h2>
+                            <p>{page.prompt}</p>
+                        </div>
+                        <div className={styles.labelWithContent}>
+                            <h2>Collection</h2>
+                            <p>{page.collection_name}</p>
+                        </div>
+                        <div className={styles.labelWithContent}>
+                            <h2>Featured On</h2>
+                            <p>{page.featured_on || "NA"}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
