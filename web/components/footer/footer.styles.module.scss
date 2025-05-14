@@ -1,0 +1,38 @@
+.footerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 100px;
+    border-top: 2px solid;
+    border-color: var(--color-border);
+    height: 125px;
+    width: 100%;
+    padding: 0 50px;
+    font-size: 1.2rem;
+    background: url("/blurry-gradient-haikei-3.svg") no-repeat center center;
+    background-size: cover;
+    color: white;
+}
+
+.footerLeft {
+    display: flex;
+    flex-direction: column;
+
+    .heading {
+        display: flex;
+        flex-direction: row;
+        font-size: 1.5rem;
+        > :first-child {
+            margin-right: 0.5rem;
+        }
+    }
+
+    span {
+    }
+
+    p {
+    }
+}
+
+.footerRight {
+}

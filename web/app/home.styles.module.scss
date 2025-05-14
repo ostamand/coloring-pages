@@ -1,89 +1,159 @@
 .mainContainer {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    img {
+        transition: transform 0.2s ease-in;
+        &:hover {
+            transform: scale(1.02);
+        }
+    }
 }
 
 .featured {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  overflow: hidden;
-  background: url("/blurry-gradient-haikei.svg") no-repeat center center;
-  background-size: cover;
-  height: 100%;
-  width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+    background: url("/blurry-gradient-haikei.svg") no-repeat center center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
 }
 
 .leftSection {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: start;
-  overflow: hidden;
-  background-size: cover;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: start;
+    overflow: hidden;
+    background-size: cover;
 
-  h1 {
-    font-size: 4rem;
-    font-weight: 500;
-    color: white;
-  }
+    h1 {
+        font-size: 4rem;
+        font-weight: 500;
+        color: white;
+    }
 
-  h2 {
-    font-size: 2rem;
-    color: white;
-  }
+    h2 {
+        font-size: 2rem;
+        color: white;
+    }
 }
 
 .rightSection {
-  margin-bottom: 75px;
+    margin-bottom: 75px;
 }
 
 .downloadButton {
-  display: flex;
-  padding: 0.75rem 5rem;
-  background-color: var(--color-purple);
-  color: white;
-  margin-top: 2rem;
-  border-radius: 0.5rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-  border: 1px solid;
-  border-color: var(--color-border);
+    display: flex;
+    padding: 0.75rem 5rem;
+    background-color: var(--color-purple);
+    color: white;
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
 
-  transition: transform 0.2s ease-in;
+    transition: transform 0.2s ease-in;
 
-  margin-left: 0.5rem;
+    margin-left: 0.5rem;
 
-  >:first-child {
-    margin-right: 1rem;
-  }
-
-  &:hover {
-    transform: scale(1.02);
-    text-decoration: underline;
-  }
+    > :first-child {
+        margin-right: 1rem;
+    }
 }
 
 .imageContainer {
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
-  cursor: pointer;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
 }
 
 .tagsContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .tagItem {
-  background-color: var(--color-yellow);
-  padding: 0.5rem;
-  margin: 1rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 1.1rem;
-  cursor: pointer;
+    background-color: var(--color-yellow);
+    padding: 0.5rem;
+    margin: 1rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border: 2px solid;
+    border-color: var(--color-border);
+}
+
+.previously {
+    width: 100%;
+    .previouslyHeading {
+        margin: 2rem 0rem;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        h1 {
+            font-size: 4rem;
+            font-weight: 500;
+        }
+        h2 {
+            font-size: 2rem;
+            color: var(--color-purple);
+        }
+    }
+}
+
+.previouslyGridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Always 3 columns */
+}
+
+.previouslyGridContainer > div {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.previouslyImageContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seeMore {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    > :first-child {
+        width: 30%;
+    }
+}
+
+.seeMoreButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 5rem;
+    background-color: var(--color-purple);
+    color: white;
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: 1px solid;
+    border-color: var(--color-border);
+
+    margin: 4rem 0rem;
+
+    > :first-child {
+        margin-right: 1rem;
+    }
 }
