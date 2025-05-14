@@ -123,7 +123,11 @@ export default async function DetailedPage({
                         </div>
                         <div className={styles.labelWithContent}>
                             <h2>Featured On</h2>
-                            <p>{page.featured_on || "NA"}</p>
+                            <p>
+                                {new Date(
+                                    page.featured_on || ""
+                                ).toLocaleDateString()}
+                            </p>
                         </div>
                     </div>
                 </div>

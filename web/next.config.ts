@@ -3,7 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
     /* config options here */
     images: {
-        domains: ["placehold.co", "d28enhend29azq.cloudfront.net"],
+        remotePatterns: [
+            new URL("https://d28enhend29azq.cloudfront.net/**"),
+            new URL("https://placehold.co/**"),
+        ],
     },
 };
 

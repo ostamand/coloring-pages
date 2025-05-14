@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --allow-all --watch server.ts 3000",
+    "dev": "deno run --allow-all --watch server.ts 3001",
     "db": "docker compose down && docker compose up --build db",
     "deploy": "docker run -p 3100:3100 --name coloring-pages-api-prd --restart=always -d coloring-pages-api:latest",
     "build": "docker build -t coloring-pages-api:latest .",

@@ -30,7 +30,7 @@ async function getFeaturedPages() {
 export default async function Home() {
     const pages = await getFeaturedPages();
 
-    const previousPages = pages.slice(1, pages.length - 1);
+    const previousPages = pages.slice(1, pages.length);
 
     const featuredPage = pages[0];
 
