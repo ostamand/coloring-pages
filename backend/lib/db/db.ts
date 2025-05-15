@@ -1,27 +1,21 @@
 import { Client, Pool } from "jsr:@db/postgres";
 
 import { AppConfigs } from "../types.ts";
+import { config } from "node:process";
 
 let pool: Pool | null = null;
 
+function getConnectionString(configs: AppConfigs) {
+    // 'postgres://your_user:your_password@localhost:5432/your_database?sslmode=disable'
+    return `postgres://${configs.db.user}:${configs.db.password}@${configs.db.hostname}:${configs.db.port}/${configs.db.name}?sslmode=disable`;
+}
+
 export function getDatabaseClient(configs: AppConfigs) {
-    return new Client({
-        database: configs.db.name,
-        port: configs.db.port,
-        user: configs.db.user,
-        password: configs.db.password,
-        hostname: configs.db.hostname,
-    });
+    return new Client(getConnectionString(configs));
 }
 
 export function setupDatabasePool(configs: AppConfigs) {
-    pool = new Pool({
-        database: configs.db.name,
-        port: configs.db.port,
-        user: configs.db.user,
-        password: configs.db.password,
-        hostname: configs.db.hostname,
-    }, configs.db.poolSize);
+    pool = new Pool(getConnectionString(configs), configs.db.poolSize);
 }
 
 export async function getClientFromPool() {
