@@ -1,0 +1,80 @@
+.imageContainer {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+}
+
+.detailedContainer {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    background: url("/blurry-gradient-haikei-3.svg") no-repeat center center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.breadCrumbContent {
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    span,
+    a,
+    p {
+        font-size: 1.25rem;
+        color: white;
+    }
+    svg {
+        color: white;
+    }
+}
+
+.centerContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: 40px;
+}
+
+.leftSection {
+    height: 100%;
+}
+
+.rightSection {
+    max-width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        font-size: 2rem;
+        color: white;
+        margin-bottom: 0.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        color: white;
+        font-weight: 500;
+    }
+    .promptContent {
+        font-size: 1.25rem;
+        color: white;
+    }
+
+    .labelWithContent {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        font-size: 1.25rem;
+        align-items: center;
+    }
+}

@@ -1,6 +1,6 @@
 "use server";
 
-import styles from "../pages.styles.module.scss";
+import styles from "./detailed-page.styles.module.scss";
 import tagStyles from "../../../styles/tag.styles.module.scss";
 
 import Image from "next/image";

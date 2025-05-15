@@ -13,15 +13,17 @@ export default function NavigationBar({
     return (
         <nav className={styles.navbar}>
             <div className={styles.navLeft}>
-                <Link href="/">
-                    <Image
-                        src="https://placehold.co/50x50"
-                        alt="Coloring Pages Logo"
-                        width={35}
-                        height={35}
-                        unoptimized
-                    />
-                </Link>
+                <div className={styles.logo}>
+                    <Link href="/">
+                        <Image
+                            src="/ColorItDailyLogo.png"
+                            alt="Coloring Pages Logo"
+                            width={880}
+                            height={477}
+                            layout="responsive"
+                        />
+                    </Link>
+                </div>
                 <Link href="/">Color It Daily</Link>
             </div>
             <div className={styles.navCenter}>

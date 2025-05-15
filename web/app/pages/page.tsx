@@ -1,3 +1,3 @@
-export default function Pages() {
+export default function SearchForPages() {
     return <></>;
 }

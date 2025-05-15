@@ -9,13 +9,15 @@ export function Footer() {
             <div className={styles.footerLeft}>
                 <div className={styles.heading}>
                     <Link href="/">
-                        <Image
-                            src="https://placehold.co/50x50"
-                            alt="Coloring Pages Logo"
-                            width={35}
-                            height={35}
-                            unoptimized
-                        />
+                        <div className={styles.logo}>
+                            <Image
+                                src="/ColorItDailyLogo.png"
+                                alt="Coloring Pages Logo"
+                                width={880}
+                                height={477}
+                                layout="responsive"
+                            />
+                        </div>
                     </Link>
                     <Link href="/">
                         <span>Color It Daily</span>
