@@ -64,8 +64,8 @@ export default async function Home() {
                             <Image
                                 src={featuredPage.coloring_path}
                                 alt={featuredPage.prompt}
-                                width={500}
-                                height={750}
+                                width={2550}
+                                height={3300}
                             />
                         </Link>
                     </div>
@@ -99,8 +99,8 @@ export default async function Home() {
                                     <Image
                                         src={page.coloring_path}
                                         alt={page.prompt}
-                                        width={500}
-                                        height={750}
+                                        width={2550}
+                                        height={3300}
                                     />
                                 </Link>
                             </div>

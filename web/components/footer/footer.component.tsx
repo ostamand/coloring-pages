@@ -15,7 +15,6 @@ export function Footer() {
                                 alt="Coloring Pages Logo"
                                 width={880}
                                 height={477}
-                                layout="responsive"
                             />
                         </div>
                     </Link>

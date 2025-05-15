@@ -20,7 +20,6 @@ export default function NavigationBar({
                             alt="Coloring Pages Logo"
                             width={880}
                             height={477}
-                            layout="responsive"
                         />
                     </Link>
                 </div>

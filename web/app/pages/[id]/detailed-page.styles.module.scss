@@ -15,8 +15,8 @@
 
 .breadCrumbContent {
     position: absolute;
-    top: 1rem;
-    left: 2rem;
+    top: 0.25rem;
+    left: 1rem;
     span,
     a,
     p {
@@ -45,6 +45,7 @@
 
 .leftSection {
     height: 100%;
+    width: 35%;
 }
 
 .rightSection {

@@ -91,8 +91,8 @@ export default async function DetailedPage({
                             <Image
                                 src={page.coloring_path}
                                 alt="Coloring Pages Logo"
-                                width={600}
-                                height={900}
+                                width={2550}
+                                height={3300}
                             />
                         </div>
                     </div>

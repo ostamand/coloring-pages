@@ -26,14 +26,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 35px;
+    margin-left: 1rem;
 
     a {
         font-size: 1.75rem;
     }
 
     .logo {
-        width: 65px;
+        width: 60px;
     }
 
     > :first-child {
