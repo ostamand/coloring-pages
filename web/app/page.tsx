@@ -2,19 +2,21 @@ import styles from "./home.styles.module.scss";
 import tagStyles from "../styles/tag.styles.module.scss";
 
 import Image from "next/image";
-import { Download } from "lucide-react";
 import Link from "next/link";
 
 import { Page } from "@/lib/api/types";
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
+import DownloadButton from "@/components/download-button/download-button.components";
 
 // Set revalidate to 86400 seconds (24 hours)
 export const revalidate = 86400;
 
 async function getFeaturedPages() {
     try {
-        const response = await fetch(`${process.env.API_URL}/pages?limit=10`);
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/pages?limit=7`
+        );
         if (!response.ok) {
             throw new Error("Could not get featured pages.");
         }
@@ -41,10 +43,11 @@ export default async function Home() {
                 <div className={styles.leftSection}>
                     <h1>New Coloring Page</h1>
                     <h2>Each day, a new coloring page. It's free, grab it!</h2>
-                    <div className={styles.downloadButton}>
-                        <Download />
-                        Download Page
-                    </div>
+                    <DownloadButton
+                        text="Download Page"
+                        fileUrl={featuredPage.coloring_path}
+                        name={featuredPage.name || "coloring-page"}
+                    />
                 </div>
                 <div className={styles.rightSection}>
                     <div className={tagStyles.tagsContainer}>

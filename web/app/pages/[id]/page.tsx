@@ -1,26 +1,23 @@
 "use server";
 
 import styles from "../pages.styles.module.scss";
-import buttonStyles from "../../../styles/button.styles.module.scss";
 import tagStyles from "../../../styles/tag.styles.module.scss";
 
 import Image from "next/image";
 import Link from "next/link";
-import { Download } from "lucide-react";
 
 import { Page } from "@/lib/api/types";
+import DownloadButton from "@/components/download-button/download-button.components";
 
 import {
     Breadcrumb,
     BreadcrumbItem,
-    BreadcrumbLink,
     BreadcrumbList,
-    BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
 export async function generateStaticParams() {
-    const endpoint = `${process.env.API_URL}/pages?limit=10`;
+    const endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?limit=10`;
     try {
         const response = await fetch(endpoint);
         if (!response.ok) {
@@ -50,7 +47,9 @@ export default async function DetailedPage({
 
     // get page info
     try {
-        const response = await fetch(`${process.env.API_URL}/pages/${id}`);
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/pages/${id}`
+        );
         if (!response.ok) {
             throw new Error(`Could not get page id ${id} from API.`);
         }
@@ -96,10 +95,11 @@ export default async function DetailedPage({
                         />
                     </div>
                     <div className={styles.rightSection}>
-                        <div className={buttonStyles.downloadButton}>
-                            <Download />
-                            Download
-                        </div>
+                        <DownloadButton
+                            fileUrl={page.coloring_path}
+                            name={page.name || "coloring-page"}
+                            text="Download"
+                        />
                         <div className={tagStyles.tagsContainer}>
                             {page.tags.map((tag, index) => {
                                 return (
