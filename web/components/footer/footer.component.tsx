@@ -18,13 +18,13 @@ export function Footer() {
                         />
                     </Link>
                     <Link href="/">
-                        <span>Coloring Pages</span>
+                        <span>Color It Daily</span>
                     </Link>
                 </div>
-                <p>Free! Creative and High Quality Coloring Pages</p>
+                <p>Always Free! Creative and High Quality Coloring Pages</p>
             </div>
             <div className={styles.foorterRight}>
-                © 2025 Coloring Pages. All rights reserved.
+                © 2025 Color It Daily. All rights reserved.
             </div>
         </div>
     );

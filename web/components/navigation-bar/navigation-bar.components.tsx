@@ -22,7 +22,7 @@ export default function NavigationBar({
                         unoptimized
                     />
                 </Link>
-                <Link href="/">Coloring Pages</Link>
+                <Link href="/">Color It Daily</Link>
             </div>
             <div className={styles.navCenter}>
                 <Link href="/">
