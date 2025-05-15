@@ -87,14 +87,18 @@ export default async function DetailedPage({
             <div className={styles.centerContainer}>
                 <div className={styles.content}>
                     <div className={styles.leftSection}>
-                        <Image
-                            src={page.coloring_path}
-                            alt="Coloring Pages Logo"
-                            width={600}
-                            height={900}
-                        />
+                        <div className={styles.imageContainer}>
+                            <Image
+                                src={page.coloring_path}
+                                alt="Coloring Pages Logo"
+                                width={600}
+                                height={900}
+                            />
+                        </div>
                     </div>
                     <div className={styles.rightSection}>
+                        {page.name && <h1>{page.name}</h1>}
+
                         <DownloadButton
                             fileUrl={page.coloring_path}
                             name={page.name || "coloring-page"}
