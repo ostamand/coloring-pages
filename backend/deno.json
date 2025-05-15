@@ -4,7 +4,7 @@
     "db": "docker compose down && docker compose up --build db",
     "deploy": "docker run -p 3100:3100 --name coloring-pages-api-prd --restart=always -d coloring-pages-api:latest",
     "build": "docker build -t coloring-pages-api:latest .",
-    "update": "docker stop coloring-pages-api-prd && docker rm -f coloring-pages-api-prd && deno task deploy"
+    "update": "deno run build && docker stop coloring-pages-api-prd && docker rm -f coloring-pages-api-prd && deno task deploy"
   },
   "imports": {
     "@aws-sdk/client-s3": "npm:@aws-sdk/client-s3@^3.803.0",
