@@ -1,6 +1,6 @@
 import { S3Client } from "@aws-sdk/client-s3";
-import { Client } from "jsr:@db/postgres";
 
+import { getDatabaseClient } from "../lib/db/db.ts";
 import { loadAppConfigs } from "../lib/configs.ts";
 import { importFromFolder } from "../lib/jobs/page.ts";
 
@@ -15,13 +15,7 @@ async function importFolder(folderPath: string) {
         },
     });
 
-    const db = new Client({
-        database: configs.db.name,
-        port: configs.db.port,
-        user: configs.db.user,
-        password: configs.db.password,
-        hostname: configs.db.hostname,
-    });
+    const db = getDatabaseClient(configs);
 
     try {
         await importFromFolder(

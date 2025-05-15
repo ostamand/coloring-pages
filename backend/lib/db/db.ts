@@ -1,7 +1,6 @@
 import { Client, Pool } from "jsr:@db/postgres";
 
 import { AppConfigs } from "../types.ts";
-import { config } from "node:process";
 
 let pool: Pool | null = null;
 
