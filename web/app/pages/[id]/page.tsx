@@ -100,6 +100,7 @@ export default async function DetailedPage({
                         {page.name && <h1>{page.name}</h1>}
 
                         <DownloadButton
+                            pageId={page.id}
                             fileUrl={page.coloring_path}
                             name={page.name || "coloring-page"}
                             text="Download"

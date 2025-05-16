@@ -44,6 +44,7 @@ export default async function Home() {
                     <h1>New Coloring Page</h1>
                     <h2>Each day, a new coloring page. It's free, grab it!</h2>
                     <DownloadButton
+                        pageId={featuredPage.id}
                         text="Download Page"
                         fileUrl={featuredPage.coloring_path}
                         name={featuredPage.name || "coloring-page"}
