@@ -51,7 +51,9 @@ export default async function Home() {
                     />
                 </div>
                 <div className={styles.rightSection}>
-                    <div className={tagStyles.tagsContainer}>
+                    <div
+                        className={`${tagStyles.tagsContainer} ${styles.tagsContainer}`}
+                    >
                         {featuredPage.tags.map((tag, index) => {
                             return (
                                 <div className={tagStyles.tagItem} key={index}>

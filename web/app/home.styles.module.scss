@@ -206,7 +206,8 @@
 
     /* featured image size */
     .rightSection {
-        width: 50%;
+        width: 90%;
+        margin-top: 1rem;
     }
 
     .previously {
@@ -221,5 +222,9 @@
 
     .previouslyImageContent {
         width: 80%;
+    }
+
+    .tagsContainer {
+        display: none !important;
     }
 }
