@@ -9,8 +9,8 @@ import NavigationBar from "@/components/navigation-bar/navigation-bar.components
 import { Footer } from "@/components/footer/footer.component";
 import DownloadButton from "@/components/download-button/download-button.components";
 
-// Set revalidate to 86400 seconds (24 hours)
-export const revalidate = 86400;
+// Set revalidate to 43200 seconds (12 hours)
+export const revalidate = 43200;
 
 async function getFeaturedPages() {
     try {
