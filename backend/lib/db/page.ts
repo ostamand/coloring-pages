@@ -18,6 +18,8 @@ export async function addNewPage(
         name,
         modelName,
         promptModelName,
+        height,
+        width,
     } = generateConfig;
 
     const pageTags = tags.map((tagName) => {
@@ -51,7 +53,10 @@ export async function addNewPage(
 
     // add page
     const resultPage = await db.queryArray(
-        `INSERT INTO pages (coloring_path, colored_path, generate_script, prompt, seed, collection_name, generated_on, name, model_name, prompt_model_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id;`,
+        `   INSERT INTO pages 
+                (coloring_path, colored_path, generate_script, prompt, seed, collection_name, generated_on, name, model_name, prompt_model_name, height, width) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
+            RETURNING id`,
         [
             coloringPath,
             coloredPath || null,
@@ -63,6 +68,8 @@ export async function addNewPage(
             name,
             modelName,
             promptModelName,
+            height,
+            width,
         ],
     );
 

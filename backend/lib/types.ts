@@ -9,6 +9,8 @@ export type GenerationConfigs = {
     modelName: string;
     promptModelName: string;
     name: string;
+    height: number;
+    width: number;
 };
 
 export type AppConfigs = {
