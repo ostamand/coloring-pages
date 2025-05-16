@@ -9,7 +9,7 @@ export default function DetailedPageLayouy({
 }>) {
     return (
         <div className={styles.mainContainer}>
-            <NavigationBar currentPage="pages" />
+            <NavigationBar currentPage="Pages" />
             {children}
         </div>
     );

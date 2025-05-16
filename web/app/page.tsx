@@ -38,7 +38,7 @@ export default async function Home() {
 
     return (
         <div className={styles.mainContainer}>
-            <NavigationBar currentPage="home" />
+            <NavigationBar currentPage="Home" />
             <div className={styles.featured}>
                 <div className={styles.leftSection}>
                     <h1>New Coloring Page</h1>
