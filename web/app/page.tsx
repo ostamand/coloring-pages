@@ -12,29 +12,47 @@ import DownloadButton from "@/components/download-button/download-button.compone
 // Set revalidate to 43200 seconds (12 hours)
 export const revalidate = 43200;
 
-async function getFeaturedPages() {
+async function getFeaturedPage() {
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/pages?limit=7`
+            `${process.env.NEXT_PUBLIC_API_URL}/pages?limit=1`
         );
         if (!response.ok) {
             throw new Error("Could not get featured pages.");
         }
         const data = await response.json();
         const pages = data as Page[];
-        return pages;
+        return pages[0];
     } catch (error) {
         console.error(error);
-        return [];
+        return null;
+    }
+}
+
+async function getPages() {
+    const featuredPage = await getFeaturedPage();
+    if (!featuredPage) return {};
+    try {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=7`
+        );
+        if (!response.ok) {
+            throw new Error("Could not get previously featured pages.");
+        }
+        const data = await response.json();
+        let pages = data as Page[];
+        pages = pages.filter((page) => page.id !== featuredPage.id).slice(0, 6);
+        return { featuredPage, pages };
+    } catch (error) {
+        console.error(error);
+        return {};
     }
 }
 
 export default async function Home() {
-    const pages = await getFeaturedPages();
+    const { pages, featuredPage } = await getPages();
 
-    const previousPages = pages.slice(1, pages.length);
-
-    const featuredPage = pages[0];
+    if (!pages || !featuredPage) return <></>;
 
     return (
         <div className={styles.mainContainer}>
@@ -82,7 +100,7 @@ export default async function Home() {
                         <h2>Take A Look At Some of Our Previous Ones</h2>
                     </div>
                     <div className={styles.previouslyGridContainer}>
-                        {previousPages.map((page) => {
+                        {pages.map((page) => {
                             return (
                                 <div
                                     className={styles.previouslyImageContainer}
