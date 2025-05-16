@@ -29,12 +29,19 @@ pagesRouter.get("/", async (ctx) => {
 
     const limit = Number(searchParams.get("limit")) || 10;
     const searchQuery = searchParams.get("search");
+
+    let random = false;
+    const randomParam = searchParams.get("random");
+    if (randomParam && randomParam === "true") {
+        random = true;
+    }
+
     try {
         let results: any = {};
         if (searchQuery) {
             results = await searchPages(client, searchQuery, limit);
         } else {
-            results = await getPages(client, limit);
+            results = await getPages(client, limit, random);
         }
         ctx.response.body = results;
     } catch (error) {

@@ -145,14 +145,14 @@ export async function getPagesById(db: Client, ids: number[]) {
     return result.rows;
 }
 
-export async function getPages(db: Client, limit: number) {
+export async function getPages(db: Client, limit: number, random: boolean) {
     // only featured pages will be returned, always sorted by featured_on
     const result = await db.queryObject(
         `
         WITH page_ids AS (
             SELECT id FROM pages
             WHERE featured_on IS NOT NULL
-            ORDER BY featured_on DESC
+            ${random ? "ORDER BY RANDOM()" : "ORDER BY featured_on DESC"}
             LIMIT $1
         )
         SELECT  pages.id, pages.coloring_path, pages.colored_path, 
