@@ -5,7 +5,7 @@
 .detailedContainer {
     position: relative;
     display: flex;
-    overflow: hidden;
+    overflow-x: hidden;
     background: url("/blurry-gradient-haikei-3.svg") no-repeat center center;
     background-size: cover;
     height: 100%;
@@ -76,5 +76,37 @@
         color: white;
         font-size: 1.25rem;
         align-items: center;
+    }
+}
+
+/* on mobile */
+@media (width<=800px) {
+    .content {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0px;
+        margin-top: 0.5rem;
+    }
+
+    .leftSection {
+        width: 80%;
+    }
+
+    .rightSection {
+        max-width: unset;
+        width: 90%;
+        margin-bottom: 100px;
+    }
+
+    .breadCrumbContent {
+        margin-left: 0.5rem;
+        position: unset;
+        top: unset;
+        left: unset;
+    }
+
+    .detailedContainer {
+        flex-direction: column;
     }
 }
