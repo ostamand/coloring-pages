@@ -20,3 +20,11 @@
         color: black;
     }
 }
+
+/* on mobile */
+@media (width<=800px) {
+    .downloadButton {
+        padding: 0.75rem 1rem;
+        font-size: 1.25rem;
+    }
+}

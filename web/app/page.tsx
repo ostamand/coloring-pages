@@ -72,52 +72,64 @@ export default async function Home() {
                     </div>
                 </div>
             </div>
-            <div className={styles.previously}>
-                <div className={styles.previouslyHeading}>
-                    <h1>More Coloring Pages</h1>
-                    <h2>Take A Look At Some of Our Previous Ones</h2>
-                </div>
-                <div className={styles.previouslyGridContainer}>
-                    {previousPages.map((page) => {
-                        return (
-                            <div
-                                className={styles.previouslyImageContent}
-                                key={page.id}
-                            >
-                                <div className={tagStyles.tagsContainer}>
-                                    {page.tags.map((tag, index) => {
-                                        return (
-                                            <div
-                                                className={tagStyles.tagItem}
-                                                key={index}
-                                            >
-                                                {tag}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                                <Link href={`/pages/${page.id}`}>
-                                    <Image
-                                        src={page.coloring_path}
-                                        alt={page.prompt}
-                                        width={2550}
-                                        height={3300}
-                                    />
-                                </Link>
-                            </div>
-                        );
-                    })}
-                </div>
 
-                <div className={styles.seeMore}>
-                    <Link href="/pages">
-                        <div className={styles.seeMoreButton}>
-                            See All Coloring Pages
-                        </div>
-                    </Link>
+            <div className={styles.content}>
+                <div className={styles.previously}>
+                    <div className={styles.previouslyHeading}>
+                        <h1>More Coloring Pages</h1>
+                        <h2>Take A Look At Some of Our Previous Ones</h2>
+                    </div>
+                    <div className={styles.previouslyGridContainer}>
+                        {previousPages.map((page) => {
+                            return (
+                                <div
+                                    className={styles.previouslyImageContainer}
+                                    key={page.id}
+                                >
+                                    <div
+                                        className={
+                                            styles.previouslyImageContent
+                                        }
+                                    >
+                                        <div
+                                            className={tagStyles.tagsContainer}
+                                        >
+                                            {page.tags.map((tag, index) => {
+                                                return (
+                                                    <div
+                                                        className={
+                                                            tagStyles.tagItem
+                                                        }
+                                                        key={index}
+                                                    >
+                                                        {tag}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                        <Link href={`/pages/${page.id}`}>
+                                            <Image
+                                                src={page.coloring_path}
+                                                alt={page.prompt}
+                                                width={2550}
+                                                height={3300}
+                                            />
+                                        </Link>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className={styles.seeMore}>
+                        <Link href="/pages">
+                            <div className={styles.seeMoreButton}>
+                                See All Coloring Pages
+                            </div>
+                        </Link>
+                    </div>
                 </div>
             </div>
-
             <Footer />
         </div>
     );

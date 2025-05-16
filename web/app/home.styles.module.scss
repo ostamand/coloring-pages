@@ -13,15 +13,22 @@
     }
 }
 
+.content {
+    width: 100%;
+    height: 100%;
+    max-width: 1440px;
+}
+
 .featured {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     overflow: hidden;
     background: url("/blurry-gradient-haikei.svg") no-repeat center center;
     background-size: cover;
     height: 100%;
     width: 100%;
+    padding: 0rem 1rem;
 }
 
 .leftSection {
@@ -31,13 +38,11 @@
     align-items: start;
     overflow: hidden;
     background-size: cover;
-
     h1 {
         font-size: 4rem;
         font-weight: 500;
         color: white;
     }
-
     h2 {
         font-size: 2rem;
         color: white;
@@ -47,6 +52,7 @@
 
 .rightSection {
     margin-bottom: 2rem;
+    /* size of featured image */
     width: 30%;
 }
 
@@ -88,10 +94,15 @@
     cursor: pointer;
 }
 
-.previouslyImageContent {
+.previouslyImageContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
+
+.previouslyImageContent {
+    width: 90%;
 }
 
 .seeMore {
@@ -100,7 +111,7 @@
     justify-content: center;
 
     > :first-child {
-        width: 30%;
+        width: 40%;
     }
 }
 
@@ -129,6 +140,14 @@
     .previouslyGridContainer {
         grid-template-columns: repeat(2, 1fr);
     }
+    .seeMoreButton {
+        font-size: 1.25rem;
+        padding: 1rem 0rem;
+    }
+    .rightSection {
+        /* size of featured image */
+        width: 40%;
+    }
 }
 
 @media (width<=1000px) {
@@ -140,14 +159,62 @@
             font-size: 1rem;
         }
     }
+
+    /* Heading More Coloring Pages */
+    .previously {
+        .previouslyHeading {
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1rem;
+            }
+        }
+    }
+
     /* featured image size */
     .rightSection {
         width: 40%;
     }
+
+    /* width see all coloring pages */
+    .seeMore {
+        > :first-child {
+            width: 80%;
+        }
+    }
 }
 
+/* on mobile */
 @media (width<=800px) {
+    .leftSection {
+        align-items: center;
+        /* margin below download featured page button */
+        h2 {
+            margin-bottom: 1rem;
+        }
+    }
+
     .previouslyGridContainer {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .featured {
+        flex-direction: column;
+    }
+
+    /* featured image size */
+    .rightSection {
+        width: 50%;
+    }
+
+    .previously {
+        .previouslyHeading {
+            margin: 0px;
+        }
+    }
+
+    .previouslyGridContainer {
+        margin: 0rem;
     }
 }
