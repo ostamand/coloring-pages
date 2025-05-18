@@ -9,6 +9,8 @@ import ImagesGrid from "../images-grid/images-grid.component";
 
 import { Input } from "@/components/ui/input";
 
+const DEBOUNCE_TIME = 0.5;
+
 export default function SearchResults({
     initialResults,
 }: {

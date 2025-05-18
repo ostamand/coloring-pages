@@ -1,6 +1,5 @@
 import styles from "./footer.styles.module.scss";
 
-import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
@@ -10,11 +9,9 @@ export function Footer() {
                 <div className={styles.heading}>
                     <Link href="/">
                         <div className={styles.logo}>
-                            <Image
+                            <img
                                 src="/ColorItDailyLogo.png"
-                                alt="Coloring Pages Logo"
-                                width={880}
-                                height={477}
+                                alt="Color It Daily Logo"
                             />
                         </div>
                     </Link>

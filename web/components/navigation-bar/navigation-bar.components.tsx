@@ -2,7 +2,6 @@
 
 import styles from "./navigation-bar.styles.module.scss";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 
@@ -28,11 +27,9 @@ export default function NavigationBar({
             <div className={styles.navLeft}>
                 <div className={styles.logo}>
                     <Link href="/">
-                        <Image
+                        <img
                             src="/ColorItDailyLogo.png"
                             alt="Coloring Pages Logo"
-                            width={880}
-                            height={477}
                         />
                     </Link>
                 </div>
