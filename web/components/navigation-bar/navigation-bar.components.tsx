@@ -55,7 +55,7 @@ export default function NavigationBar({
 
                             {currentPage !== "Pages" && (
                                 <DropdownMenuItem>
-                                    <Link href="/pages">Pages</Link>
+                                    <Link href="/pages">All Pages</Link>
                                 </DropdownMenuItem>
                             )}
 
@@ -84,7 +84,7 @@ export default function NavigationBar({
                                 currentPage === "Pages" ? styles.selected : ""
                             }`}
                         >
-                            Pages
+                            All Pages
                         </div>
                     </Link>
                     <Link href="/about">

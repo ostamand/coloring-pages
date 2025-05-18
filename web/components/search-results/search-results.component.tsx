@@ -18,7 +18,7 @@ export default function SearchResults({
     const [searchValue, setSearchValue] = useState("");
 
     useEffect(() => {
-        setPages(pages.slice(1, undefined));
+        //setPages(pages.slice(1, undefined));
     }, [searchValue]);
 
     return (
@@ -35,7 +35,7 @@ export default function SearchResults({
                     />
                 </div>
             </div>
-            <ImagesGrid pages={pages} />
+            <ImagesGrid pages={pages} limit={3} />
         </div>
     );
 }
