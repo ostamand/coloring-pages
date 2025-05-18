@@ -23,6 +23,9 @@ export default function SearchResults({
         useState<NodeJS.Timeout | null>(null);
     const [pages, setPages] = useState(initialResults);
     const [searchValue, setSearchValue] = useState(initialSearchValue || "");
+    const [lastSearchValue, setLastSearchValue] = useState(
+        initialSearchValue || ""
+    );
 
     const getPages = async (searchValue: string) => {
         try {
@@ -45,11 +48,15 @@ export default function SearchResults({
     };
 
     useEffect(() => {
+        if (lastSearchValue === searchValue) {
+            return; // no need to fetch
+        }
         if (debounceTimerId) {
             clearTimeout(debounceTimerId);
         }
-        const timerId = setTimeout(() => {
-            getPages(searchValue);
+        const timerId = setTimeout(async () => {
+            await getPages(searchValue);
+            setLastSearchValue(searchValue);
         }, DEBOUNCE_TIME);
         setDebounceTimerId(timerId);
         return () => {
