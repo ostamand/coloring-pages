@@ -1,0 +1,43 @@
+.noResultContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.noResultContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    span {
+        color: var(--color-purple);
+    }
+}
+
+.buttonContainer {
+}
+
+.requestSent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    > :first-child {
+        margin-right: 0.5rem;
+    }
+    svg {
+    }
+}
+
+@media (width<=800px) {
+    .noResultContent {
+        width: 80%;
+    }
+}

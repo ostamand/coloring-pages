@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { Page } from "@/lib/api/types";
 import ImagesGrid from "../images-grid/images-grid.component";
+import NoResultRequest from "../no-results-request/no-result-request.component";
 
 import { Input } from "@/components/ui/input";
 
@@ -80,7 +81,11 @@ export default function SearchResults({
                     />
                 </div>
             </div>
-            <ImagesGrid pages={pages} limit={3} />
+            {pages.length > 0 ? (
+                <ImagesGrid pages={pages} limit={3} />
+            ) : (
+                <NoResultRequest searchValue={searchValue} />
+            )}
         </div>
     );
 }
