@@ -1,5 +1,4 @@
 import styles from "./home.styles.module.scss";
-import tagStyles from "../styles/tag.styles.module.scss";
 
 import Link from "next/link";
 
@@ -8,6 +7,7 @@ import NavigationBar from "@/components/navigation-bar/navigation-bar.components
 import { Footer } from "@/components/footer/footer.component";
 import DownloadButton from "@/components/download-button/download-button.components";
 import ImagesGrid from "@/components/images-grid/images-grid.component";
+import PageTags from "@/components/page-tags/page-tags.component";
 
 // Set revalidate to 43200 seconds (12 hours)
 export const revalidate = 43200;
@@ -69,17 +69,11 @@ export default async function Home() {
                     />
                 </div>
                 <div className={styles.rightSection}>
-                    <div
-                        className={`${tagStyles.tagsContainer} ${styles.tagsContainer}`}
-                    >
-                        {featuredPage.tags.map((tag, index) => {
-                            return (
-                                <div className={tagStyles.tagItem} key={index}>
-                                    {tag}
-                                </div>
-                            );
-                        })}
-                    </div>
+                    <PageTags
+                        tags={featuredPage.tags}
+                        className={styles.tagsContainer}
+                    />
+
                     <div className={styles.imageContainer}>
                         <Link href={`/pages/${featuredPage.id}`}>
                             <img

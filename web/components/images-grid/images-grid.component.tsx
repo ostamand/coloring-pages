@@ -1,12 +1,12 @@
 "use client";
 
 import styles from "./images-grid.styles.module.scss";
-import tagStyles from "../../styles/tag.styles.module.scss";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
 import { Page } from "@/lib/api/types";
+import PageTags from "../page-tags/page-tags.component";
 
 const DEFAULT_LIMIT = 6;
 const DEFAULT_BATCH_SIZE = 3;
@@ -41,26 +41,7 @@ export default function ImagesGrid({
                             key={page.id}
                         >
                             <div className={styles.previouslyImageContent}>
-                                {page.tags && (
-                                    <div className={tagStyles.tagsContainer}>
-                                        {page.tags.map((tag, index) => {
-                                            return (
-                                                <Link
-                                                    href={`/pages?search=${tag}`}
-                                                    key={index}
-                                                >
-                                                    <div
-                                                        className={
-                                                            tagStyles.tagItem
-                                                        }
-                                                    >
-                                                        {tag}
-                                                    </div>
-                                                </Link>
-                                            );
-                                        })}
-                                    </div>
-                                )}
+                                {page.tags && <PageTags tags={page.tags} />}
 
                                 <Link href={`/pages/${page.id}`}>
                                     <img

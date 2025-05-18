@@ -1,12 +1,12 @@
 "use server";
 
 import styles from "./detailed-page.styles.module.scss";
-import tagStyles from "../../../styles/tag.styles.module.scss";
 
 import Link from "next/link";
 
 import { Page } from "@/lib/api/types";
 import DownloadButton from "@/components/download-button/download-button.components";
+import PageTags from "@/components/page-tags/page-tags.component";
 
 import {
     Breadcrumb,
@@ -99,18 +99,8 @@ export default async function DetailedPage({
                             name={page.name || "coloring-page"}
                             text="Download"
                         />
-                        <div className={tagStyles.tagsContainer}>
-                            {page.tags.map((tag, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className={tagStyles.tagItem}
-                                    >
-                                        {tag}
-                                    </div>
-                                );
-                            })}
-                        </div>
+
+                        <PageTags tags={page.tags} />
 
                         <div className={styles.promptContent}>
                             <h2>Description</h2>
