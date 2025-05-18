@@ -9,7 +9,7 @@ import ImagesGrid from "../images-grid/images-grid.component";
 
 import { Input } from "@/components/ui/input";
 
-const DEBOUNCE_TIME = 0.5;
+const DEBOUNCE_TIME = 0.25 * 1000;
 
 export default function SearchResults({
     initialResults,
@@ -18,16 +18,19 @@ export default function SearchResults({
     initialResults: Page[];
     initialSearchValue: string | null;
 }) {
+    const [debounceTimerId, setDebounceTimerId] =
+        useState<NodeJS.Timeout | null>(null);
     const [pages, setPages] = useState(initialResults);
-
     const [searchValue, setSearchValue] = useState(initialSearchValue || "");
 
     const getPages = async (searchValue: string) => {
         try {
             //! maybe add limit?
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`
-            );
+            let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`;
+            if (!searchValue) {
+                endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=6`;
+            }
+            const response = await fetch(endpoint);
             if (!response.ok) {
                 throw new Error("Could not get pages for search from API.");
             }
@@ -41,7 +44,18 @@ export default function SearchResults({
     };
 
     useEffect(() => {
-        getPages(searchValue);
+        if (debounceTimerId) {
+            clearTimeout(debounceTimerId);
+        }
+        const timerId = setTimeout(() => {
+            getPages(searchValue);
+        }, DEBOUNCE_TIME);
+        setDebounceTimerId(timerId);
+        return () => {
+            if (debounceTimerId) {
+                clearTimeout(debounceTimerId);
+            }
+        };
     }, [searchValue]);
 
     useEffect(() => {
