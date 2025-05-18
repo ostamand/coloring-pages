@@ -17,8 +17,26 @@ export default function SearchResults({
     const [pages, setPages] = useState(initialResults);
     const [searchValue, setSearchValue] = useState("");
 
+    const getPages = async (searchValue: string) => {
+        try {
+            //! maybe add limit?
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`
+            );
+            if (!response.ok) {
+                throw new Error("Could not get pages for search from API.");
+            }
+            const data = await response.json();
+            const pages = data as Page[];
+            setPages(pages);
+        } catch (error) {
+            console.error(error);
+            //TODO display error on page
+        }
+    };
+
     useEffect(() => {
-        //setPages(pages.slice(1, undefined));
+        getPages(searchValue);
     }, [searchValue]);
 
     return (

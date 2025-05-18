@@ -176,15 +176,31 @@ export async function getPages(db: Client, limit: number, random: boolean) {
 export async function searchPages(db: Client, query: string, limit: number) {
     const result = await db.queryObject(
         `
-        SELECT DISTINCT p.*
-        FROM pages p
-        LEFT JOIN page_tags pt ON p.id = pt.page_id
-        LEFT JOIN tags t ON pt.tag_id = t.id
-        WHERE 
-            p.collection_name ILIKE '%' || $1 || '%' OR
-            t.name ILIKE '%' || $1 || '%' OR
-            p.name ILIKE '%' || $1 || '%'
-        LIMIT $2
+        WITH page_ids AS (
+            SELECT DISTINCT p.*
+            FROM pages p
+            LEFT JOIN page_tags pt ON p.id = pt.page_id
+            LEFT JOIN tags t ON pt.tag_id = t.id
+            WHERE 
+                (p.collection_name ILIKE '%' || $1 || '%' OR
+                t.name ILIKE '%' || $1 || '%' OR
+                p.name ILIKE '%' || $1 || '%')
+                AND featured_on IS NOT NULL
+            ORDER BY featured_on DESC
+            LIMIT $2
+        )
+        SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
+                pages.prompt, pages.collection_name, pages.created_on, 
+                pages.featured_on, pages.name, page_tags.tags
+        FROM (
+	        SELECT page_id, ARRAY_AGG(tags.name) AS tags FROM pages
+	        JOIN page_ids ON page_ids.id = pages.id
+	        JOIN page_tags ON pages.id = page_tags.page_id
+	        JOIN tags ON page_tags.tag_id = tags.id
+	        GROUP BY page_id
+        ) AS page_tags
+        JOIN pages ON page_tags.page_id = pages.id
+        ORDER BY featured_on DESC;
         `,
         [query, limit],
     );

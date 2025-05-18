@@ -20,14 +20,17 @@ export default function ImagesGrid({
 }) {
     const [showMore, setShowMore] = useState(0);
     const [currentLimit, setCurrentLimit] = useState(limit || DEFAULT_LIMIT);
+    const [pagesToShow, setPagesToShow] = useState(
+        pages.slice(0, currentLimit)
+    );
 
     useEffect(() => {
-        setCurrentLimit(
-            (limit || DEFAULT_LIMIT) + DEFAULT_BATCH_SIZE * showMore
-        );
-    }, [showMore]);
-
-    const pagesToShow = pages.slice(0, currentLimit);
+        const currentLimit =
+            (limit || DEFAULT_LIMIT) + DEFAULT_BATCH_SIZE * showMore;
+        setCurrentLimit(currentLimit);
+        setPagesToShow(pages.slice(0, currentLimit));
+        console.log(pages);
+    }, [showMore, pages]);
 
     return (
         <>
@@ -39,18 +42,23 @@ export default function ImagesGrid({
                             key={page.id}
                         >
                             <div className={styles.previouslyImageContent}>
-                                <div className={tagStyles.tagsContainer}>
-                                    {page.tags.map((tag, index) => {
-                                        return (
-                                            <div
-                                                className={tagStyles.tagItem}
-                                                key={index}
-                                            >
-                                                {tag}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                                {page.tags && (
+                                    <div className={tagStyles.tagsContainer}>
+                                        {page.tags.map((tag, index) => {
+                                            return (
+                                                <div
+                                                    className={
+                                                        tagStyles.tagItem
+                                                    }
+                                                    key={index}
+                                                >
+                                                    {tag}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
+
                                 <Link href={`/pages/${page.id}`}>
                                     <img
                                         src={page.thumbnail_path}
