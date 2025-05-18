@@ -206,3 +206,25 @@ export async function searchPages(db: Client, query: string, limit: number) {
     );
     return result.rows;
 }
+
+export type PageRequest = {
+    userAgent: string | null;
+    referrer: string | null;
+    ip: string | null;
+    request: string;
+};
+
+export async function addPageRequest(
+    db: Client,
+    pageRequest: PageRequest,
+) {
+    const { request, userAgent, referrer, ip } = pageRequest;
+    const result = await db.queryArray(
+        `
+        INSERT INTO page_requests (user_agent, referrer, ip, request) VALUES ($1, $2, $3, $4)
+        RETURNING id;
+        `,
+        [userAgent, referrer, ip, request],
+    );
+    return result.rows[0][0] as number;
+}

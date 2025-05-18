@@ -31,8 +31,24 @@ export default function NoResultRequest({
                     </h2>
                     <div
                         className={styles.buttonContainer}
-                        onClick={() => {
-                            // TODO send request
+                        onClick={async () => {
+                            try {
+                                const response = await fetch(
+                                    `${process.env.NEXT_PUBLIC_API_URL}/logs/request`,
+                                    {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                            request: searchValue,
+                                        }),
+                                    }
+                                );
+                                if (!response.ok) {
+                                    //TODO!
+                                }
+                            } catch (error) {}
                             setRequestSent(true);
                         }}
                     >
