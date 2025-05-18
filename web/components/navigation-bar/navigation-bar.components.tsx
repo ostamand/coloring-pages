@@ -30,6 +30,8 @@ export default function NavigationBar({
                         <img
                             src="/ColorItDailyLogo.png"
                             alt="Coloring Pages Logo"
+                            height="60px"
+                            width="60px"
                         />
                     </Link>
                 </div>
