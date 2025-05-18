@@ -45,7 +45,9 @@ export default function SearchResults({
     }, [searchValue]);
 
     useEffect(() => {
-        setSearchValue(initialSearchValue || "");
+        if (searchValue !== initialSearchValue) {
+            setSearchValue(initialSearchValue || "");
+        }
     }, [initialSearchValue]);
 
     return (
@@ -57,7 +59,9 @@ export default function SearchResults({
                         type="search"
                         value={searchValue}
                         onChange={(event) => {
-                            setSearchValue(event.target.value);
+                            if (event.target.value !== searchValue) {
+                                setSearchValue(event.target.value);
+                            }
                         }}
                     />
                 </div>

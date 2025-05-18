@@ -5,9 +5,11 @@ import { Page } from "@/lib/api/types";
 
 async function getPages(searchValue: string | null) {
     try {
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=6`
-        );
+        let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=6`;
+        if (searchValue) {
+            endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`;
+        }
+        const response = await fetch(endpoint);
         const data = await response.json();
         const pages = data as Page[];
         return pages;
