@@ -1,7 +1,7 @@
 export type Page = {
     id: number;
-    coloring_path: string;
-    colored_path: string | null;
+    full_path: string;
+    thumbnail_path: string;
     prompt: string;
     collection_name: string;
     created_on: string;

@@ -4,9 +4,9 @@ import { GenerationConfigs } from "../types.ts";
 
 export async function addNewPage(
     db: Client,
-    coloringPath: string,
+    fullPath: string,
+    thumbnailPath: string,
     generateConfig: GenerationConfigs,
-    coloredPath?: string,
 ) {
     const {
         generateScript,
@@ -54,12 +54,12 @@ export async function addNewPage(
     // add page
     const resultPage = await db.queryArray(
         `   INSERT INTO pages 
-                (coloring_path, colored_path, generate_script, prompt, seed, collection_name, generated_on, name, model_name, prompt_model_name, height, width) 
+                (full_path, thumbnail_path, generate_script, prompt, seed, collection_name, generated_on, name, model_name, prompt_model_name, height, width) 
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
             RETURNING id`,
         [
-            coloringPath,
-            coloredPath || null,
+            fullPath,
+            thumbnailPath,
             generateScript,
             prompt,
             seed,
@@ -129,7 +129,7 @@ export async function getPagesById(db: Client, ids: number[]) {
     idsStr += ")";
     const result = await db.queryObject(
         `
-        SELECT  pages.id, pages.coloring_path, pages.colored_path, 
+        SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
                 pages.prompt, pages.collection_name, pages.created_on, 
                 pages.featured_on, pages.name, tags 
         FROM ( 
@@ -155,7 +155,7 @@ export async function getPages(db: Client, limit: number, random: boolean) {
             ${random ? "ORDER BY RANDOM()" : "ORDER BY featured_on DESC"}
             LIMIT $1
         )
-        SELECT  pages.id, pages.coloring_path, pages.colored_path, 
+        SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
                 pages.prompt, pages.collection_name, pages.created_on, 
                 pages.featured_on, pages.name, page_tags.tags
         FROM (

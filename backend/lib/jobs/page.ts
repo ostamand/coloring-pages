@@ -8,8 +8,8 @@ import { uploadImageToS3 } from "../s3/mod.ts";
 
 type PageData = {
     config: GenerationConfigs;
-    coloringPath: string | null;
-    coloredPath: string | null;
+    fullPath: string | null;
+    thumbnailPath: string | null;
 };
 
 export async function importFromFolder(
@@ -35,8 +35,8 @@ export async function importFromFolder(
 
             const pageData: PageData = {
                 config: generationConfig,
-                coloredPath: null,
-                coloringPath: null,
+                fullPath: null,
+                thumbnailPath: null,
             };
 
             if (!generationConfig.coloringImagePath) break;
@@ -45,15 +45,25 @@ export async function importFromFolder(
             const { key: outputKey } = await uploadImageToS3(
                 s3,
                 generationConfig.coloringImagePath,
-                "coloring",
+                "coloring/full",
             );
+
             if (!outputKey) {
                 throw new Error();
             }
-            pageData.coloringPath = `${cloudfrontUrl}/${outputKey}`;
+            pageData.fullPath = `${cloudfrontUrl}/${outputKey}`;
+            pageData.thumbnailPath = pageData.fullPath.replace(
+                "full",
+                "thumbnail",
+            ).replace(".jpg", ".webp");
 
             // save to database
-            await addNewPage(db, pageData.coloringPath, pageData.config);
+            await addNewPage(
+                db,
+                pageData.fullPath,
+                pageData.thumbnailPath,
+                pageData.config,
+            );
 
             await db.queryObject("COMMIT");
 

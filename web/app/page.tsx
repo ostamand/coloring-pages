@@ -1,13 +1,13 @@
 import styles from "./home.styles.module.scss";
 import tagStyles from "../styles/tag.styles.module.scss";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { Page } from "@/lib/api/types";
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
 import DownloadButton from "@/components/download-button/download-button.components";
+import ImagesGrid from "@/components/images-grid/images-grid.component";
 
 // Set revalidate to 43200 seconds (12 hours)
 export const revalidate = 43200;
@@ -64,7 +64,7 @@ export default async function Home() {
                     <DownloadButton
                         pageId={featuredPage.id}
                         text="Download Page"
-                        fileUrl={featuredPage.coloring_path}
+                        fileUrl={featuredPage.full_path}
                         name={featuredPage.name || "coloring-page"}
                     />
                 </div>
@@ -82,11 +82,9 @@ export default async function Home() {
                     </div>
                     <div className={styles.imageContainer}>
                         <Link href={`/pages/${featuredPage.id}`}>
-                            <Image
-                                src={featuredPage.coloring_path}
+                            <img
+                                src={featuredPage.thumbnail_path}
                                 alt={featuredPage.prompt}
-                                width={2550}
-                                height={3300}
                             />
                         </Link>
                     </div>
@@ -99,47 +97,8 @@ export default async function Home() {
                         <h1>More Coloring Pages</h1>
                         <h2>Take A Look At Some of Our Previous Ones</h2>
                     </div>
-                    <div className={styles.previouslyGridContainer}>
-                        {pages.map((page) => {
-                            return (
-                                <div
-                                    className={styles.previouslyImageContainer}
-                                    key={page.id}
-                                >
-                                    <div
-                                        className={
-                                            styles.previouslyImageContent
-                                        }
-                                    >
-                                        <div
-                                            className={tagStyles.tagsContainer}
-                                        >
-                                            {page.tags.map((tag, index) => {
-                                                return (
-                                                    <div
-                                                        className={
-                                                            tagStyles.tagItem
-                                                        }
-                                                        key={index}
-                                                    >
-                                                        {tag}
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-                                        <Link href={`/pages/${page.id}`}>
-                                            <Image
-                                                src={page.coloring_path}
-                                                alt={page.prompt}
-                                                width={2550}
-                                                height={3300}
-                                            />
-                                        </Link>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
+
+                    <ImagesGrid pages={pages} />
 
                     <div className={styles.seeMore}>
                         <Link href="/pages">

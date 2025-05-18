@@ -1,21 +1,19 @@
-.imageContainer {
+.imageContainer img {
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .detailedContainer {
-    position: relative;
     display: flex;
-    overflow-x: hidden;
+    flex-direction: column;
     background: url("/blurry-gradient-haikei-3.svg") no-repeat center center;
     background-size: cover;
     height: 100%;
     width: 100%;
+    flex-grow: 1;
 }
 
 .breadCrumbContent {
-    position: absolute;
-    top: 0.25rem;
-    left: 1rem;
+    margin: 0.5rem 0.5rem;
     span,
     a,
     p {
@@ -28,10 +26,13 @@
 }
 
 .centerContainer {
+    width: 100%;
     display: flex;
     justify-content: center;
-    width: 100%;
     align-items: center;
+
+    /* gap with footer */
+    margin-bottom: 60px;
 }
 
 .content {
@@ -40,11 +41,10 @@
     justify-content: center;
     width: 100%;
     gap: 40px;
+    max-width: 1440px;
 }
 
 .leftSection {
-    height: 100%;
-    width: 35%;
 }
 
 .rightSection {
@@ -98,7 +98,6 @@
     .rightSection {
         max-width: unset;
         width: 90%;
-        margin-bottom: 75px;
     }
 
     .breadCrumbContent {

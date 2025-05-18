@@ -81,29 +81,8 @@
     }
 }
 
-.previouslyGridContainer {
-    margin: 0rem 1rem;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(3, 1fr); /* Always 3 columns */
-}
 
-.previouslyGridContainer > div {
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-}
 
-.previouslyImageContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.previouslyImageContent {
-    width: 90%;
-}
 
 .seeMore {
     width: 100%;
@@ -136,10 +115,6 @@
 }
 
 @media (width<=1200px) {
-    .previouslyGridContainer {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .rightSection {
         /* size of featured image */
         width: 40%;
@@ -196,10 +171,6 @@
         }
     }
 
-    .previouslyGridContainer {
-        grid-template-columns: repeat(1, 1fr);
-    }
-
     .featured {
         flex-direction: column;
     }
@@ -214,14 +185,6 @@
         .previouslyHeading {
             margin: 0px;
         }
-    }
-
-    .previouslyGridContainer {
-        margin: 0rem;
-    }
-
-    .previouslyImageContent {
-        width: 80%;
     }
 
     .tagsContainer {

@@ -25,7 +25,7 @@ export function Footer() {
                 <p>Always Free! Creative and High Quality Coloring Pages</p>
             </div>
             <div className={styles.foorterRight}>
-                © 2025 Color It Daily. All rights reserved.
+                © 2025 All rights reserved.
             </div>
         </div>
     );

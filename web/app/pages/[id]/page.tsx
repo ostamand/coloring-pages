@@ -3,7 +3,6 @@
 import styles from "./detailed-page.styles.module.scss";
 import tagStyles from "../../../styles/tag.styles.module.scss";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { Page } from "@/lib/api/types";
@@ -88,12 +87,7 @@ export default async function DetailedPage({
                 <div className={styles.content}>
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>
-                            <Image
-                                src={page.coloring_path}
-                                alt="Coloring Pages Logo"
-                                width={2550}
-                                height={3300}
-                            />
+                            <img src={page.thumbnail_path} alt={page.prompt} />
                         </div>
                     </div>
                     <div className={styles.rightSection}>
@@ -101,7 +95,7 @@ export default async function DetailedPage({
 
                         <DownloadButton
                             pageId={page.id}
-                            fileUrl={page.coloring_path}
+                            fileUrl={page.full_path}
                             name={page.name || "coloring-page"}
                             text="Download"
                         />
