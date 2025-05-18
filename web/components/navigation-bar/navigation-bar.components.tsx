@@ -14,7 +14,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-type ActivePage = "Home" | "Featured" | "Pages" | "About";
+type ActivePage = "Home" | "Featured" | "All Pages" | "About";
 
 export default function NavigationBar({
     currentPage,
@@ -72,7 +72,9 @@ export default function NavigationBar({
                     <Link href="/pages">
                         <div
                             className={`${styles.navItem} ${
-                                currentPage === "Pages" ? styles.selected : ""
+                                currentPage === "All Pages"
+                                    ? styles.selected
+                                    : ""
                             }`}
                         >
                             All Pages

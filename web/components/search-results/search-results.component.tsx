@@ -68,7 +68,7 @@ export default function SearchResults({
         <div className={styles.searchResultsContainer}>
             <div className={styles.searchInputContainer}>
                 <div className={styles.searchInputContent}>
-                    <h1>Search For A Coloring Page</h1>
+                    <h1>Search Coloring Pages</h1>
                     <Input
                         type="search"
                         value={searchValue}

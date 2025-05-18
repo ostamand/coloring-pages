@@ -1,6 +1,4 @@
-
 .searchResultsContainer {
-
 }
 
 .searchInputContainer {
@@ -13,9 +11,7 @@
     align-items: center;
 }
 
-
-.searchInputContent{
-
+.searchInputContent {
     max-width: 1440px;
     margin: 2rem 0;
     display: flex;
@@ -23,7 +19,7 @@
     justify-content: center;
     align-items: center;
 
-    input { 
+    input {
         background-color: white;
         height: 50px;
         font-size: 1.25rem;
@@ -32,6 +28,7 @@
     }
 
     h1 {
+        text-align: center;
         font-size: 3rem;
         font-weight: 500;
         color: white;
@@ -43,11 +40,26 @@
     margin: 0rem 1rem;
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .previouslyGridContainer > div {
     display: flex;
     justify-content: center;
     cursor: pointer;
+}
+
+/* on mobile */
+@media (width<=800px) {
+    .searchInputContent {
+        width: 90%;
+
+        input {
+            font-size: 1rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+    }
 }
