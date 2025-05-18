@@ -13,11 +13,14 @@ const DEBOUNCE_TIME = 0.5;
 
 export default function SearchResults({
     initialResults,
+    initialSearchValue,
 }: {
     initialResults: Page[];
+    initialSearchValue: string | null;
 }) {
     const [pages, setPages] = useState(initialResults);
-    const [searchValue, setSearchValue] = useState("");
+
+    const [searchValue, setSearchValue] = useState(initialSearchValue || "");
 
     const getPages = async (searchValue: string) => {
         try {
@@ -40,6 +43,10 @@ export default function SearchResults({
     useEffect(() => {
         getPages(searchValue);
     }, [searchValue]);
+
+    useEffect(() => {
+        setSearchValue(initialSearchValue || "");
+    }, [initialSearchValue]);
 
     return (
         <div className={styles.searchResultsContainer}>

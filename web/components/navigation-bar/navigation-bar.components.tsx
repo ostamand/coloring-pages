@@ -44,23 +44,17 @@ export default function NavigationBar({
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            {currentPage !== "Home" && (
-                                <DropdownMenuItem>
-                                    <Link href="/">Home</Link>
-                                </DropdownMenuItem>
-                            )}
+                            <DropdownMenuItem>
+                                <Link href="/">Home</Link>
+                            </DropdownMenuItem>
 
-                            {currentPage !== "Pages" && (
-                                <DropdownMenuItem>
-                                    <Link href="/pages">All Pages</Link>
-                                </DropdownMenuItem>
-                            )}
+                            <DropdownMenuItem>
+                                <Link href="/pages">All Pages</Link>
+                            </DropdownMenuItem>
 
-                            {currentPage !== "About" && (
-                                <DropdownMenuItem>
-                                    <Link href="/about">About</Link>
-                                </DropdownMenuItem>
-                            )}
+                            <DropdownMenuItem>
+                                <Link href="/about">About</Link>
+                            </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>

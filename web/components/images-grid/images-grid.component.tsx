@@ -29,7 +29,6 @@ export default function ImagesGrid({
             (limit || DEFAULT_LIMIT) + DEFAULT_BATCH_SIZE * showMore;
         setCurrentLimit(currentLimit);
         setPagesToShow(pages.slice(0, currentLimit));
-        console.log(pages);
     }, [showMore, pages]);
 
     return (
@@ -46,14 +45,18 @@ export default function ImagesGrid({
                                     <div className={tagStyles.tagsContainer}>
                                         {page.tags.map((tag, index) => {
                                             return (
-                                                <div
-                                                    className={
-                                                        tagStyles.tagItem
-                                                    }
+                                                <Link
+                                                    href={`/pages?search=${tag}`}
                                                     key={index}
                                                 >
-                                                    {tag}
-                                                </div>
+                                                    <div
+                                                        className={
+                                                            tagStyles.tagItem
+                                                        }
+                                                    >
+                                                        {tag}
+                                                    </div>
+                                                </Link>
                                             );
                                         })}
                                     </div>
