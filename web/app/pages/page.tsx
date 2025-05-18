@@ -22,17 +22,17 @@ async function getPages(searchValue: string | null) {
 export default async function SearchForPages({
     searchParams,
 }: {
-    searchParams: { [key: string]: string | undefined };
+    searchParams: Promise<any>;
 }) {
-    const searchValue = (await searchParams)["search"] || null;
+    const searchValue = (await searchParams)["search"] as string | undefined;
 
-    const pages = await getPages(searchValue);
+    const pages = await getPages(searchValue || null);
 
     return (
         <div className={styles.searchContainer}>
             <SearchResults
                 initialResults={pages}
-                initialSearchValue={searchValue}
+                initialSearchValue={searchValue || null}
             />
         </div>
     );
