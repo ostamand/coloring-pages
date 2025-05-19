@@ -233,7 +233,7 @@ export async function getCurrentCounts(db: Client) {
     const result = await db.queryObject(
         `
         SELECT status, CAST(COUNT(id) as INTEGER) FROM (
-	        SELECT id, CASE WHEN featured_on IS NULL THEN 'published' ELSE 'not published' END AS status FROM pages
+	        SELECT id, CASE WHEN featured_on IS NULL THEN 'not published' ELSE 'published' END AS status FROM pages
         )
         GROUP BY status;
     `,
