@@ -6,6 +6,13 @@
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(3, 1fr);
+
+    img {
+        transition: transform 0.2s ease-in;
+        &:hover {
+            transform: scale(1.02);
+        }
+    }
 }
 
 .previouslyGridContainer > div {
