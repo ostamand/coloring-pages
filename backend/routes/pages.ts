@@ -1,9 +1,28 @@
 import { Router } from "jsr:@oak/oak";
 
 import { getClientFromPool } from "../lib/db/db.ts";
-import { getPages, getPagesById, searchPages } from "../lib/db/mod.ts";
+import {
+    getCurrentCounts,
+    getPages,
+    getPagesById,
+    searchPages,
+} from "../lib/db/mod.ts";
 
 export const pagesRouter = new Router();
+
+pagesRouter.get("/count", async (ctx) => {
+    const client = await getClientFromPool();
+    try {
+        const results = await getCurrentCounts(client);
+        ctx.response.body = results;
+    } catch (error) {
+        console.error(error);
+        ctx.response.status = 500;
+        ctx.response.body = [];
+    } finally {
+        client.release();
+    }
+});
 
 pagesRouter.get("/:id", async (ctx) => {
     const client = await getClientFromPool();
