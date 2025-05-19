@@ -16,6 +16,8 @@ async function main(args: string[]) {
     }
 
     const generateConfig = loadGenerateConfigs(inputConfigPath);
+    const scriptName = import.meta.url.split("/").pop();
+    generateConfig.generateScript = scriptName || generateConfig.generateScript;
 
     const instructionsFn = (lastPrompts: string) => {
         return SYSTEM_INSTRUCTIONS_SUBJECT_v1 + subject;
