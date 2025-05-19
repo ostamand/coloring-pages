@@ -44,4 +44,6 @@ Untitled*.ipynb
 /.ms-playwright
 
 
-ai
+ai/instructions
+ai/workflows
+ai/configs
