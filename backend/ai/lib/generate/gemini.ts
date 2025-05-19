@@ -37,7 +37,7 @@ export async function getGenerationConfigsFromGemini(
         s,
     ) => s.trim()).join("\n");
 
-    console.log("Instructions:");
+    console.log("\nInstructions:");
     console.log(geminiPrompt);
 
     // call gemini

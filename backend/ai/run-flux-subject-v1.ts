@@ -44,7 +44,7 @@ async function main(args: string[]) {
 // --config: path to config input path
 // --subject: subject of the coloring page
 // --gen-file: (optional) generate from a template config file
-// example: deno run --allow-all ai/run-flux-subject-v1.ts --config ai/configs/flux-v1.json --subject 'a penguin' --out tmp
+// example: deno run --allow-all ai/run-flux-subject-v1.ts --config ai/configs/flux-v1.json --out tmp --subject 'a penguin'
 if (import.meta.main) {
     await main(Deno.args);
 }
