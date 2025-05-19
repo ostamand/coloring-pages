@@ -4,8 +4,9 @@ import SearchResults from "@/components/search-results/search-results.component"
 import { Page } from "@/lib/api/types";
 
 async function getPages(searchValue: string | null) {
+    //! revisit limits, add pagination?
     try {
-        let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=6`;
+        let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=100`;
         if (searchValue) {
             endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`;
         }
