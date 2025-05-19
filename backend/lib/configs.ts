@@ -16,6 +16,7 @@ export function loadAppConfigs(): AppConfigs {
             region: Deno.env.get("S3_REGION") || "",
             accessKeyId: Deno.env.get("S3_ACCESS_KEY_ID") || "",
             secretAccessKey: Deno.env.get("S3_SECRET_ACCESS_KEY") || "",
+            bucket: Deno.env.get("S3_BUCKET") || "",
         },
         cloudfrontUrl: Deno.env.get("CLOUDFRONT_URL") || "",
         geminiApiKey: Deno.env.get("GEMINI_API_KEY") || "",

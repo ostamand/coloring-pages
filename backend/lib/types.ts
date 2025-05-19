@@ -26,6 +26,7 @@ export type AppConfigs = {
         region: string;
         accessKeyId: string;
         secretAccessKey: string;
+        bucket: string;
     };
     cloudfrontUrl: string;
     geminiApiKey: string;
