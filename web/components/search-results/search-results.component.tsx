@@ -88,11 +88,13 @@ export default function SearchResults({
                     />
                 </div>
             </div>
-            {pages.length > 0 ? (
-                <ImagesGrid pages={pages} limit={3} />
-            ) : (
-                <NoResultRequest searchValue={searchValue} />
-            )}
+            <div className={styles.resultsContent}>
+                {pages.length > 0 ? (
+                    <ImagesGrid pages={pages} limit={3} />
+                ) : (
+                    <NoResultRequest searchValue={searchValue} />
+                )}
+            </div>
         </div>
     );
 }

@@ -1,4 +1,8 @@
 .searchResultsContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .searchInputContainer {
@@ -34,6 +38,10 @@
         color: white;
         margin: 1rem 0rem;
     }
+}
+
+.resultsContent {
+    max-width: 1440px;
 }
 
 .resultsGridContainer {
