@@ -32,7 +32,7 @@ export default function SearchResults({
             //! maybe add limit?
             let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`;
             if (!searchValue) {
-                endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=6`;
+                endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=100`;
             }
             const response = await fetch(endpoint);
             if (!response.ok) {
@@ -90,7 +90,7 @@ export default function SearchResults({
             </div>
             <div className={styles.resultsContent}>
                 {pages.length > 0 ? (
-                    <ImagesGrid pages={pages} limit={3} />
+                    <ImagesGrid pages={pages} limit={6} />
                 ) : (
                     <NoResultRequest searchValue={searchValue} />
                 )}
