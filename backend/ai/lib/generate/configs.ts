@@ -36,5 +36,8 @@ export function parseArgs(args: string[]) {
     const genfileIndex = args.indexOf("--gen-file");
     const genFile = genfileIndex !== -1 ? args[genfileIndex + 1] : undefined;
 
-    return { inputConfigPath, outputFolder, genFile };
+    const subjectIndex = args.indexOf("--subject");
+    const subject = subjectIndex !== -1 ? args[subjectIndex + 1] : undefined;
+
+    return { inputConfigPath, outputFolder, genFile, subject };
 }

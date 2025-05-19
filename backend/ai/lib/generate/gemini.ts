@@ -17,7 +17,7 @@ export type GenerationConfigsFromGemini = {
 
 export async function getGenerationConfigsFromGemini(
     db: Client,
-    instructions: string,
+    instructionsFn: (lastPrompts: string) => string,
     configs: AppConfigs,
     options: GenerationConfigsFromGemini,
 ) {
@@ -31,9 +31,14 @@ export async function getGenerationConfigsFromGemini(
     }, "");
 
     console.log(`⏳ Last prompts:\n${lastPrompts}`);
-    const geminiPrompt = (instructions + lastPrompts).split("\n").map((
+
+    let geminiPrompt = instructionsFn(lastPrompts as string);
+    geminiPrompt = geminiPrompt.split("\n").map((
         s,
     ) => s.trim()).join("\n");
+
+    console.log("Instructions:");
+    console.log(geminiPrompt);
 
     // call gemini
     console.log(`🤓 Calling Gemini (${options.geminiModelName})...`);

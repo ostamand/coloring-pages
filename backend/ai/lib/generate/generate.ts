@@ -8,7 +8,7 @@ import { runGenerations } from "../generate/comfy.ts";
 import { GenerationConfigsFromGemini } from "./gemini.ts";
 
 export async function runGenerate(
-    instructions: string,
+    instructionsFn: (lastPrompts: string) => string,
     workflowPath: string,
     worflowUpdateFn: (
         workflow: any,
@@ -41,7 +41,7 @@ export async function runGenerate(
         try {
             generationConfigs = await getGenerationConfigsFromGemini(
                 db,
-                instructions,
+                instructionsFn,
                 configs,
                 geminiGenerateConfigs,
             );

@@ -21,10 +21,10 @@ async function main(args: string[]) {
         instructionsFn,
         generateConfig.worflowPath,
         (workflow, prompt, seed, outputPrefix) => {
-            workflow["250"]["inputs"]["value"] = seed;
+            workflow["265"]["inputs"]["value"] = seed;
             workflow["11"]["inputs"]["text"] =
                 `${generateConfig.trigger}, ${prompt}`;
-            workflow["251"]["inputs"]["value"] = outputPrefix;
+            workflow["249"]["inputs"]["filename_prefix"] = outputPrefix;
             return workflow;
         },
         generateConfig.numberOfGenerations,
@@ -39,7 +39,8 @@ async function main(args: string[]) {
 // --out: output folder for generations
 // --config: path to config input path
 // --gen-file: (optional) generate from a template config file
-// example: deno run --allow-all ai/run-sdxl-v1.ts --config ai/configs/sdxl-v1.json --out tmp/VZmYUK27Z0Fj --gen-file tmp/VZmYUK27Z0Fj/VZmYUK27Z0Fj.json
+// example: deno run --allow-all ai/run-flux-v1.ts --config ai/configs/flux-v1.json --out tmp/VZmYUK27Z0Fj --gen-file tmp/VZmYUK27Z0Fj/VZmYUK27Z0Fj.json
+// example: deno run --allow-all ai/run-flux-v1.ts --config ai/configs/flux-v1.json --out tmp
 if (import.meta.main) {
     await main(Deno.args);
 }
