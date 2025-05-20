@@ -1,7 +1,26 @@
 import styles from "./search-for-pages.styles.module.scss";
 
+import { Metadata } from "next";
+
 import SearchResults from "@/components/search-results/search-results.component";
 import { Page } from "@/lib/api/types";
+
+const title = "Browse Free Coloring Pages | Color It Daily";
+const url = "https://coloritdaily.com/pages";
+const description =
+    "Explore a wide collection of free coloring pages. Search by theme, discover new designs, and download your favorites. Unleash your creativity today!";
+export const metadata: Metadata = {
+    title,
+    description,
+    openGraph: {
+        title,
+        description,
+        url,
+    },
+    alternates: {
+        canonical: url,
+    },
+};
 
 async function getPages(searchValue: string | null) {
     //! revisit limits, add pagination?
@@ -30,11 +49,13 @@ export default async function SearchForPages({
     const pages = await getPages(searchValue || null);
 
     return (
-        <div className={styles.searchContainer}>
-            <SearchResults
-                initialResults={pages}
-                initialSearchValue={searchValue || null}
-            />
-        </div>
+        <>
+            <div className={styles.searchContainer}>
+                <SearchResults
+                    initialResults={pages}
+                    initialSearchValue={searchValue || null}
+                />
+            </div>
+        </>
     );
 }

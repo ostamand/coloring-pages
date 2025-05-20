@@ -1,9 +1,27 @@
 import styles from "./about.styles.module.scss";
 
 import Link from "next/link";
+import { Metadata } from "next";
 
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
+
+const title = "About Color It Daily | Free Daily Coloring Pages";
+const url = "https://coloritdaily.com/about";
+const description =
+    "Learn more about Color It Daily, your go-to website for free daily coloring pages. Discover our mission to inspire creativity and relaxation.";
+export const metadata: Metadata = {
+    title,
+    description,
+    openGraph: {
+        title,
+        description,
+        url,
+    },
+    alternates: {
+        canonical: url,
+    },
+};
 
 export default function About() {
     return (
@@ -81,22 +99,3 @@ export default function About() {
         </div>
     );
 }
-
-/*
-    Color It Daily
-
-    Inspiring Creativity, One Page at a Time
-
-    Discover a fresh new coloring page every day, designed to spark joy and creativity for both kids and adults.
-    
-    - Simple, Stylish Designs
-        Bold lines and thoughtfully crafted styles make our pages perfect for coloring.
-    - 100% Free
-        No ads, no sign-ups, no distractions—just pure creative fun.
-    - No Frills, No Fuss
-        Say goodbye to watermarks, borders, and unnecessary margins. It's all about your creativity.
-    - Print-Ready Excellence
-        Full-sized, high-definition images optimized for effortless printing. Simply save and print—no extra setup needed.
-
-    Color It Daily is your go-to source for quality coloring pages that let your imagination run free.
-*/
