@@ -5,7 +5,7 @@ import { Page } from "@/lib/api/types";
 
 async function getPages(searchValue: string | null) {
     try {
-        let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=6`;
+        let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true`;
         if (searchValue) {
             endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`;
         }
