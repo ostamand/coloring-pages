@@ -3,6 +3,8 @@ import { Application } from "jsr:@oak/oak";
 import { pagesRouter } from "./routes/pages.ts";
 import { proxyRouter } from "./routes/proxy.ts";
 import { logsRouter } from "./routes/logs.ts";
+import { messagesRouter } from "./routes/messages.ts";
+
 import { setupDatabasePool } from "./lib/db/db.ts";
 import { loadAppConfigs } from "./lib/configs.ts";
 
@@ -41,6 +43,9 @@ app.use(proxyRouter.allowedMethods());
 
 app.use(logsRouter.routes());
 app.use(logsRouter.allowedMethods());
+
+app.use(messagesRouter.routes());
+app.use(messagesRouter.allowedMethods());
 
 console.log(`Server running on http://localhost:${port}`);
 await app.listen({ port });

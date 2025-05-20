@@ -5,10 +5,12 @@
     height: 100px;
     width: 100%;
     padding: 0 0.5rem;
-    font-size: 1.2rem;
-    background: url("/blurry-gradient-haikei-3.svg") no-repeat center center;
-    background-size: cover;
-    color: white;
+    font-size: 0.9rem;
+    /*  background: url("/blurry-gradient-haikei-3.svg") no-repeat center center;
+    background-size: cover; */
+    color: black;
+    border-top: 1px solid;
+    border-color: var(--color-border);
 }
 
 .footerLeft {
@@ -18,7 +20,7 @@
     .heading {
         display: flex;
         flex-direction: row;
-        font-size: 1.5rem;
+        font-size: 1rem;
         align-items: center;
         > :first-child {
             margin-right: 0.5rem;
@@ -35,11 +37,9 @@
 /* on mobile */
 @media (width<=800px) {
     .footerContainer {
-        font-size: 0.9rem;
     }
     .footerLeft {
         .heading {
-            font-size: 1rem;
             > :first-child {
                 margin-right: 0.5rem;
             }
