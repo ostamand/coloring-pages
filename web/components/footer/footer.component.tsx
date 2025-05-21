@@ -19,7 +19,7 @@ export function Footer() {
                         <span>Color It Daily</span>
                     </Link>
                 </div>
-                <p>Always Free! Creative and High Quality Coloring Pages</p>
+                <p>Creative, High Quality Coloring Pages for All</p>
             </div>
             <div className={styles.foorterRight}>
                 © 2025 All rights reserved.
