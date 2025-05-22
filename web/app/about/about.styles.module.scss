@@ -4,6 +4,7 @@
     flex-direction: column;
     height: 100%;
     min-height: 100vh;
+    padding: 0 1rem;
 
     h1 {
         font-size: 3rem;
@@ -69,9 +70,11 @@
     }
 }
 
+@media (width<=1024px) {
+    .textContent {
+    }
+}
+
 /* on mobile */
 @media (width<=800px) {
-    .textContent {
-        max-width: 90%;
-    }
 }

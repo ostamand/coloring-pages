@@ -8,18 +8,15 @@ export function Footer() {
             <div className={styles.footerLeft}>
                 <div className={styles.heading}>
                     <Link href="/">
-                        <div className={styles.logo}>
+                        <div>
                             <img
-                                src="/ColorItDailyLogo.png"
+                                className={styles.logo}
+                                src="/Logo_ColorItDaily.svg"
                                 alt="Color It Daily Logo"
                             />
                         </div>
                     </Link>
-                    <Link href="/">
-                        <span>Color It Daily</span>
-                    </Link>
                 </div>
-                <p>Creative, High Quality Coloring Pages for All</p>
             </div>
             <div className={styles.foorterRight}>
                 © 2025 All rights reserved.

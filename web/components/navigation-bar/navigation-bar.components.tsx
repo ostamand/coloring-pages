@@ -25,17 +25,17 @@ export default function NavigationBar({
     return (
         <nav className={styles.navbar}>
             <div className={styles.navLeft}>
-                <div className={styles.logo}>
+                <div>
                     <Link href="/">
                         <img
-                            src="/ColorItDailyLogo.png"
+                            className={styles.logo}
+                            src="/Logo_ColorItDaily.svg"
                             alt="Coloring Pages Logo"
-                            height="60px"
-                            width="60px"
+                            height="auto"
+                            width="200px"
                         />
                     </Link>
                 </div>
-                <Link href="/">Color It Daily</Link>
             </div>
             {isMobile ? (
                 <div className={styles.navRight}>

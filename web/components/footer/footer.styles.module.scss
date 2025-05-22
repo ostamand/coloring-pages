@@ -6,8 +6,6 @@
     width: 100%;
     padding: 0 0.5rem;
     font-size: 0.9rem;
-    /*  background: url("/blurry-gradient-haikei-3.svg") no-repeat center center;
-    background-size: cover; */
     color: black;
     border-top: 1px solid;
     border-color: var(--color-border);
@@ -22,12 +20,10 @@
         flex-direction: row;
         font-size: 1rem;
         align-items: center;
-        > :first-child {
-            margin-right: 0.5rem;
-        }
     }
     .logo {
-        width: 40px;
+        width: 150px;
+        height: auto;
     }
 }
 
@@ -37,13 +33,11 @@
 /* on mobile */
 @media (width<=800px) {
     .footerContainer {
+        height: 75px;
     }
-    .footerLeft {
-        .heading {
-            > :first-child {
-                margin-right: 0.5rem;
-            }
-        }
+
+    .logo {
+        width: 125px !important;
     }
     .foorterRight {
         text-align: right;

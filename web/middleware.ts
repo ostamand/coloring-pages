@@ -2,7 +2,6 @@ import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
-    console.log("Requested Path:", req.nextUrl.pathname);
     const isMaintenance = process.env.MAINTENANCE === "true";
     if (isMaintenance) {
         const { pathname } = req.nextUrl;

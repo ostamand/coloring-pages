@@ -25,12 +25,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 1rem;
     a {
         font-size: 1.75rem;
-    }
-    > :first-child {
-        margin-right: 0.5rem;
     }
 }
 
@@ -60,17 +56,23 @@
     }
 }
 
+.logo {
+    height: auto;
+    width: 200px;
+}
+
 /* on mobile */
 @media (width<=800px) {
     .navLeft {
         a {
             font-size: 1.25rem;
         }
-        .logo {
-            width: 45px;
-        }
     }
     .navbar {
         height: 60px;
+    }
+    .logo {
+        height: auto;
+        width: 150px;
     }
 }
