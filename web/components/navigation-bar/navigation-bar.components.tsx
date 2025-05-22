@@ -31,8 +31,6 @@ export default function NavigationBar({
                             className={styles.logo}
                             src="/Logo_ColorItDaily.svg"
                             alt="Coloring Pages Logo"
-                            height="auto"
-                            width="200px"
                         />
                     </Link>
                 </div>
