@@ -1,8 +1,8 @@
 .mainContainer {
     display: flex;
-    width: 100%;
     flex-direction: column;
     height: 100%;
+    width: 100%;
     min-height: 100vh;
 
     h1 {
@@ -16,6 +16,10 @@
         }
         font-size: 2rem;
         color: var(--color-purple);
+    }
+
+    p {
+        font-size: 1.25rem;
     }
 }
 
@@ -33,8 +37,14 @@
 }
 
 .textContent {
-    max-width: 1024;
+    max-width: 1024px;
     > :last-child {
         margin: 1rem 0rem;
+    }
+}
+
+@media (width <= 800px) {
+    .contactContainer {
+        margin: 1rem;
     }
 }
