@@ -7,8 +7,50 @@
 .contactFormContent {
     border: 1px solid;
     padding: 3rem;
-    max-width: 600px;
+    max-width: 500px;
     width: 100%;
     margin: 0rem 1rem;
     border-radius: 1rem;
+    border-color: var(--color-border);
+
+    label {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+    }
+
+    input {
+        margin-bottom: 2rem;
+    }
+
+    textarea {
+        margin-bottom: 2rem;
+        min-height: 150px;
+    }
+
+    .labelPanel {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .errorLabel {
+        color: var(--color-red);
+    }
+
+    .submitButton {
+        font-size: 1.25rem;
+        margin-bottom: 0rem;
+    }
+}
+
+.messageSentContent {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .homeButton {
+        font-size: 1.25rem;
+    }
 }
