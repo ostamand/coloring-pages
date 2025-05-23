@@ -15,14 +15,22 @@
 
 .featured {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
     overflow: hidden;
     background: url("/blurry-gradient-haikei.svg") no-repeat center center;
     background-size: cover;
     height: 100%;
     width: 100%;
-    padding: 0rem 1rem;
+    justify-content: center;
+}
+
+.featuredContent {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    max-width: 1600px;
 
     img {
         transition: transform 0.2s ease-in;
@@ -103,17 +111,22 @@
     padding: 1rem 5rem;
     background-color: var(--color-purple);
     color: white;
-
     border-radius: 0.5rem;
     font-size: 1.5rem;
     cursor: pointer;
     border: 1px solid;
     border-color: var(--color-border);
-
     margin: 2rem 0rem;
-
     > :first-child {
         margin-right: 1rem;
+    }
+}
+
+@media (width<=1400px) {
+    .seeMore {
+        > :first-child {
+            width: 40%;
+        }
     }
 }
 
@@ -175,7 +188,7 @@
         }
     }
 
-    .featured {
+    .featuredContent {
         flex-direction: column;
     }
 

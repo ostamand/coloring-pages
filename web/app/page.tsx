@@ -77,31 +77,34 @@ export default async function Home() {
             <div className={styles.mainContainer}>
                 <NavigationBar currentPage="Home" />
                 <div className={styles.featured}>
-                    <div className={styles.leftSection}>
-                        <h1>New Coloring Page</h1>
-                        <h2>
-                            Each day, a new coloring page. It's free, grab it!
-                        </h2>
-                        <DownloadButton
-                            pageId={featuredPage.id}
-                            text="Download Page"
-                            fileUrl={featuredPage.full_path}
-                            name={featuredPage.name || "coloring-page"}
-                        />
-                    </div>
-                    <div className={styles.rightSection}>
-                        <PageTags
-                            tags={featuredPage.tags}
-                            className={styles.tagsContainer}
-                        />
+                    <div className={styles.featuredContent}>
+                        <div className={styles.leftSection}>
+                            <h1>New Coloring Page</h1>
+                            <h2>
+                                Each day, a new coloring page. It's free, grab
+                                it!
+                            </h2>
+                            <DownloadButton
+                                pageId={featuredPage.id}
+                                text="Download Page"
+                                fileUrl={featuredPage.full_path}
+                                name={featuredPage.name || "coloring-page"}
+                            />
+                        </div>
+                        <div className={styles.rightSection}>
+                            <PageTags
+                                tags={featuredPage.tags}
+                                className={styles.tagsContainer}
+                            />
 
-                        <div className={styles.imageContainer}>
-                            <Link href={`/pages/${featuredPage.id}`}>
-                                <img
-                                    src={featuredPage.thumbnail_path}
-                                    alt={featuredPage.prompt}
-                                />
-                            </Link>
+                            <div className={styles.imageContainer}>
+                                <Link href={`/pages/${featuredPage.id}`}>
+                                    <img
+                                        src={featuredPage.thumbnail_path}
+                                        alt={featuredPage.prompt}
+                                    />
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
