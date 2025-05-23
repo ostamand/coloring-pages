@@ -1,6 +1,7 @@
 import styles from "./contact.styles.module.scss";
 
 import { Metadata } from "next";
+import Link from "next/link";
 
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
@@ -29,6 +30,14 @@ export default function ContactPage() {
             <NavigationBar currentPage="Contact" />
             <div className={styles.contactContainer}>
                 <div className={styles.contactContent}>
+                    <Link href="/">
+                        <img
+                            src="/Visage_ColorItDaily.png"
+                            alt="Coloring Pages Logo"
+                            height="auto"
+                            width="200px"
+                        />
+                    </Link>
                     <div className={styles.textContent}>
                         <h2>We'd love to hear from you!</h2>
                         <p>

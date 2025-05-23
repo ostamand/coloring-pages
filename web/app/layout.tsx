@@ -1,16 +1,10 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit } from "next/font/google";
 import Script from "next/script";
 
 import "./globals.css";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
+const outfit = Outfit({
+    variable: "--font-outfit",
 });
 
 export default function RootLayout({
@@ -21,9 +15,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <link rel="icon" href="/favicon.png" sizes="any" />
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
+            <body className={`${outfit.className} antialiased`}>
                 {children}
                 {/* disable umami tracking: localStorage.setItem("umami.disabled", "true") */}
                 <Script

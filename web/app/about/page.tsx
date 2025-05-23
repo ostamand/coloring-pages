@@ -33,7 +33,7 @@ export default function About() {
                     <div className={styles.heading}>
                         <Link href="/">
                             <img
-                                src="/Logo_ColorItDaily_Smile.png"
+                                src="/Visage_ColorItDaily.png"
                                 alt="Coloring Pages Logo"
                                 height="auto"
                                 width="200px"
