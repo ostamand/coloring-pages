@@ -54,3 +54,16 @@
         font-size: 1.25rem;
     }
 }
+
+@media (width <= 800px) {
+    .contactFormContent {
+        padding: 1rem;
+    }
+
+    .submitButton {
+        font-size: 1rem !important;
+    }
+    .homeButton {
+        font-size: 1rem !important;
+    }
+}

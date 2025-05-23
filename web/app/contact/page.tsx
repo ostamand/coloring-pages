@@ -7,10 +7,9 @@ import ContactForm from "@/components/contact-form/contact-form.component";
 export default function ContactPage() {
     return (
         <div className={styles.mainContainer}>
-            <NavigationBar currentPage="About" />
+            <NavigationBar currentPage="Contact" />
             <div className={styles.contactContainer}>
                 <div className={styles.contactContent}>
-                    <h1>Contact Us</h1>
                     <div className={styles.textContent}>
                         <h2>We'd love to hear from you!</h2>
                         <p>

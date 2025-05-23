@@ -14,7 +14,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-type ActivePage = "Home" | "Featured" | "All Pages" | "About";
+type ActivePage = "Home" | "All Pages" | "About" | "Contact";
 
 export default function NavigationBar({
     currentPage,
@@ -55,6 +55,10 @@ export default function NavigationBar({
                             <DropdownMenuItem>
                                 <Link href="/about">About</Link>
                             </DropdownMenuItem>
+
+                            <DropdownMenuItem>
+                                <Link href="/contact">Contact</Link>
+                            </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
@@ -87,6 +91,15 @@ export default function NavigationBar({
                             }`}
                         >
                             About
+                        </div>
+                    </Link>
+                    <Link href="/contact">
+                        <div
+                            className={`${styles.navItem} ${
+                                currentPage === "Contact" ? styles.selected : ""
+                            }`}
+                        >
+                            Contact
                         </div>
                     </Link>
                 </div>
