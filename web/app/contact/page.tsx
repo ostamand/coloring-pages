@@ -1,8 +1,27 @@
 import styles from "./contact.styles.module.scss";
 
+import { Metadata } from "next";
+
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
 import ContactForm from "@/components/contact-form/contact-form.component";
+
+const title = "Contact Us | Color It Daily";
+const url = "https://coloritdaily.com/contact";
+const description =
+    "Have questions or feedback? Contact us at Color It Daily. We'd love to hear from you!";
+export const metadata: Metadata = {
+    title,
+    description,
+    openGraph: {
+        title,
+        description,
+        url,
+    },
+    alternates: {
+        canonical: url,
+    },
+};
 
 export default function ContactPage() {
     return (
