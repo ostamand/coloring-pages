@@ -52,6 +52,13 @@
 
     margin: 2rem 0rem;
 
+
+    transition: color 0.3s ease-in, background-color 0.3s ease-in;
+    &:hover {
+        background-color: var(--color-teal);
+        color: black;
+    }
+
     > :first-child {
         margin-right: 1rem;
     }
