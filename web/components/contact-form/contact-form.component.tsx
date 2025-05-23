@@ -20,7 +20,7 @@ export default function ContactForm() {
     const [errors, setErrors] = useState(defaultErrors);
     const [messageSent, setMessageSent] = useState(false);
 
-    function submit(formData: FormData) {
+    async function submit(formData: FormData) {
         const email = formData.get("email");
         const name = formData.get("name");
         const message = formData.get("message");
@@ -51,9 +51,27 @@ export default function ContactForm() {
             return;
         }
 
-        //TODO send API call
-
-        setMessageSent(true);
+        try {
+            const payload = {
+                name,
+                message,
+                email,
+            };
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/messages`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                }
+            );
+            if (!response.ok) {
+                // TODO add logging
+            }
+        } catch (error) {
+        } finally {
+            setMessageSent(true);
+        }
     }
 
     return (
