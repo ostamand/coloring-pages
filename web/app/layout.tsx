@@ -5,6 +5,7 @@ import "./globals.css";
 
 const outfit = Outfit({
     variable: "--font-outfit",
+    subsets: ["latin"],
 });
 
 export default function RootLayout({
