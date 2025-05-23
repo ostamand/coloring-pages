@@ -232,8 +232,8 @@ export async function addPageRequest(
 export async function getCurrentCounts(db: Client) {
     const result = await db.queryObject(
         `
-        SELECT status, CAST(COUNT(id) as INTEGER) FROM (
-	        SELECT id, CASE WHEN featured_on IS NULL THEN 'not published' ELSE 'published' END AS status FROM pages
+        SELECT status, CAST(COUNT(id) as INTEGER), MAX(featured_on) AS last_on FROM (
+	        SELECT featured_on, id, CASE WHEN featured_on IS NULL THEN 'not published' ELSE 'published' END AS status FROM pages
         )
         GROUP BY status;
     `,
