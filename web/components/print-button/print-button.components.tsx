@@ -2,10 +2,8 @@
 
 import stylesButton from "../../styles/button.styles.module.scss";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Printer } from "lucide-react";
-
-import { logDownload } from "@/lib/download";
 
 export default function PrintButton({
     pageId,
@@ -15,18 +13,26 @@ export default function PrintButton({
     fileUrl: string;
 }) {
     const printRef = useRef<HTMLIFrameElement | null>(null);
+    const [iframeVisible, setIframeVisible] = useState(false);
 
     const handlePrint = async () => {
-        const iframe = printRef.current;
+        setIframeVisible(true);
 
-        if (iframe) {
-            const contentWindow = iframe.contentWindow;
-            const contentDocument =
-                iframe.contentDocument || contentWindow?.document;
+        const REFRESH_RATE = 100;
+        const interval = setInterval(() => {
+            //TODO add max timer?
+            const iframe = printRef.current;
 
-            if (contentDocument) {
-                const style = document.createElement("style");
-                style.textContent = `
+            if (iframe?.contentDocument?.readyState === "complete") {
+                clearInterval(interval);
+
+                const contentWindow = iframe.contentWindow;
+                const contentDocument =
+                    iframe.contentDocument || contentWindow?.document;
+
+                if (contentDocument) {
+                    const style = document.createElement("style");
+                    style.textContent = `
                     @media print {
                         body {
                             margin: 0;
@@ -42,26 +48,28 @@ export default function PrintButton({
                             size: A4 portrait;
                             margin: 0;
                         }
-                    }
-                `;
+                    }`;
 
-                contentDocument.head.appendChild(style);
+                    contentDocument.head.appendChild(style);
 
-                contentWindow?.focus();
-                contentWindow?.print();
+                    contentWindow?.focus();
+                    contentWindow?.print();
 
-                // print successful, let's log it. no need to wait.
-                fetch("/api/logs/downloads", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        pageId,
-                        url: window.location.href,
-                        actionType: "print",
-                    }),
-                });
+                    // print successful, let's log it. no need to wait.
+                    fetch("/api/logs/downloads", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            pageId,
+                            url: window.location.href,
+                            actionType: "print",
+                        }),
+                    });
+                }
+
+                setTimeout(() => setIframeVisible(false), 1000); // Cleanup iframe after printing
             }
-        }
+        }, REFRESH_RATE);
     };
 
     return (
@@ -70,25 +78,27 @@ export default function PrintButton({
                 <Printer />
                 Print
             </div>
-            <iframe
-                ref={printRef}
-                src={`/api/proxy-file?url=${encodeURIComponent(fileUrl)}`}
-                style={{ display: "none" }}
-                title="Print Frame"
-                onLoad={() => {
-                    const iframe = printRef.current;
-                    const contentDocument = iframe?.contentDocument;
-                    if (contentDocument) {
-                        const img = contentDocument.querySelector("img");
-                        if (img) {
-                            img.style.maxWidth = "100%";
-                            img.style.height = "auto";
-                            img.style.margin = "0 auto";
-                            img.style.display = "block";
+            {iframeVisible && (
+                <iframe
+                    ref={printRef}
+                    src={`/api/proxy-file?url=${encodeURIComponent(fileUrl)}`}
+                    style={{ display: "none" }}
+                    title="Print Frame"
+                    onLoad={() => {
+                        const iframe = printRef.current;
+                        const contentDocument = iframe?.contentDocument;
+                        if (contentDocument) {
+                            const img = contentDocument.querySelector("img");
+                            if (img) {
+                                img.style.maxWidth = "100%";
+                                img.style.height = "auto";
+                                img.style.margin = "0 auto";
+                                img.style.display = "block";
+                            }
                         }
-                    }
-                }}
-            ></iframe>
+                    }}
+                />
+            )}
         </>
     );
 }
