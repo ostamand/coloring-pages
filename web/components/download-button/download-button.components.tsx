@@ -49,7 +49,15 @@ export default function DownloadButton({
         }
 
         // download successful, let's log it. no need to wait.
-        logDownload(pageId, `${window.location.href}?download=true`);
+        fetch("/api/logs/downloads", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                pageId,
+                url: window.location.href,
+                actionType: "download",
+            }),
+        });
     };
 
     return (

@@ -49,7 +49,17 @@ export default function PrintButton({
 
                 contentWindow?.focus();
                 contentWindow?.print();
-                logDownload(pageId, `${window.location.href}?print=true`);
+
+                // print successful, let's log it. no need to wait.
+                fetch("/api/logs/downloads", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        pageId,
+                        url: window.location.href,
+                        actionType: "print",
+                    }),
+                });
             }
         }
     };

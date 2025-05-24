@@ -2,6 +2,24 @@ import { Client } from "jsr:@db/postgres";
 
 import { GenerationConfigs } from "../types.ts";
 
+const getPageUniqueName = async (db: Client, name: string | null) => {
+    const uniqueName = name
+        ? name.toLowerCase().replaceAll(" ", "-").replaceAll("'s", "")
+        : "sample";
+
+    // check if we already have some with same name
+    const result = await db.queryArray(`
+        SELECT COUNT(0)
+        FROM pages
+        WHERE unique_name LIKE '${uniqueName}-%'
+    `);
+    const count = Number(result.rows[0][0]);
+    if (count > 0) {
+        return `${uniqueName}-${count + 1}`;
+    }
+    return uniqueName;
+};
+
 export async function addNewPage(
     db: Client,
     fullPath: string,
@@ -51,11 +69,16 @@ export async function addNewPage(
         }
     });
 
+    // get page unique name first
+
+    const uniqueName = getPageUniqueName(db, name);
+
     // add page
+
     const resultPage = await db.queryArray(
         `   INSERT INTO pages 
-                (full_path, thumbnail_path, generate_script, prompt, seed, collection_name, generated_on, name, model_name, prompt_model_name, height, width) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
+                (full_path, thumbnail_path, generate_script, prompt, seed, collection_name, generated_on, name, model_name, prompt_model_name, height, width, unique_name) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) 
             RETURNING id`,
         [
             fullPath,
@@ -70,6 +93,7 @@ export async function addNewPage(
             promptModelName,
             height,
             width,
+            uniqueName,
         ],
     );
 

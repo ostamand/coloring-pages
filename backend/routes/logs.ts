@@ -18,24 +18,14 @@ function getUserData(request: Request) {
     };
 }
 
-logsRouter.post("/download", async (ctx) => {
+logsRouter.post("/downloads", async (ctx) => {
     const client = await getClientFromPool();
     try {
-        const data = await ctx.request.body.json() as {
-            pageId: number;
-            url: string;
-        };
+        const data = await ctx.request.body.json() as DownloadLog;
         if (!data) {
             throw new Error("Missing data from request");
         }
-
-        const downloadLog: DownloadLog = {
-            ...data,
-            ...getUserData(ctx.request),
-        };
-
-        const id = await addDownloadLog(client, downloadLog);
-
+        const id = await addDownloadLog(client, data);
         ctx.response.body = { id };
     } catch (error) {
         console.error(error);

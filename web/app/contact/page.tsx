@@ -38,6 +38,7 @@ export default function ContactPage() {
                             width="200px"
                         />
                     </Link>
+
                     <div className={styles.textContent}>
                         <h2>We'd love to hear from you!</h2>
                         <p>
