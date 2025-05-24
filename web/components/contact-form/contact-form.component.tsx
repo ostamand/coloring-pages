@@ -108,12 +108,14 @@ export default function ContactForm() {
                             )}
                         </div>
                         <Textarea id="message" name="message" />
-                        <button
-                            type="submit"
-                            className={`${styles.submitButton} ${stylesButton.actionButton}`}
-                        >
-                            Submit
-                        </button>
+                        <div className={styles.submitButtonContainer}>
+                            <button
+                                type="submit"
+                                className={`${styles.submitButton} ${stylesButton.actionButton}`}
+                            >
+                                Submit
+                            </button>
+                        </div>
                     </form>
                 </div>
             ) : (
