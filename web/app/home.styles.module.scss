@@ -55,7 +55,16 @@
     h2 {
         font-size: 2rem;
         color: white;
-        margin-bottom: 2rem;
+    }
+}
+
+.actionsPanel {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    > :first-child {
+        margin-bottom: 0.5rem;
     }
 }
 
@@ -188,10 +197,6 @@
 
     .leftSection {
         align-items: center;
-        /* margin below download featured page button */
-        h2 {
-            margin-bottom: 1rem;
-        }
     }
 
     .featuredContent {

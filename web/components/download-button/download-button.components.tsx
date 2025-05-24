@@ -4,6 +4,8 @@ import styles from "./download-button.styles.module.scss";
 
 import { Download } from "lucide-react";
 
+import { logDownload } from "@/lib/download";
+
 export default function DownloadButton({
     pageId,
     fileUrl,
@@ -15,17 +17,6 @@ export default function DownloadButton({
     name: string;
     text?: string;
 }) {
-    const logDownload = async () => {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logs/download`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                pageId,
-                url: window.location.href,
-            }),
-        });
-    };
-
     const handleDownload = async () => {
         try {
             const response = await fetch(
@@ -58,7 +49,7 @@ export default function DownloadButton({
         }
 
         // download successful, let's log it. no need to wait.
-        logDownload();
+        logDownload(pageId, `${window.location.href}?download=true`);
     };
 
     return (

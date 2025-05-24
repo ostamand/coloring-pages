@@ -7,6 +7,7 @@ import { Page } from "@/lib/api/types";
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
 import DownloadButton from "@/components/download-button/download-button.components";
+import PrintButton from "@/components/print-button/print-button.components";
 import ImagesGrid from "@/components/images-grid/images-grid.component";
 import PageTags from "@/components/page-tags/page-tags.component";
 
@@ -80,16 +81,20 @@ export default async function Home() {
                     <div className={styles.featuredContent}>
                         <div className={styles.leftSection}>
                             <h1>New Coloring Page</h1>
-                            <h2>
-                                Each day, a new coloring page. It's free, grab
-                                it!
-                            </h2>
-                            <DownloadButton
-                                pageId={featuredPage.id}
-                                text="Download Page"
-                                fileUrl={featuredPage.full_path}
-                                name={featuredPage.name || "coloring-page"}
-                            />
+                            <h2>Each day, a new coloring page.</h2>
+                            <h2>It's free, grab it!</h2>
+                            <div className={styles.actionsPanel}>
+                                <DownloadButton
+                                    pageId={featuredPage.id}
+                                    text="Download"
+                                    fileUrl={featuredPage.full_path}
+                                    name={featuredPage.name || "coloring-page"}
+                                />
+                                <PrintButton
+                                    pageId={featuredPage.id}
+                                    fileUrl={featuredPage.full_path}
+                                />
+                            </div>
                         </div>
                         <div className={styles.rightSection}>
                             <PageTags

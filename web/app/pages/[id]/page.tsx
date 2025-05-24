@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import { Page } from "@/lib/api/types";
 import DownloadButton from "@/components/download-button/download-button.components";
+import PrintButton from "@/components/print-button/print-button.components";
 import PageTags from "@/components/page-tags/page-tags.component";
 
 import {
@@ -142,12 +143,18 @@ export default async function DetailedPage({
                         <div className={styles.rightSection}>
                             {page.name && <h1>{page.name}</h1>}
 
-                            <DownloadButton
-                                pageId={page.id}
-                                fileUrl={page.full_path}
-                                name={page.name || "coloring-page"}
-                                text="Download"
-                            />
+                            <div className={styles.actionsPanel}>
+                                <DownloadButton
+                                    pageId={page.id}
+                                    fileUrl={page.full_path}
+                                    name={page.name || "coloring-page"}
+                                    text="Download"
+                                />
+                                <PrintButton
+                                    pageId={page.id}
+                                    fileUrl={page.full_path}
+                                />
+                            </div>
 
                             <PageTags tags={page.tags} />
 
