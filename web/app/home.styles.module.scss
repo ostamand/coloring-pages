@@ -66,6 +66,8 @@
     > :first-child {
         margin-bottom: 0.5rem;
     }
+    width: 75%;
+    min-width: 350px;
 }
 
 .rightSection {
@@ -155,10 +157,10 @@
 @media (width<=1000px) {
     .leftSection {
         h1 {
-            font-size: 2rem;
+            font-size: 3rem;
         }
         h2 {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             text-align: center;
         }
     }
@@ -196,6 +198,13 @@
     }
 
     .leftSection {
+        h1 {
+            font-size: 2.5rem;
+        }
+        h2 {
+            font-size: 1.25rem;
+            text-align: center;
+        }
         align-items: center;
     }
 
@@ -217,5 +226,8 @@
 
     .tagsContainer {
         display: none !important;
+    }
+
+    .actionsPanel {
     }
 }
