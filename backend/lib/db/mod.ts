@@ -2,6 +2,7 @@ export {
     addNewPage,
     getCurrentCounts,
     getLastPrompts,
+    getPageByUniqueName,
     getPages,
     getPagesById,
     searchPages,

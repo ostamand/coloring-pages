@@ -43,7 +43,7 @@ export default function ImagesGrid({
                             <div className={styles.previouslyImageContent}>
                                 {page.tags && <PageTags tags={page.tags} />}
 
-                                <Link href={`/pages/${page.id}`}>
+                                <Link href={`/pages/${page.unique_name}`}>
                                     <img
                                         src={page.thumbnail_path}
                                         alt={page.prompt}

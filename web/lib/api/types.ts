@@ -8,4 +8,5 @@ export type Page = {
     featured_on: string | null;
     tags: string[];
     name: string;
+    unique_name: string;
 };

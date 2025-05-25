@@ -3,6 +3,7 @@ import { Router } from "jsr:@oak/oak";
 import { getClientFromPool } from "../lib/db/db.ts";
 import {
     getCurrentCounts,
+    getPageByUniqueName,
     getPages,
     getPagesById,
     searchPages,
@@ -27,11 +28,26 @@ pagesRouter.get("/count", async (ctx) => {
 pagesRouter.get("/:id", async (ctx) => {
     const client = await getClientFromPool();
     try {
-        const results = await getPagesById(client, [Number(ctx.params.id)]);
-        if (results.length === 1) {
-            ctx.response.body = results[0] || {};
+        // get by name
+        const id = Number(ctx.params.id);
+        if (isNaN(id)) {
+            const uniqueName = ctx.params.id;
+            const results = await getPageByUniqueName(client, uniqueName);
+            if (results.length == 1) {
+                ctx.response.body = results[0] || {};
+            } else {
+                throw Error(
+                    `Page with unique name ${uniqueName} does not exists.`,
+                );
+            }
         } else {
-            throw Error(`Page with id ${ctx.params.id} does not exists.`);
+            // get by id
+            const results = await getPagesById(client, [id]);
+            if (results.length === 1) {
+                ctx.response.body = results[0] || {};
+            } else {
+                throw Error(`Page with id ${id} does not exists.`);
+            }
         }
     } catch (error) {
         console.error(error);

@@ -103,7 +103,9 @@ export default async function Home() {
                             />
 
                             <div className={styles.imageContainer}>
-                                <Link href={`/pages/${featuredPage.id}`}>
+                                <Link
+                                    href={`/pages/${featuredPage.unique_name}`}
+                                >
                                     <img
                                         src={featuredPage.thumbnail_path}
                                         alt={featuredPage.prompt}
