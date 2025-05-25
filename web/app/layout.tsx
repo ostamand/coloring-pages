@@ -15,7 +15,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <link rel="icon" href="/favicon.png" sizes="any" />
+            <link rel="icon" href="/favicon.png" sizes="any" type="image/png" />
+            <link rel="shortcut icon" href="/favicon.png" />
             <body className={`${outfit.className} antialiased`}>
                 {children}
                 {/* disable umami tracking: localStorage.setItem("umami.disabled", "true") */}
