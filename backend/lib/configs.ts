@@ -23,5 +23,6 @@ export function loadAppConfigs(): AppConfigs {
         comfyServerAddress: Deno.env.get("COMFY_ADDRESS") || "",
         comfyApiEndpoint: `http://${Deno.env.get("COMFY_ADDRESS") || ""}`,
         comfyOutputDir: Deno.env.get("COMFY_OUTPUT_DIR") || "",
+        revalidateSecret: Deno.env.get("REVALIDATE_SECRET") || "",
     };
 }

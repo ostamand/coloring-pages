@@ -1,9 +1,12 @@
 import { getDatabaseClient } from "../lib/db/mod.ts";
 import { loadAppConfigs } from "../lib/configs.ts";
 
+const WEB_URL = "https://coloritdaily.com";
+
 async function main() {
     const configs = loadAppConfigs();
     const db = getDatabaseClient(configs);
+
     try {
         await db.queryObject("BEGIN");
         // get random pages to feature
@@ -36,13 +39,29 @@ async function main() {
             [new Date().toISOString(), page_id],
         );
         await db.queryObject("COMMIT");
-        console.log(`✅ Done`);
+        console.log(`✅ New page featured`);
     } catch (_) {
         db.queryObject("ROLLBACK");
         console.error(`❌ Page was not featured.`);
+        return;
     } finally {
         db.end();
     }
+
+    // new featured page, let's invalidate web cache
+
+    const response = await fetch(`${WEB_URL}/api/revalidate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ secret: configs.revalidateSecret }),
+    });
+
+    if (!response.ok) {
+        console.error(`❌ Failed to invalidate cache.`);
+        return;
+    }
+
+    console.log(`✅ Web cache invalidated`);
 }
 
 if (import.meta.main) {
