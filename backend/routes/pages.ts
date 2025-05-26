@@ -59,7 +59,6 @@ pagesRouter.get("/:id", async (ctx) => {
 });
 
 pagesRouter.get("/", async (ctx) => {
-    console.log("api, getPages");
     const client = await getClientFromPool();
     const { searchParams } = ctx.request.url;
 

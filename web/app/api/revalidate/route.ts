@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath, revalidateTag } from "next/cache";
 
-const CACHE_TAG_RANDOM_PAGES = "random-pages-of-the-day";
-
 export async function POST(req: NextRequest) {
     const { secret } = await req.json();
     if (secret !== process.env.REVALIDATE_SECRET) {
@@ -11,8 +9,9 @@ export async function POST(req: NextRequest) {
         });
     }
     try {
-        await revalidatePath("/sitemap.xml");
-        await revalidateTag(CACHE_TAG_RANDOM_PAGES);
+        //await revalidatePath("/sitemap.xml");
+        await revalidateTag("page-search-random"); // random pages on /pages (page-search)
+        await revalidatePath("/"); // home
         return NextResponse.json({ revalidated: true });
     } catch (err: any) {
         return NextResponse.json({ error: err.message }, { status: 500 });

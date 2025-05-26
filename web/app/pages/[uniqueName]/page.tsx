@@ -3,6 +3,7 @@
 import styles from "./detailed-page.styles.module.scss";
 
 import Link from "next/link";
+import { cache } from "react";
 
 import { Page } from "@/lib/api/types";
 import DownloadButton from "@/components/download-button/download-button.components";
@@ -16,12 +17,18 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-async function getPage(uniqueName: string) {
+const getPage = cache(async (uniqueName: string) => {
     let page: Page | null = null;
     // get page
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/pages/${uniqueName}`
+            `${process.env.NEXT_PUBLIC_API_URL}/pages/${uniqueName}`,
+            {
+                next: {
+                    revalidate: 60 * 60 * 24,
+                    tags: ["pages", `page-${uniqueName}`],
+                },
+            }
         );
         if (!response.ok) {
             throw new Error(`Could not get page id ${uniqueName} from API.`);
@@ -36,7 +43,7 @@ async function getPage(uniqueName: string) {
         console.error(error);
         return null;
     }
-}
+});
 
 export async function generateStaticParams() {
     // TODO be smarter, cache featured + promoted + ranndom sample of the day
@@ -65,8 +72,6 @@ export async function generateMetadata({
     params: Promise<{ uniqueName: string }>;
 }) {
     const { uniqueName } = await params;
-
-    console.log("uniqueName", uniqueName);
 
     const page = await getPage(uniqueName);
 

@@ -1,7 +1,6 @@
 import styles from "./search-for-pages.styles.module.scss";
 
 import { Metadata } from "next";
-import { unstable_cache } from "next/cache";
 
 import SearchResults from "@/components/search-results/search-results.component";
 import { Page } from "@/lib/api/types";
@@ -26,32 +25,41 @@ export const metadata: Metadata = {
 async function getPages(searchValue: string | null) {
     //! revisit limits, add pagination?
     try {
-        let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=100`;
+        let response: Response | null = null;
+
         if (searchValue) {
-            endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`;
+            response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`,
+                {
+                    next: {
+                        revalidate: 60 * 60 * 12,
+                        tags: ["pages", `page-search-${searchValue}`],
+                    },
+                }
+            );
+        } else {
+            response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=100`,
+                {
+                    next: {
+                        revalidate: 60 * 60 * 24,
+                        tags: ["pages", "page-search-random"],
+                    },
+                }
+            );
         }
-        const response = await fetch(endpoint);
-        const data = await response.json();
-        const pages = data as Page[];
-        return pages;
+
+        if (response) {
+            const data = await response.json();
+            const pages = data as Page[];
+            return pages;
+        }
+        return [];
     } catch (error) {
         console.error(error);
         return [];
     }
 }
-
-const getCachedRandomPages = unstable_cache(
-    async () => {
-        console.log("server, get pages");
-        const pages = await getPages(null);
-        return pages;
-    },
-    ["random-pages-of-the-day"],
-    {
-        tags: ["pages", "random-pages-of-the-day"],
-        revalidate: 24 * 60 * 60,
-    }
-);
 
 export default async function SearchForPages({
     searchParams,
@@ -60,12 +68,7 @@ export default async function SearchForPages({
 }) {
     const searchValue = (await searchParams)["search"] as string | undefined;
 
-    let pages: Page[] = [];
-    if (!searchValue) {
-        pages = await getCachedRandomPages();
-    } else {
-        pages = await getPages(searchValue);
-    }
+    const pages = await getPages(searchValue || null);
 
     return (
         <>

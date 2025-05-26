@@ -11,8 +11,7 @@ import PrintButton from "@/components/print-button/print-button.components";
 import ImagesGrid from "@/components/images-grid/images-grid.component";
 import PageTags from "@/components/page-tags/page-tags.component";
 
-// Set revalidate to 43200 seconds (12 hours)
-export const revalidate = 43200;
+export const revalidate = 86400;
 
 const title = "Color It Daily | Free Coloring Page of the Day";
 const url = "https://coloritdaily.com";
