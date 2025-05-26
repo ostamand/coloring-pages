@@ -2,7 +2,7 @@
 
 import stylesButton from "../../styles/button.styles.module.scss";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Printer } from "lucide-react";
 
 export default function PrintButton({
@@ -15,12 +15,37 @@ export default function PrintButton({
     const printRef = useRef<HTMLIFrameElement | null>(null);
     const [iframeVisible, setIframeVisible] = useState(false);
 
+    const waitForImageLoad = useCallback(
+        (contentDocument: Document): Promise<void> => {
+            return new Promise((resolve) => {
+                const img = contentDocument.querySelector("img");
+                if (!img) {
+                    resolve();
+                    return;
+                }
+
+                if (img.complete && img.naturalHeight !== 0) {
+                    resolve();
+                } else {
+                    img.onload = () => resolve();
+                    img.onerror = () => resolve(); // Resolve even on error to prevent hanging
+
+                    // Fallback timeout
+                    setTimeout(() => resolve(), 3000);
+                }
+            });
+        },
+        []
+    );
+
     const handlePrint = async () => {
         setIframeVisible(true);
 
         const REFRESH_RATE = 100;
-        const interval = setInterval(() => {
-            //TODO add max timer?
+        const MAX_RETRIES = 3;
+        let attempts = 0;
+
+        const interval = setInterval(async () => {
             const iframe = printRef.current;
 
             if (iframe?.contentDocument?.readyState === "complete") {
@@ -30,44 +55,65 @@ export default function PrintButton({
                 const contentDocument =
                     iframe.contentDocument || contentWindow?.document;
 
-                if (contentDocument) {
+                if (contentDocument && contentWindow) {
+                    // wait to make sure image is loaded
+                    await waitForImageLoad(contentDocument);
+
                     const style = document.createElement("style");
+
                     style.textContent = `
-                    @media print {
-                        body {
-                            margin: 0;
-                            padding: 0;
-                            box-sizing: border-box;
+                        @media print {
+                            body {
+                                margin: 0;
+                                padding: 0;
+                                box-sizing: border-box;
+                            }
+                            img {
+                                display: block;
+                                max-width: 100%;
+                                height: auto;
+                            }
+                            @page {
+                                size: A4 portrait;
+                                margin: 0;
+                            }
                         }
-                        img {
-                            display: block;
-                            max-width: 100%;
-                            height: auto;
-                        }
-                        @page {
-                            size: A4 portrait;
-                            margin: 0;
-                        }
-                    }`;
+                    `;
 
                     contentDocument.head.appendChild(style);
 
-                    contentWindow?.focus();
-                    contentWindow?.print();
+                    contentWindow.focus();
 
-                    // print successful, let's log it. no need to wait.
-                    fetch("/api/logs/downloads", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            pageId,
-                            url: window.location.href,
-                            actionType: "print",
-                        }),
-                    });
+                    // slight delay, more reliable
+                    setTimeout(() => {
+                        try {
+                            contentWindow.print();
+
+                            // print successful, let's log it. no need to wait.
+                            fetch("/api/logs/downloads", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    pageId,
+                                    url: window.location.href,
+                                    actionType: "print",
+                                }),
+                            });
+                        } catch (error) {
+                            console.error("Print failed", error);
+                        }
+
+                        // Cleanup iframe after printing
+                        setTimeout(() => setIframeVisible(false), 1000);
+                    }, 300);
                 }
-
-                setTimeout(() => setIframeVisible(false), 1000); // Cleanup iframe after printing
+            } else {
+                if (attempts < MAX_RETRIES) {
+                    attempts++;
+                } else {
+                    clearInterval(interval);
+                    setIframeVisible(false);
+                }
             }
         }, REFRESH_RATE);
     };
