@@ -16,20 +16,20 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-async function getPage(id: string) {
+async function getPage(uniqueName: string) {
     let page: Page | null = null;
     // get page
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/pages/${id}`
+            `${process.env.NEXT_PUBLIC_API_URL}/pages/${uniqueName}`
         );
         if (!response.ok) {
-            throw new Error(`Could not get page id ${id} from API.`);
+            throw new Error(`Could not get page id ${uniqueName} from API.`);
         }
         const data = await response.json();
         page = data as Page;
         if (!page) {
-            throw new Error(`Failed to get page id ${id} data.`);
+            throw new Error(`Failed to get page id ${uniqueName} data.`);
         }
         return page;
     } catch (error) {
@@ -39,6 +39,7 @@ async function getPage(id: string) {
 }
 
 export async function generateStaticParams() {
+    // TODO be smarter, cache featured + promoted + ranndom sample of the day
     const endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?limit=10`;
     try {
         const response = await fetch(endpoint);
@@ -49,7 +50,7 @@ export async function generateStaticParams() {
         const pages = data as Page[];
         return pages.map((page) => {
             return {
-                id: page.id.toFixed(0),
+                uniqueName: page.unique_name,
             };
         });
     } catch (error) {
@@ -61,11 +62,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({
     params,
 }: {
-    params: Promise<{ id: string }>;
+    params: Promise<{ uniqueName: string }>;
 }) {
-    const { id } = await params;
+    const { uniqueName } = await params;
 
-    const page = await getPage(id);
+    console.log("uniqueName", uniqueName);
+
+    const page = await getPage(uniqueName);
 
     const name =
         page?.name ||
@@ -81,7 +84,7 @@ export async function generateMetadata({
 
     const description = `Download the free coloring page "${name}" and start coloring today. Perfect for all ages!`;
 
-    const url = `https://coloritdaily.com/pages/${id}`;
+    const url = `https://coloritdaily.com/pages/${uniqueName}`;
 
     return {
         title: title,
@@ -100,11 +103,11 @@ export async function generateMetadata({
 export default async function DetailedPage({
     params,
 }: {
-    params: Promise<{ id: string }>;
+    params: Promise<{ uniqueName: string }>;
 }) {
-    const { id } = await params;
+    const { uniqueName } = await params;
 
-    const page = await getPage(id);
+    const page = await getPage(uniqueName);
     if (!page) {
         return <>DOES NOT EXIST</>;
     }

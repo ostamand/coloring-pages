@@ -1,6 +1,7 @@
 import styles from "./search-for-pages.styles.module.scss";
 
 import { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 
 import SearchResults from "@/components/search-results/search-results.component";
 import { Page } from "@/lib/api/types";
@@ -39,6 +40,19 @@ async function getPages(searchValue: string | null) {
     }
 }
 
+const getCachedRandomPages = unstable_cache(
+    async () => {
+        console.log("server, get pages");
+        const pages = await getPages(null);
+        return pages;
+    },
+    ["random-pages-of-the-day"],
+    {
+        tags: ["pages", "random-pages-of-the-day"],
+        revalidate: 24 * 60 * 60,
+    }
+);
+
 export default async function SearchForPages({
     searchParams,
 }: {
@@ -46,7 +60,12 @@ export default async function SearchForPages({
 }) {
     const searchValue = (await searchParams)["search"] as string | undefined;
 
-    const pages = await getPages(searchValue || null);
+    let pages: Page[] = [];
+    if (!searchValue) {
+        pages = await getCachedRandomPages();
+    } else {
+        pages = await getPages(searchValue);
+    }
 
     return (
         <>

@@ -226,7 +226,7 @@ export async function getPages(db: Client, limit: number, random: boolean) {
 	        GROUP BY page_id
         ) AS page_tags
         JOIN pages ON page_tags.page_id = pages.id
-        ORDER BY featured_on DESC;
+        ${random ? "ORDER BY RANDOM()" : "ORDER BY featured_on DESC"};
         `,
         [limit],
     );
