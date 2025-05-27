@@ -100,7 +100,7 @@ export default function PrintButton({
                         }
 
                         // Cleanup iframe after printing
-                        // setTimeout(() => setIframeVisible(false), 3000);
+                        setTimeout(() => setIframeVisible(false), 3000);
                     }, 300);
                 }
             } else {
