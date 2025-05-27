@@ -24,10 +24,10 @@ export default function PrintButton({
                     return;
                 }
                 if (img.complete && img.naturalHeight !== 0) {
-                    setTimeout(() => resolve(), 1000);
+                    setTimeout(() => resolve(), 300);
                 } else {
                     img.onload = () => {
-                        setTimeout(() => resolve(), 1000);
+                        setTimeout(() => resolve(), 300);
                     };
                     img.onerror = () => resolve();
                     setTimeout(() => resolve(), 3000);
@@ -99,8 +99,8 @@ export default function PrintButton({
                             console.error("Print failed", error);
                         }
 
-                        // Cleanup iframe after printing
-                        setTimeout(() => setIframeVisible(false), 3000);
+                        // don't clear iframe, print fails on iOS (prints empty white page)
+                        // setTimeout(() => setIframeVisible(false), 3000);
                     }, 300);
                 }
             } else {
