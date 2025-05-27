@@ -24,10 +24,10 @@ export default function PrintButton({
                     return;
                 }
                 if (img.complete && img.naturalHeight !== 0) {
-                    setTimeout(() => resolve(), 300);
+                    setTimeout(() => resolve(), 1000);
                 } else {
                     img.onload = () => {
-                        setTimeout(() => resolve(), 300);
+                        setTimeout(() => resolve(), 1000);
                     };
                     img.onerror = () => resolve();
                     setTimeout(() => resolve(), 3000);
@@ -100,7 +100,7 @@ export default function PrintButton({
                         }
 
                         // Cleanup iframe after printing
-                        setTimeout(() => setIframeVisible(false), 1000);
+                        // setTimeout(() => setIframeVisible(false), 3000);
                     }, 300);
                 }
             } else {
