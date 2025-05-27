@@ -23,14 +23,13 @@ export default function PrintButton({
                     resolve();
                     return;
                 }
-
                 if (img.complete && img.naturalHeight !== 0) {
-                    resolve();
+                    setTimeout(() => resolve(), 300);
                 } else {
-                    img.onload = () => resolve();
-                    img.onerror = () => resolve(); // Resolve even on error to prevent hanging
-
-                    // Fallback timeout
+                    img.onload = () => {
+                        setTimeout(() => resolve(), 300);
+                    };
+                    img.onerror = () => resolve();
                     setTimeout(() => resolve(), 3000);
                 }
             });
@@ -56,7 +55,6 @@ export default function PrintButton({
                     iframe.contentDocument || contentWindow?.document;
 
                 if (contentDocument && contentWindow) {
-                    // wait to make sure image is loaded
                     await waitForImageLoad(contentDocument);
 
                     const style = document.createElement("style");
@@ -74,7 +72,7 @@ export default function PrintButton({
                                 height: auto;
                             }
                             @page {
-                                size: A4 portrait;
+                                size: letter portrait;
                                 margin: 0;
                             }
                         }
@@ -84,11 +82,9 @@ export default function PrintButton({
 
                     contentWindow.focus();
 
-                    // slight delay, more reliable
                     setTimeout(() => {
                         try {
                             contentWindow.print();
-
                             // print successful, let's log it. no need to wait.
                             fetch("/api/logs/downloads", {
                                 method: "POST",
