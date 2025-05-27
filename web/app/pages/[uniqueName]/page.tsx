@@ -76,6 +76,7 @@ export async function generateMetadata({
     const page = await getPage(uniqueName);
 
     const name =
+        page?.overwrite_name ||
         page?.name ||
         page?.tags.reduce((agg, tag, index) => {
             if (index > 0) {
@@ -113,6 +114,8 @@ export default async function DetailedPage({
     const { uniqueName } = await params;
 
     const page = await getPage(uniqueName);
+
+    console.log(page);
     if (!page) {
         return <>DOES NOT EXIST</>;
     }
@@ -149,7 +152,9 @@ export default async function DetailedPage({
                             </div>
                         </div>
                         <div className={styles.rightSection}>
-                            {page.name && <h1>{page.name}</h1>}
+                            {page.name && (
+                                <h1>{page.overwrite_name || page.name}</h1>
+                            )}
 
                             <div className={styles.actionsPanel}>
                                 <DownloadButton

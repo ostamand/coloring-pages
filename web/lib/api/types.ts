@@ -9,4 +9,5 @@ export type Page = {
     tags: string[];
     name: string;
     unique_name: string;
+    overwrite_name: string;
 };

@@ -161,7 +161,7 @@ export async function getPageByUniqueName(db: Client, uniqueName: string) {
         `
         SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
                 pages.prompt, pages.collection_name, pages.created_on, 
-                pages.featured_on, pages.name, tags 
+                pages.featured_on, pages.name, tags, pages.overwrite_name
         FROM ( 
             SELECT pages.id, ARRAY_AGG(tags."name") AS tags FROM pages
             JOIN page_tags ON page_tags.page_id = pages.id
@@ -191,7 +191,8 @@ export async function getPagesById(db: Client, ids: number[]) {
         `
         SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
                 pages.prompt, pages.collection_name, pages.created_on, 
-                pages.featured_on, pages.name, tags, pages.unique_name
+                pages.featured_on, pages.name, tags, pages.unique_name, 
+                pages.overwrite_name
         FROM ( 
             SELECT pages.id, ARRAY_AGG(tags."name") AS tags FROM pages
             JOIN page_tags ON page_tags.page_id = pages.id
@@ -217,7 +218,7 @@ export async function getPages(db: Client, limit: number, random: boolean) {
         )
         SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
                 pages.prompt, pages.collection_name, pages.created_on, 
-                pages.featured_on, pages.name, page_tags.tags, pages.unique_name
+                pages.featured_on, pages.name, page_tags.tags, pages.unique_name, pages.overwrite_name
         FROM (
 	        SELECT page_id, ARRAY_AGG(tags.name) AS tags FROM pages
 	        JOIN page_ids ON page_ids.id = pages.id
@@ -251,7 +252,7 @@ export async function searchPages(db: Client, query: string, limit: number) {
         )
         SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
                 pages.prompt, pages.collection_name, pages.created_on, 
-                pages.featured_on, pages.name, page_tags.tags, pages.unique_name
+                pages.featured_on, pages.name, page_tags.tags, pages.unique_name, pages.overwrite_name
         FROM (
 	        SELECT page_id, ARRAY_AGG(tags.name) AS tags FROM pages
 	        JOIN page_ids ON page_ids.id = pages.id
