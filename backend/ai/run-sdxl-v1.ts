@@ -39,7 +39,7 @@ async function main(args: string[]) {
 // --out: output folder for generations
 // --config: path to config input path
 // --gen-file: (optional) generate from a template config file
-// example: deno run --allow-all ai/run-sdxl-v1.ts --config ai/configs/sdxl-v1.json --out tmp/VZmYUK27Z0Fj --gen-file tmp/VZmYUK27Z0Fj/VZmYUK27Z0Fj.json
+// example: deno run --allow-all ai/run-sdxl-v1.ts --config ai/configs/sdxl-v2.json --out tmp/VZmYUK27Z0Fj --gen-file tmp/VZmYUK27Z0Fj/VZmYUK27Z0Fj.json
 if (import.meta.main) {
     await main(Deno.args);
 }

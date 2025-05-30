@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
             <url>
                 <loc>${baseUrl}${page.path}</loc>
                 <changefreq>${page.freq}</changefreq>
-                <changefreq>${page.priority}</changefreq>
+                <priority>${page.priority}</priority>
             </url>
         `;
         }).join("")
