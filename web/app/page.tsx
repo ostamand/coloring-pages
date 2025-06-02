@@ -33,14 +33,14 @@ export const metadata: Metadata = {
 async function getFeaturedPage() {
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/pages?limit=1`
+            `${process.env.NEXT_PUBLIC_API_URL}/pages/featured`
         );
         if (!response.ok) {
             throw new Error("Could not get featured pages.");
         }
         const data = await response.json();
-        const pages = data as Page[];
-        return pages[0];
+        const page = data as Page;
+        return page;
     } catch (error) {
         console.error(error);
         return null;
@@ -52,14 +52,13 @@ async function getPages() {
     if (!featuredPage) return {};
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=7`
+            `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=6&ignore=${featuredPage.id}`
         );
         if (!response.ok) {
-            throw new Error("Could not get previously featured pages.");
+            throw new Error("Could not get previously published pages.");
         }
         const data = await response.json();
-        let pages = data as Page[];
-        pages = pages.filter((page) => page.id !== featuredPage.id).slice(0, 6);
+        const pages = data as Page[];
         return { featuredPage, pages };
     } catch (error) {
         console.error(error);

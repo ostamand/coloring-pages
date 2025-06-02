@@ -115,7 +115,6 @@ export default async function DetailedPage({
 
     const page = await getPage(uniqueName);
 
-    console.log(page);
     if (!page) {
         return <>DOES NOT EXIST</>;
     }
@@ -179,14 +178,16 @@ export default async function DetailedPage({
                                 <h2>Collection</h2>
                                 <p>{page.collection_name}</p>
                             </div>
-                            <div className={styles.labelWithContent}>
-                                <h2>Featured On</h2>
-                                <p>
-                                    {new Date(
-                                        page.featured_on || ""
-                                    ).toLocaleDateString()}
-                                </p>
-                            </div>
+                            {page.featured_on && (
+                                <div className={styles.labelWithContent}>
+                                    <h2>Featured On</h2>
+                                    <p>
+                                        {new Date(
+                                            page.featured_on || ""
+                                        ).toLocaleDateString()}
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

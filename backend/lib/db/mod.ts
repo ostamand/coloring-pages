@@ -1,6 +1,7 @@
 export {
     addNewPage,
     getCurrentCounts,
+    getFeatured,
     getLastPrompts,
     getPageByUniqueName,
     getPages,

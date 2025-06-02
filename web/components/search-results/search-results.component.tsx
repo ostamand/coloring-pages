@@ -55,7 +55,6 @@ export default function SearchResults({
             clearTimeout(debounceTimerId);
         }
         const timerId = setTimeout(async () => {
-            console.log("client, get pages");
             await getPages(searchValue);
             setLastSearchValue(searchValue);
         }, DEBOUNCE_TIME);

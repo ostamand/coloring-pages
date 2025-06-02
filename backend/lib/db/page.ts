@@ -1,4 +1,5 @@
 import { Client } from "jsr:@db/postgres";
+import { Page } from "./types.ts";
 
 import { GenerationConfigs } from "../types.ts";
 
@@ -11,7 +12,9 @@ const getPageUniqueName = async (db: Client, name: string | null) => {
     const result = await db.queryObject(`
         SELECT CAST(COUNT(id) AS INTEGER) AS count
         FROM pages
-        WHERE unique_name LIKE '${uniqueName}%'
+        WHERE 
+            unique_name LIKE '${uniqueName}%'
+            AND published=true
     `);
 
     const count = (result.rows[0] as { count: number }).count;
@@ -22,6 +25,14 @@ const getPageUniqueName = async (db: Client, name: string | null) => {
 
     return uniqueName;
 };
+
+export async function getFeatured(db: Client): Promise<Page> {
+    const result = await db.queryArray(
+        `SELECT page_id FROM featured ORDER BY created_on DESC LIMIT 1;`,
+    );
+    const id = Number(result.rows[0][0]);
+    return (await getPagesById(db, [id]))[0] as Page;
+}
 
 export async function addNewPage(
     db: Client,
@@ -145,13 +156,22 @@ export async function addNewPage(
     }
 }
 
-export async function getLastPrompts(db: Client, n: number) {
+export async function getLastPrompts(
+    db: Client,
+    n: number,
+    collectionName?: string,
+) {
+    const values: (string | number)[] = [n];
+    if (collectionName) {
+        values.push(collectionName);
+    }
     const result = await db.queryArray(
-        ` SELECT prompt FROM pages 
+        ` SELECT prompt FROM pages
+          ${collectionName ? `WHERE collection_name = $2` : ""}
           GROUP BY prompt
-          ORDER BY MAX(created_on) DESC 
+          ORDER BY MAX(created_on) DESC
           LIMIT $1;`,
-        [n],
+        values,
     );
     return result.rows.map((row) => row[0]);
 }
@@ -167,6 +187,7 @@ export async function getPageByUniqueName(db: Client, uniqueName: string) {
             JOIN page_tags ON page_tags.page_id = pages.id
             JOIN tags ON page_tags.tag_id = tags.id
             WHERE pages.unique_name = $1
+                AND published=true
             GROUP BY pages.id
         ) AS page_agg_tags
         JOIN pages ON pages.id = page_agg_tags.id
@@ -198,6 +219,7 @@ export async function getPagesById(db: Client, ids: number[]) {
             JOIN page_tags ON page_tags.page_id = pages.id
             JOIN tags ON page_tags.tag_id = tags.id
             WHERE pages.id IN ${idsStr}
+                AND published=true
             GROUP BY pages.id
         ) AS page_agg_tags
         JOIN pages ON pages.id = page_agg_tags.id
@@ -206,14 +228,31 @@ export async function getPagesById(db: Client, ids: number[]) {
     return result.rows;
 }
 
-export async function getPages(db: Client, limit: number, random: boolean) {
-    // only featured pages will be returned, always sorted by featured_on
+export async function getPages(
+    db: Client,
+    limit: number,
+    random: boolean,
+    ignore?: number[],
+) {
+    let ignoreStr = "";
+    if (ignore) {
+        ignoreStr = ignore.reduce((agg, id, index) => {
+            if (index > 0) {
+                agg += ",";
+            }
+            return agg + id;
+        }, "(");
+        ignoreStr += ")";
+    }
+
+    // only featured pages will be returned, always sorted by created_on or random
     const result = await db.queryObject(
         `
         WITH page_ids AS (
             SELECT id FROM pages
-            WHERE featured_on IS NOT NULL
-            ${random ? "ORDER BY RANDOM()" : "ORDER BY featured_on DESC"}
+            WHERE published=true
+            ${ignore ? `AND id NOT IN ${ignoreStr}` : ""}
+            ${random ? "ORDER BY RANDOM()" : "ORDER BY created_on DESC"}
             LIMIT $1
         )
         SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
@@ -227,10 +266,11 @@ export async function getPages(db: Client, limit: number, random: boolean) {
 	        GROUP BY page_id
         ) AS page_tags
         JOIN pages ON page_tags.page_id = pages.id
-        ${random ? "ORDER BY RANDOM()" : "ORDER BY featured_on DESC"};
+        ${random ? "ORDER BY RANDOM()" : "ORDER BY created_on DESC"};
         `,
         [limit],
     );
+
     return result.rows;
 }
 
@@ -246,13 +286,13 @@ export async function searchPages(db: Client, query: string, limit: number) {
                 (p.collection_name ILIKE '%' || $1 || '%' OR
                 t.name ILIKE '%' || $1 || '%' OR
                 p.name ILIKE '%' || $1 || '%')
-                AND featured_on IS NOT NULL
-            ORDER BY featured_on DESC
+            AND published=true
+            ORDER BY created_on DESC
             LIMIT $2
         )
-        SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
-                pages.prompt, pages.collection_name, pages.created_on, 
-                pages.featured_on, pages.name, page_tags.tags, pages.unique_name, pages.overwrite_name
+        SELECT pages.id, pages.full_path, pages.thumbnail_path, 
+               pages.prompt, pages.collection_name, pages.created_on, 
+               pages.featured_on, pages.name, page_tags.tags, pages.unique_name, pages.overwrite_name
         FROM (
 	        SELECT page_id, ARRAY_AGG(tags.name) AS tags FROM pages
 	        JOIN page_ids ON page_ids.id = pages.id
@@ -261,7 +301,7 @@ export async function searchPages(db: Client, query: string, limit: number) {
 	        GROUP BY page_id
         ) AS page_tags
         JOIN pages ON page_tags.page_id = pages.id
-        ORDER BY featured_on DESC;
+        ORDER BY created_on DESC;
         `,
         [query, limit],
     );
@@ -294,7 +334,7 @@ export async function getCurrentCounts(db: Client) {
     const result = await db.queryObject(
         `
         SELECT status, CAST(COUNT(id) as INTEGER), MAX(featured_on) AS last_on FROM (
-	        SELECT featured_on, id, CASE WHEN featured_on IS NULL THEN 'not published' ELSE 'published' END AS status FROM pages
+	        SELECT featured_on, id, CASE WHEN published=false THEN 'not published' ELSE 'published' END AS status FROM pages
         )
         GROUP BY status;
     `,

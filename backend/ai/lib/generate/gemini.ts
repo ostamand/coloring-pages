@@ -22,7 +22,11 @@ export async function getGenerationConfigsFromGemini(
     options: GenerationConfigsFromGemini,
 ) {
     // generate gemini prompt
-    const lastPromptsData = await getLastPrompts(db, 25);
+    const lastPromptsData = await getLastPrompts(
+        db,
+        25,
+        options.collectionName,
+    );
     const lastPrompts = lastPromptsData.reduce((agg, prompt, index) => {
         if (index > 0) {
             agg += "\n";

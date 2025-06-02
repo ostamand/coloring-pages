@@ -13,7 +13,7 @@ async function main() {
         const resultRandom = await db.queryArray(`
         SELECT id
         FROM pages
-        WHERE featured_on IS NULL
+        WHERE featured_on IS NULL AND published=false
         ORDER BY RANDOM()
         LIMIT 1;`);
         if (!resultRandom?.rowCount || resultRandom?.rowCount < 1) {
@@ -35,7 +35,7 @@ async function main() {
 
         // update featured_on previous featured
         await db.queryArray(
-            `UPDATE pages SET featured_on=$1 WHERE id = $2`,
+            `UPDATE pages SET featured_on=$1, published=true WHERE id = $2`,
             [new Date().toISOString(), page_id],
         );
         await db.queryObject("COMMIT");

@@ -8,6 +8,7 @@ import {
     getPagesById,
     searchPages,
 } from "../lib/db/mod.ts";
+import { getFeatured } from "../lib/db/page.ts";
 
 export const pagesRouter = new Router();
 
@@ -22,6 +23,18 @@ pagesRouter.get("/count", async (ctx) => {
         ctx.response.body = [];
     } finally {
         client.release();
+    }
+});
+
+pagesRouter.get("/featured", async (ctx) => {
+    const client = await getClientFromPool();
+    try {
+        const featured = await getFeatured(client);
+        ctx.response.body = featured;
+    } catch (error) {
+        console.error(error);
+        ctx.response.status = 500;
+        ctx.response.body = {};
     }
 });
 
@@ -65,6 +78,16 @@ pagesRouter.get("/", async (ctx) => {
     const limit = Number(searchParams.get("limit")) || 10;
     const searchQuery = searchParams.get("search");
 
+    const ignoreQuery = searchParams.get("ignore");
+    let ignore: number[] | undefined = undefined;
+    if (ignoreQuery) {
+        try {
+            ignore = ignoreQuery.split(",").map((p) => Number(p));
+        } catch (error) {
+            console.error(`Bad ignore search param ${ignoreQuery}`, error);
+        }
+    }
+
     let random = false;
     const randomParam = searchParams.get("random");
     if (randomParam && randomParam === "true") {
@@ -76,7 +99,7 @@ pagesRouter.get("/", async (ctx) => {
         if (searchQuery) {
             results = await searchPages(client, searchQuery, limit);
         } else {
-            results = await getPages(client, limit, random);
+            results = await getPages(client, limit, random, ignore);
         }
         ctx.response.body = results;
     } catch (error) {
