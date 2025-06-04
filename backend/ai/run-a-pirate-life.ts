@@ -22,10 +22,10 @@ async function main(args: string[]) {
         instructionsFn,
         generateConfig.worflowPath,
         (workflow, prompt, seed, outputPrefix) => {
-            workflow["14"]["inputs"]["seed"] = seed;
-            workflow["11"]["inputs"]["text"] =
+            workflow["6"]["inputs"]["seed"] = seed;
+            workflow["4"]["inputs"]["text"] =
                 `${generateConfig.trigger}, ${prompt}`;
-            workflow["249"]["inputs"]["filename_prefix"] = outputPrefix;
+            workflow["27"]["inputs"]["filename_prefix"] = outputPrefix;
             return workflow;
         },
         generateConfig.numberOfGenerations,

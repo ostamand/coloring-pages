@@ -68,9 +68,9 @@ export async function importFromFolder(
             await db.queryObject("COMMIT");
 
             console.log(`✅ Done`);
-        } catch (_) {
+        } catch (error) {
             db.queryObject("ROLLBACK");
-            console.error(`❌ Failed to process ${configPath.path}`);
+            console.error(`❌ Failed to process ${configPath.path}`, error);
         }
     }
 }

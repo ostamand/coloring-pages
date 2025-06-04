@@ -14,7 +14,6 @@ const getPageUniqueName = async (db: Client, name: string | null) => {
         FROM pages
         WHERE 
             unique_name LIKE '${uniqueName}%'
-            AND published=true
     `);
 
     const count = (result.rows[0] as { count: number }).count;
