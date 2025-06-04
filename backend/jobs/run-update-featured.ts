@@ -9,11 +9,16 @@ async function main() {
 
     try {
         await db.queryObject("BEGIN");
-        // get random pages to feature
+        /*
+        Get random pages to feature
+        Can only feature pages from Thick Lines collection for now.
+        */
         const resultRandom = await db.queryArray(`
         SELECT id
         FROM pages
-        WHERE featured_on IS NULL AND published=false
+        WHERE featured_on IS NULL 
+            AND published=false
+            AND collection_name IN ('Thick Lines')
         ORDER BY RANDOM()
         LIMIT 1;`);
         if (!resultRandom?.rowCount || resultRandom?.rowCount < 1) {
