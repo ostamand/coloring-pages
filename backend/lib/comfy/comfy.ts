@@ -27,7 +27,6 @@ async function* websocketAsyncIterator(ws: WebSocket): AsyncIterable<string> {
     }
 }
 
-
 async function queuePrompt(comfyEndpoint: string, workflow: any) {
     const response = await fetch(`${comfyEndpoint}/prompt`, {
         method: "POST",
@@ -48,7 +47,7 @@ async function queuePrompt(comfyEndpoint: string, workflow: any) {
  * @param {any} workflow - The workflow configuration to be processed.
  * @returns {Promise<string>} A promise that resolves with the ID of the queued prompt.
  * @throws {Error} If there's an issue making the request or if the response isn't successful.
-*/
+ */
 export async function waitForPrompt(
     endpoint: string,
     ws: WebSocket,

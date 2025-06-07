@@ -22,10 +22,10 @@ async function main(args: string[]) {
         instructionsFn,
         generateConfig.worflowPath,
         (workflow, prompt, seed, outputPrefix) => {
-            workflow["6"]["inputs"]["seed"] = seed;
-            workflow["4"]["inputs"]["text"] =
+            workflow["14"]["inputs"]["seed"] = seed;
+            workflow["11"]["inputs"]["text"] =
                 `${generateConfig.trigger}, ${prompt}`;
-            workflow["27"]["inputs"]["filename_prefix"] = outputPrefix;
+            workflow["249"]["inputs"]["filename_prefix"] = outputPrefix;
             return workflow;
         },
         generateConfig.numberOfGenerations,
@@ -40,7 +40,7 @@ async function main(args: string[]) {
 // --out: output folder for generations
 // --config: path to config input path
 // example: deno run --allow-all ai/run-a-pirate-life.ts --config ai/configs/a-pirate-life.json --out tmp/a-pirate-life
-// deno run --allow-all ai/run-a-pirate-life.ts --config ai/configs/a-pirate-life.json --out tmp/a-pirate-life/m4kcFuN7I7W0 --gen-file tmp/a-pirate-life/m4kcFuN7I7W0/m4kcFuN7I7W0.json
+// deno run --allow-all ai/run-a-pirate-life.ts --config ai/configs/a-pirate-life.json --out tmp/a-pirate-life/v66anw3baagY --gen-file tmp/a-pirate-life/v66anw3baagY/v66anw3baagY.json
 if (import.meta.main) {
     await main(Deno.args);
 }
