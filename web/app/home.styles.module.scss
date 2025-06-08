@@ -33,6 +33,10 @@
     max-width: 1600px;
 
     img {
+        border: 1px solid;
+        border-radius: 0.5rem;
+        border-color: var(--color-border);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         transition: transform 0.2s ease-in;
         &:hover {
             transform: scale(1.02);
@@ -111,7 +115,7 @@
     display: flex;
     justify-content: center;
     > :first-child {
-        width: 30%;
+        width: 400px;
     }
 }
 
@@ -131,7 +135,6 @@
     > :first-child {
         margin-right: 1rem;
     }
-
     transition: color 0.3s ease-in, background-color 0.3s ease-in;
     &:hover {
         background-color: var(--color-teal);

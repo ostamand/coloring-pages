@@ -23,26 +23,27 @@ export default function PromoSection({
     console.log(promotion);
     return (
         <div className={styles.promotionContainer}>
-            <h2>{`Collection: ${promotion.heading}`}</h2>
-            <h3>{promotion.sub_heading}</h3>
-
-            <div className={styles.seeCollectionContent}>
-                <Link href="/pages">
-                    <div className={stylesButton.actionButton}>
-                        See Full Collection
-                    </div>
-                </Link>
+            <div className={styles.promotionHeading}>
+                <h2>{`Collection: ${promotion.heading}`}</h2>
+                <h3>{promotion.sub_heading}</h3>
             </div>
 
             <div className={styles.promotionContent}>
                 <div className={styles.backgroundOverlay} />
-                <div className={styles.imageGridContainer}>
-                    <ImagesGrid
-                        columns={2}
-                        pages={promotion.pages}
-                        hideTags={true}
-                        showBorder={true}
-                    />
+                <div className={styles.imageContainer}>
+                    <Link href={`/pages/${promotion.pages[0].unique_name}`}>
+                        <img
+                            src={promotion.pages[0].thumbnail_path}
+                            alt={promotion.pages[0].prompt}
+                        />
+                    </Link>
+                </div>
+                <div className={styles.seeCollectionContent}>
+                    <Link href="/pages">
+                        <div className={stylesButton.actionButton}>
+                            See Full Collection
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>

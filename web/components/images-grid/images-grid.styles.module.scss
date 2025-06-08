@@ -4,7 +4,6 @@
 .previouslyGridContainer {
     margin: 0rem 1rem;
     display: grid;
-    gap: 1rem;
     img {
         transition: transform 0.2s ease-in;
         
@@ -12,6 +11,11 @@
             transform: scale(1.02);
         }
     }
+}
+
+.imageGridTemplateContainer {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
 }
 
 .previouslyGridContainerBorder {
@@ -72,14 +76,14 @@
 }
 
 @media (width<=1200px) {
-    .previouslyGridContainer {
+    .imageGridTemplateContainer {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 /* on mobile */
 @media (width<=800px) {
-    .previouslyGridContainer {
+    .imageGridTemplateContainer {
         grid-template-columns: repeat(1, 1fr);
         margin: 0rem;
     }
