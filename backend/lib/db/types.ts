@@ -16,3 +16,24 @@ export type Page = {
     featured_on: string | null;
     generated_on: string;
 };
+
+export type Collection = {
+    id: number;
+    name: string;
+    display_name: string;
+    heading: string;
+    sub_heading: string;
+    background_url: string;
+    created_on: string;
+};
+
+export type Promotion = {
+    id: number;
+    heading: string;
+    sub_heading: string;
+    background_url: string;
+    showcase_page_id: number;
+    collection_name: string;
+    active: boolean;
+    created_on: string;
+};

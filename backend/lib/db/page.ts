@@ -186,7 +186,7 @@ export async function getPageByUniqueName(db: Client, uniqueName: string) {
             JOIN page_tags ON page_tags.page_id = pages.id
             JOIN tags ON page_tags.tag_id = tags.id
             WHERE pages.unique_name = $1
-                AND published=true
+                /* TEMPORARY!!!! AND published=true */
             GROUP BY pages.id
         ) AS page_agg_tags
         JOIN pages ON pages.id = page_agg_tags.id
