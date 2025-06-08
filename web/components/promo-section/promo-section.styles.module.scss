@@ -1,0 +1,51 @@
+.promotionContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+        font-size: 4rem;
+        font-weight: 500;
+    }
+    h3 {
+        font-size: 2rem;
+        color: var(--color-purple);
+        margin-bottom: 1rem;
+    }
+    width: 100%;
+    max-width: 1600px;
+}
+
+.promotionContent {
+    overflow: hidden;
+    background: url("/promotions/a-pirate-life.webp") no-repeat center center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 600px;
+    position: relative;
+}
+
+.backgroundOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    opacity: 0.4;
+    background-color: white;
+}
+
+.imageGridContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 60%;
+    z-index: 2;
+}
+
+.seeCollectionContent {
+    margin-bottom: 2rem;
+}

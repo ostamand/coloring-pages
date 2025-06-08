@@ -3,13 +3,14 @@ import styles from "./home.styles.module.scss";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-import { Page } from "@/lib/api/types";
+import { Page, Promotion } from "@/lib/api/types";
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
 import DownloadButton from "@/components/download-button/download-button.components";
 import PrintButton from "@/components/print-button/print-button.components";
 import ImagesGrid from "@/components/images-grid/images-grid.component";
 import PageTags from "@/components/page-tags/page-tags.component";
+import PromoSection from "@/components/promo-section/promo-section.component";
 
 export const revalidate = 86400;
 
@@ -66,7 +67,41 @@ async function getPages() {
     }
 }
 
+async function getFakePromotionData() {
+    // temporary
+    const promotion = {
+        heading: "A Pirate's Life",
+        sub_heading:
+            "Dive into a world of pirates, daring escapes, and colorful adventures.",
+        background_url: "",
+        collection_name: "A Pirate's Life",
+        pages: [110, 109],
+        active: true,
+    };
+
+    const pages: Page[] = [];
+    for (const pageId of promotion.pages) {
+        try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/pages/${pageId}`
+            );
+            if (!response.ok) {
+                throw new Error(`Promotion page with id ${pageId} not found.`);
+            }
+            const data = (await response.json()) as Page;
+            pages.push(data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const { pages: pageIds, ...promotionData } = promotion;
+
+    return [{ ...promotionData, pages }];
+}
+
 export default async function Home() {
+    const promotions = await getFakePromotionData();
     const { pages, featuredPage } = await getPages();
 
     if (!pages || !featuredPage) return <></>;
@@ -75,6 +110,7 @@ export default async function Home() {
         <>
             <div className={styles.mainContainer}>
                 <NavigationBar currentPage="Home" />
+
                 <div className={styles.featured}>
                     <div className={styles.featuredContent}>
                         <div className={styles.leftSection}>
@@ -114,10 +150,14 @@ export default async function Home() {
                     </div>
                 </div>
 
+                {promotions.map((promotion, index) => {
+                    return <PromoSection key={index} promotion={promotion} />;
+                })}
+
                 <div className={styles.content}>
                     <div className={styles.previously}>
                         <div className={styles.previouslyHeading}>
-                            <h1>More Coloring Pages</h1>
+                            <h1>More Coloring Pages!</h1>
                             <h2>Take A Look At Some of Our Previous Ones</h2>
                         </div>
 
@@ -132,6 +172,7 @@ export default async function Home() {
                         </div>
                     </div>
                 </div>
+
                 <Footer />
             </div>
         </>

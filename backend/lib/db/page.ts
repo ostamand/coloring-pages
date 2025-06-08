@@ -218,7 +218,7 @@ export async function getPagesById(db: Client, ids: number[]) {
             JOIN page_tags ON page_tags.page_id = pages.id
             JOIN tags ON page_tags.tag_id = tags.id
             WHERE pages.id IN ${idsStr}
-                AND published=true
+                /* TEMPORARY!!!! AND published=true */
             GROUP BY pages.id
         ) AS page_agg_tags
         JOIN pages ON pages.id = page_agg_tags.id

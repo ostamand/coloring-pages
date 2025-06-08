@@ -11,3 +11,15 @@ export type Page = {
     unique_name: string;
     overwrite_name: string;
 };
+
+export type Promotion = {
+    id: number;
+    heading: string;
+    sub_heading: string;
+    background_url: string;
+    collection_name: string;
+    active: boolean;
+    activated_on: string;
+    created_on: string;
+    pages: Page[];
+};

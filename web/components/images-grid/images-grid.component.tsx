@@ -14,9 +14,15 @@ const DEFAULT_BATCH_SIZE = 3;
 export default function ImagesGrid({
     pages,
     limit,
+    columns,
+    hideTags,
+    showBorder,
 }: {
     pages: Page[];
     limit?: number | null;
+    columns?: number;
+    hideTags?: boolean;
+    showBorder?: boolean;
 }) {
     const [showMore, setShowMore] = useState(0);
     const [currentLimit, setCurrentLimit] = useState(limit || DEFAULT_LIMIT);
@@ -33,7 +39,14 @@ export default function ImagesGrid({
 
     return (
         <>
-            <div className={styles.previouslyGridContainer}>
+            <div
+                style={{
+                    gridTemplateColumns: `repeat(${columns || 3}, 1fr)`,
+                }}
+                className={`${styles.previouslyGridContainer} ${
+                    showBorder ? styles.previouslyGridContainerBorder : ""
+                }`}
+            >
                 {pagesToShow.map((page) => {
                     return (
                         <div
@@ -41,8 +54,9 @@ export default function ImagesGrid({
                             key={page.id}
                         >
                             <div className={styles.previouslyImageContent}>
-                                {page.tags && <PageTags tags={page.tags} />}
-
+                                {!hideTags && page.tags && (
+                                    <PageTags tags={page.tags} />
+                                )}
                                 <Link href={`/pages/${page.unique_name}`}>
                                     <img
                                         src={page.thumbnail_path}
