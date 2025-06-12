@@ -2,6 +2,7 @@ import { Client } from "jsr:@db/postgres";
 import { Page } from "./types.ts";
 
 import { GenerationConfigs } from "../types.ts";
+import { getCollectionByName } from "./collection.ts";
 
 const getPageUniqueName = async (db: Client, name: string | null) => {
     const uniqueName = name
@@ -86,10 +87,17 @@ export async function addNewPage(
 
     const uniqueName = await getPageUniqueName(db, name);
 
+    // get collection display name
+    const collection = await getCollectionByName(db, collectionName);
+
+    const collectionDisplayName = collection
+        ? collection.display_name
+        : collectionName;
+
     // add page
 
     const resultPage = await db.queryArray(
-        `   INSERT INTO pages (
+        `INSERT INTO pages (
                     full_path, 
                     thumbnail_path, 
                     generate_script, 
@@ -102,9 +110,10 @@ export async function addNewPage(
                     prompt_model_name,
                     height, 
                     width, 
-                    unique_name
+                    unique_name,
+                    upd_collection_name
                 ) 
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) 
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) 
                 RETURNING id`,
         [
             fullPath,
@@ -112,7 +121,7 @@ export async function addNewPage(
             generateScript,
             prompt,
             seed,
-            collectionName,
+            collectionDisplayName,
             generatedOn,
             name,
             modelName,
@@ -120,6 +129,7 @@ export async function addNewPage(
             height,
             width,
             uniqueName,
+            collectionName,
         ],
     );
 
@@ -180,7 +190,8 @@ export async function getPageByUniqueName(db: Client, uniqueName: string) {
         `
         SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
                 pages.prompt, pages.collection_name, pages.created_on, 
-                pages.featured_on, pages.name, tags, pages.overwrite_name
+                pages.featured_on, pages.name, tags, pages.overwrite_name,
+                pages.upd_collection_name
         FROM ( 
             SELECT pages.id, ARRAY_AGG(tags."name") AS tags FROM pages
             JOIN page_tags ON page_tags.page_id = pages.id
@@ -212,7 +223,7 @@ export async function getPagesById(db: Client, ids: number[]) {
         SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
                 pages.prompt, pages.collection_name, pages.created_on, 
                 pages.featured_on, pages.name, tags, pages.unique_name, 
-                pages.overwrite_name
+                pages.overwrite_name, pages.upd_collection_name
         FROM ( 
             SELECT pages.id, ARRAY_AGG(tags."name") AS tags FROM pages
             JOIN page_tags ON page_tags.page_id = pages.id
@@ -232,6 +243,7 @@ export async function getPages(
     limit: number,
     random: boolean,
     ignore?: number[],
+    collectionName?: string | null,
 ) {
     let ignoreStr = "";
     if (ignore) {
@@ -243,20 +255,23 @@ export async function getPages(
         }, "(");
         ignoreStr += ")";
     }
-
     // only featured pages will be returned, always sorted by created_on or random
     const result = await db.queryObject(
         `
         WITH page_ids AS (
             SELECT id FROM pages
-            WHERE published=true
-            ${ignore ? `AND id NOT IN ${ignoreStr}` : ""}
+            /* TEMPORARY!!!! WHERE published=true */ 
+            WHERE published IS NOT NULL
+            ${ignore ? `AND id NOT IN ${ignoreStr} ` : ""}
+            ${
+            collectionName ? `AND upd_collection_name='${collectionName}' ` : ""
+        }
             ${random ? "ORDER BY RANDOM()" : "ORDER BY created_on DESC"}
             LIMIT $1
         )
         SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
                 pages.prompt, pages.collection_name, pages.created_on, 
-                pages.featured_on, pages.name, page_tags.tags, pages.unique_name, pages.overwrite_name
+                pages.featured_on, pages.name, page_tags.tags, pages.unique_name, pages.overwrite_name, pages.upd_collection_name
         FROM (
 	        SELECT page_id, ARRAY_AGG(tags.name) AS tags FROM pages
 	        JOIN page_ids ON page_ids.id = pages.id
@@ -291,7 +306,7 @@ export async function searchPages(db: Client, query: string, limit: number) {
         )
         SELECT pages.id, pages.full_path, pages.thumbnail_path, 
                pages.prompt, pages.collection_name, pages.created_on, 
-               pages.featured_on, pages.name, page_tags.tags, pages.unique_name, pages.overwrite_name
+               pages.featured_on, pages.name, page_tags.tags, pages.unique_name, pages.overwrite_name, pages.upd_collection_name
         FROM (
 	        SELECT page_id, ARRAY_AGG(tags.name) AS tags FROM pages
 	        JOIN page_ids ON page_ids.id = pages.id

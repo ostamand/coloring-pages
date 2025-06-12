@@ -67,41 +67,24 @@ async function getPages() {
     }
 }
 
-async function getFakePromotionData() {
-    // temporary
-    const promotion = {
-        heading: "A Pirate's Life",
-        sub_heading:
-            "Dive into a world of pirates, daring escapes, and colorful adventures.",
-        background_url: "",
-        collection_name: "A Pirate's Life",
-        pages: [110, 109],
-        active: true,
-    };
-
-    const pages: Page[] = [];
-    for (const pageId of promotion.pages) {
-        try {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/pages/${pageId}`
-            );
-            if (!response.ok) {
-                throw new Error(`Promotion page with id ${pageId} not found.`);
-            }
-            const data = (await response.json()) as Page;
-            pages.push(data);
-        } catch (error) {
-            console.error(error);
+async function getActivePromotions(): Promise<Promotion[] | null> {
+    try {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/promotions`
+        );
+        if (!response.ok) {
+            throw new Error("Failed to get promotions");
         }
+        const data = await response.json();
+        return data as Promotion[];
+    } catch (error) {
+        console.error(error);
     }
-
-    const { pages: pageIds, ...promotionData } = promotion;
-
-    return [{ ...promotionData, pages }];
+    return null;
 }
 
 export default async function Home() {
-    const promotions = await getFakePromotionData();
+    const promotions = await getActivePromotions();
     const { pages, featuredPage } = await getPages();
 
     if (!pages || !featuredPage) return <></>;
@@ -150,9 +133,12 @@ export default async function Home() {
                     </div>
                 </div>
 
-                {promotions.map((promotion, index) => {
-                    return <PromoSection key={index} promotion={promotion} />;
-                })}
+                {promotions &&
+                    promotions.map((promotion, index) => {
+                        return (
+                            <PromoSection key={index} promotion={promotion} />
+                        );
+                    })}
 
                 <div className={styles.content}>
                     <div className={styles.previously}>

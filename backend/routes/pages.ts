@@ -75,7 +75,9 @@ pagesRouter.get("/", async (ctx) => {
     const client = await getClientFromPool();
     const { searchParams } = ctx.request.url;
 
-    const limit = Number(searchParams.get("limit")) || 10;
+    const collection = searchParams.get("collection");
+
+    const limit = Number(searchParams.get("limit")) || 100;
     const searchQuery = searchParams.get("search");
 
     const ignoreQuery = searchParams.get("ignore");
@@ -99,7 +101,7 @@ pagesRouter.get("/", async (ctx) => {
         if (searchQuery) {
             results = await searchPages(client, searchQuery, limit);
         } else {
-            results = await getPages(client, limit, random, ignore);
+            results = await getPages(client, limit, random, ignore, collection);
         }
         ctx.response.body = results;
     } catch (error) {

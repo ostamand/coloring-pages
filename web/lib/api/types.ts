@@ -10,6 +10,7 @@ export type Page = {
     name: string;
     unique_name: string;
     overwrite_name: string;
+    upd_collection_name: string;
 };
 
 export type Promotion = {
@@ -17,9 +18,18 @@ export type Promotion = {
     heading: string;
     sub_heading: string;
     background_url: string;
+    showcase_page_id: number;
     collection_name: string;
     active: boolean;
-    activated_on: string;
     created_on: string;
-    pages: Page[];
+    page: Page;
+};
+
+export type Collection = {
+    name: string;
+    display_name: string;
+    heading: string | null;
+    sub_heading: string | null;
+    background_url: string;
+    created_on: string;
 };

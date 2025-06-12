@@ -130,11 +130,15 @@ export default async function DetailedPage({
                             </BreadcrumbItem>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
-                                <Link href="/pages">Pages</Link>
+                                <p>Collections</p>
                             </BreadcrumbItem>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
-                                <p>{page.collection_name}</p>
+                                <Link
+                                    href={`/collections/${page.upd_collection_name}`}
+                                >
+                                    {page.collection_name}
+                                </Link>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>

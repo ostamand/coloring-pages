@@ -10,10 +10,11 @@
     height: 100%;
     width: 100%;
     flex-grow: 1;
+    max-width: 1600px;
 }
 
 .breadCrumbContent {
-    margin: 0.5rem 0.5rem;
+    padding: 0.5rem 0rem 0.5rem 2rem;
     span,
     a,
     p {

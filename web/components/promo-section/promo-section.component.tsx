@@ -3,24 +3,9 @@ import stylesButton from "../../styles/button.styles.module.scss";
 
 import Link from "next/link";
 
-import { Page } from "@/lib/api/types";
-import ImagesGrid from "../images-grid/images-grid.component";
+import { Promotion } from "@/lib/api/types";
 
-type PromotionData = {
-    pages: Page[];
-    heading: string;
-    sub_heading: string;
-    background_url: string;
-    collection_name: string;
-    active: boolean;
-};
-
-export default function PromoSection({
-    promotion,
-}: {
-    promotion: PromotionData;
-}) {
-    console.log(promotion);
+export default function PromoSection({ promotion }: { promotion: Promotion }) {
     return (
         <div className={styles.promotionContainer}>
             <div className={styles.promotionHeading}>
@@ -31,15 +16,15 @@ export default function PromoSection({
             <div className={styles.promotionContent}>
                 <div className={styles.backgroundOverlay} />
                 <div className={styles.imageContainer}>
-                    <Link href={`/pages/${promotion.pages[0].unique_name}`}>
+                    <Link href={`/collections/${promotion.collection_name}`}>
                         <img
-                            src={promotion.pages[0].thumbnail_path}
-                            alt={promotion.pages[0].prompt}
+                            src={promotion.page.thumbnail_path}
+                            alt={promotion.page.prompt}
                         />
                     </Link>
                 </div>
                 <div className={styles.seeCollectionContent}>
-                    <Link href="/pages">
+                    <Link href={`/collections/${promotion.collection_name}`}>
                         <div className={stylesButton.actionButton}>
                             See Full Collection
                         </div>
