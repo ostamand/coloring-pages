@@ -8,6 +8,7 @@
     h1 {
         font-size: 3rem;
         font-weight: 500;
+       
     }
     h2 {
         span {
@@ -79,4 +80,24 @@
     border: 1px solid;
     border-radius: 1rem;
     border-color: var(--color-border);
+}
+
+
+
+@media (width<=800px) {
+    .mainContainer {
+        h1 {
+            text-align: center;
+        }
+
+        .collectionContainer {
+            width: 90%;
+        }
+
+
+        .breadCrumbContent p, a{ 
+            font-size: 1.1rem;
+        }
+
+    }
 }

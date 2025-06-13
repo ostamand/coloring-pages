@@ -1,8 +1,10 @@
 import { Client } from "jsr:@db/postgres";
-import { Page } from "./types.ts";
 
 import { GenerationConfigs } from "../types.ts";
 import { getCollectionByName } from "./collection.ts";
+import { Page } from "./types.ts";
+import { loadAppConfigs } from "../configs.ts";
+import { load } from "@std/dotenv";
 
 const getPageUniqueName = async (db: Client, name: string | null) => {
     const uniqueName = name
@@ -186,6 +188,8 @@ export async function getLastPrompts(
 }
 
 export async function getPageByUniqueName(db: Client, uniqueName: string) {
+    const { isDev } = loadAppConfigs();
+
     const result = await db.queryObject(
         `
         SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
@@ -197,7 +201,7 @@ export async function getPageByUniqueName(db: Client, uniqueName: string) {
             JOIN page_tags ON page_tags.page_id = pages.id
             JOIN tags ON page_tags.tag_id = tags.id
             WHERE pages.unique_name = $1
-                /* TEMPORARY!!!! AND published=true */
+                ${!isDev ? "AND published=true" : ""}
             GROUP BY pages.id
         ) AS page_agg_tags
         JOIN pages ON pages.id = page_agg_tags.id
@@ -208,6 +212,8 @@ export async function getPageByUniqueName(db: Client, uniqueName: string) {
 }
 
 export async function getPagesById(db: Client, ids: number[]) {
+    const { isDev } = loadAppConfigs();
+
     let idsStr = ids.reduce((agg, id, idx) => {
         if (idx === 0) {
             agg += "(";
@@ -229,7 +235,7 @@ export async function getPagesById(db: Client, ids: number[]) {
             JOIN page_tags ON page_tags.page_id = pages.id
             JOIN tags ON page_tags.tag_id = tags.id
             WHERE pages.id IN ${idsStr}
-                /* TEMPORARY!!!! AND published=true */
+                ${!isDev ? "AND published=true" : ""}
             GROUP BY pages.id
         ) AS page_agg_tags
         JOIN pages ON pages.id = page_agg_tags.id
@@ -245,6 +251,8 @@ export async function getPages(
     ignore?: number[],
     collectionName?: string | null,
 ) {
+    const { isDev } = loadAppConfigs();
+
     let ignoreStr = "";
     if (ignore) {
         ignoreStr = ignore.reduce((agg, id, index) => {
@@ -260,10 +268,10 @@ export async function getPages(
         `
         WITH page_ids AS (
             SELECT id FROM pages
-            /* TEMPORARY!!!! WHERE published=true */ 
             WHERE published IS NOT NULL
-            ${ignore ? `AND id NOT IN ${ignoreStr} ` : ""}
-            ${
+                ${!isDev ? "AND published=true" : ""}
+                ${ignore ? `AND id NOT IN ${ignoreStr} ` : ""}
+                ${
             collectionName ? `AND upd_collection_name='${collectionName}' ` : ""
         }
             ${random ? "ORDER BY RANDOM()" : "ORDER BY created_on DESC"}

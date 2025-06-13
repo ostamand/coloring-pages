@@ -145,8 +145,16 @@
             font-weight: 500;
         }
 
-        p {
+        p,
+        a {
             font-size: 1rem;
+        }
+    }
+
+    .breadCrumbContent {
+        p,
+        a {
+            font-size: 1.1rem;
         }
     }
 }

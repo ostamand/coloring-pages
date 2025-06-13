@@ -34,4 +34,5 @@ export type AppConfigs = {
     comfyApiEndpoint: string;
     comfyOutputDir: string;
     revalidateSecret: string;
+    isDev: boolean;
 };

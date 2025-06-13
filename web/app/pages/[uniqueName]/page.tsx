@@ -180,7 +180,11 @@ export default async function DetailedPage({
                             </div>
                             <div className={styles.labelWithContent}>
                                 <h2>Collection</h2>
-                                <p>{page.collection_name}</p>
+                                <Link
+                                    href={`/collections/${page.upd_collection_name}`}
+                                >
+                                    {page.collection_name}
+                                </Link>
                             </div>
                             {page.featured_on && (
                                 <div className={styles.labelWithContent}>

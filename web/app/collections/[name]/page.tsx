@@ -77,7 +77,7 @@ export default async function CollectionPage({
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
-                <h1>{`Collection: ${
+                <h1>{`${
                     collection?.display_name || DEFAULT_COLLECTION_DISPLAY_NAME
                 }`}</h1>
                 <div className={styles.collectionContent}>
