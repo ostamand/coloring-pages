@@ -15,3 +15,13 @@ export async function getCollectionByName(db: Client, collectionName: string) {
     }
     return null;
 }
+
+export async function getCollections(db: Client) {
+    try {
+        const result = await db.queryObject(`SELECT * FROM collections;`);
+        return result.rows as Collection[];
+    } catch (error) {
+        console.error(error);
+    }
+    return null;
+}

@@ -34,7 +34,13 @@ async function getCollectionPages(collectionName: string) {
 async function getCollection(collectionName: string) {
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/collections/${collectionName}`
+            `${process.env.NEXT_PUBLIC_API_URL}/collections/${collectionName}`,
+            {
+                next: {
+                    revalidate: 60 * 60 * 24,
+                    tags: ["pages", `collection-${collectionName}`],
+                },
+            }
         );
         if (response.ok) {
             const data = await response.json();
@@ -44,6 +50,27 @@ async function getCollection(collectionName: string) {
         console.error(error);
     }
     return null;
+}
+
+export async function generateStaticParams() {
+    try {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/collections`
+        );
+        if (!response.ok) {
+            throw new Error("Could not get collections");
+        }
+        const data = await response.json();
+        const collections = data as Collection[];
+        return collections.map((collection) => {
+            return {
+                name: collection.name,
+            };
+        });
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
 }
 
 export default async function CollectionPage({

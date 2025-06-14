@@ -51,7 +51,7 @@ export async function generateStaticParams() {
     try {
         const response = await fetch(endpoint);
         if (!response.ok) {
-            throw new Error("Could not get pages from API.");
+            throw new Error("Could not get pages");
         }
         const data = await response.json();
         const pages = data as Page[];
