@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { Page } from "@/lib/api/types";
+import { Collection, Page } from "@/lib/api/types";
 
-//! change to: await res.revalidate("/sitemap.xml");
 export const revalidate = 86400;
 
 type SiteData = {
@@ -29,6 +28,12 @@ export async function GET(req: NextRequest) {
 
     const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/pages?limit=10000`,
+        {
+            next: {
+                revalidate: 60 * 60 * 24,
+                tags: ["pages"],
+            },
+        },
     );
 
     if (response.ok) {
@@ -45,7 +50,37 @@ export async function GET(req: NextRequest) {
         });
     }
 
-    const allPages = [...staticPages, ...dynamicPages];
+    // collections
+
+    let collectionPages: SiteData[] = [];
+
+    const responseCollections = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/collections`,
+        {
+            next: {
+                revalidate: 60 * 60 * 24,
+                tags: ["pages", "collections"],
+            },
+        },
+    );
+
+    if (responseCollections.ok) {
+        const data = await responseCollections.json();
+        const collections = data as Collection[];
+
+        collectionPages = collections.map((collection) => {
+            const sideData: SiteData = {
+                path: `/collections/${collection.name}`,
+                freq: "daily",
+                priority: 0.9,
+            };
+            return sideData;
+        });
+    }
+
+    // join everything
+
+    const allPages = [...staticPages, ...dynamicPages, ...collectionPages];
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
