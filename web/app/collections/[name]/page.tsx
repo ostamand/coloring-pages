@@ -52,6 +52,39 @@ async function getCollection(collectionName: string) {
     return null;
 }
 
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ name: string }>;
+}) {
+    const { name } = await params;
+
+    const collection = await getCollection(name);
+
+    const title = `${
+        collection?.display_name || ""
+    } Collection | Free Coloring Page | Color It Daily`;
+
+    const description = `Check out our unique ${
+        collection?.display_name || ""
+    } collection and start coloring today. Perfect for all ages! Always free.`;
+
+    const url = `https://coloritdaily.com/collections/${name}`;
+
+    return {
+        title: title,
+        description,
+        openGraph: {
+            title,
+            description,
+            url,
+        },
+        alternates: {
+            canonical: url,
+        },
+    };
+}
+
 export async function generateStaticParams() {
     try {
         const response = await fetch(
