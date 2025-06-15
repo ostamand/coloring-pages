@@ -27,15 +27,15 @@ async function deletePage(
     db: Client,
     s3: S3Client,
     configs: AppConfigs,
-    id: number,
+    name: string,
 ) {
     // delete page from database
     const result = await db.queryObject(
-        "DELETE FROM pages where id = $1 RETURNING *",
-        [id],
+        "DELETE FROM pages where unique_name = $1 RETURNING *",
+        [name],
     );
     if (result.rowCount !== 1) {
-        throw new Error(`❌ Unable to delete page id ${id}`);
+        throw new Error(`❌ Unable to delete page ${name}`);
     }
 
     const page = result.rows[0];
@@ -57,24 +57,23 @@ async function deletePage(
 }
 
 async function main(args: string[]) {
-    const idIndex = args.indexOf("--id");
-    console.log(idIndex);
+    const idIndex = args.indexOf("--name");
     if (idIndex === -1) {
-        console.log("❌ Page id required (--id )");
+        console.log("❌ Page id required (--name )");
         return;
     }
-    const id = Number(Deno.args[idIndex + 1]);
+    const name = Deno.args[idIndex + 1];
 
     const configs = loadAppConfigs();
     const db = getDatabaseClient(configs);
     const s3 = getS3Client(configs);
 
-    await deletePage(db, s3, configs, id);
+    await deletePage(db, s3, configs, name);
 
-    console.log(`✅ Page id ${id} deleted successfully`);
+    console.log(`✅ Page ${name} deleted successfully`);
 }
 
-// example: deno run --allow-all --id
+// example: deno run --allow-all --name
 if (import.meta.main) {
     main(Deno.args);
 }
