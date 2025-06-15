@@ -92,10 +92,6 @@ export async function addNewPage(
     // get collection display name
     const collection = await getCollectionByName(db, collectionName);
 
-    const collectionDisplayName = collection
-        ? collection.display_name
-        : collectionName;
-
     // add page
 
     const resultPage = await db.queryArray(
@@ -123,7 +119,7 @@ export async function addNewPage(
             generateScript,
             prompt,
             seed,
-            collectionDisplayName,
+            collection?.display_name || collectionName,
             generatedOn,
             name,
             modelName,
@@ -131,7 +127,7 @@ export async function addNewPage(
             height,
             width,
             uniqueName,
-            collectionName,
+            collection?.name || collectionName,
         ],
     );
 
