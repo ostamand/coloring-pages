@@ -174,7 +174,9 @@ export default async function DetailedPage({
                                 />
                             </div>
 
-                            <PageTags tags={page.tags} />
+                            <div className="mt-1">
+                                <PageTags tags={page.tags} />
+                            </div>
 
                             <div className={styles.promptContent}>
                                 <h2>Description</h2>
