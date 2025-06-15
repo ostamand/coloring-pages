@@ -35,6 +35,8 @@ pagesRouter.get("/featured", async (ctx) => {
         console.error(error);
         ctx.response.status = 500;
         ctx.response.body = {};
+    } finally {
+        client.release();
     }
 });
 

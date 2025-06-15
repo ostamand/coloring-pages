@@ -10,6 +10,8 @@ import DownloadButton from "@/components/download-button/download-button.compone
 import PrintButton from "@/components/print-button/print-button.components";
 import PageTags from "@/components/page-tags/page-tags.component";
 
+import { redirect } from "next/navigation";
+
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -116,7 +118,7 @@ export default async function DetailedPage({
     const page = await getPage(uniqueName);
 
     if (!page) {
-        return <>DOES NOT EXIST</>;
+        redirect("/not-found");
     }
 
     return (

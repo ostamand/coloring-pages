@@ -19,7 +19,7 @@ type ActivePage = "Home" | "All Pages" | "About" | "Contact";
 export default function NavigationBar({
     currentPage,
 }: {
-    currentPage: ActivePage;
+    currentPage?: ActivePage;
 }) {
     const isMobile = useIsMobile();
     return (
@@ -40,7 +40,8 @@ export default function NavigationBar({
                     <DropdownMenu>
                         <DropdownMenuTrigger>
                             <div className={styles.dropdownNav}>
-                                <span>{`${currentPage}`}</span> <ChevronDown />
+                                <span>{`${currentPage || "Home"} `}</span>{" "}
+                                <ChevronDown />
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>

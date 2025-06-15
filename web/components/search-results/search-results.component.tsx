@@ -28,6 +28,7 @@ export default function SearchResults({
     );
 
     const getPages = async (searchValue: string) => {
+        console.log("get pages");
         try {
             //! maybe add limit?
             let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`;

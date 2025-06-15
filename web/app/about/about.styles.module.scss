@@ -4,6 +4,7 @@
     flex-direction: column;
     height: 100%;
     min-height: 100vh;
+    align-items: center;
   
     h1 {
         font-size: 3rem;
@@ -76,4 +77,11 @@
 
 /* on mobile */
 @media (width<=800px) {
+}
+
+
+@media (width<=1200px) { 
+    .aboutContainer {
+        width: 90%;
+    }
 }

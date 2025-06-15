@@ -3,6 +3,7 @@ import { runGenerate } from "./lib/generate/generate.ts";
 import { SYSTEM_INSTRUCTIONS_PIRATE_LIFE } from "./instructions/flux.ts";
 import { loadGenerateConfigs } from "./lib/generate/configs.ts";
 import { parseArgs } from "./lib/generate/configs.ts";
+import { GenerationConfigs } from "../lib/types.ts";
 
 async function main(args: string[]) {
     const { outputFolder, inputConfigPath, genFile } = parseArgs(args);
@@ -13,9 +14,41 @@ async function main(args: string[]) {
 
     const generateConfig = loadGenerateConfigs(inputConfigPath);
 
+    // get last prompts from output folder
+
+    const jsonFiles: string[] = [];
+    for await (const dirEntry of Deno.readDir(outputFolder)) {
+        if (dirEntry.isDirectory) {
+            const subfolder = `${outputFolder}/${dirEntry.name}`;
+            for await (const fileEntry of Deno.readDir(subfolder)) {
+                if (fileEntry.isFile && fileEntry.name.endsWith(".json")) {
+                    jsonFiles.push(`${subfolder}/${fileEntry.name}`);
+                }
+            }
+        }
+    }
+
+    const lastPromptsFromOutputFolder: string[] = [];
+    for (const filePath of jsonFiles) {
+        try {
+            const data = JSON.parse(
+                Deno.readTextFileSync(filePath),
+            ) as GenerationConfigs;
+            if (data && data.prompt) {
+                if (!lastPromptsFromOutputFolder.includes(data.prompt)) {
+                    lastPromptsFromOutputFolder.push(data.prompt);
+                }
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const instructionsFn = (lastPrompts: string) => {
-        console.log(SYSTEM_INSTRUCTIONS_PIRATE_LIFE + lastPrompts);
-        return SYSTEM_INSTRUCTIONS_PIRATE_LIFE + lastPrompts;
+        const instructions = SYSTEM_INSTRUCTIONS_PIRATE_LIFE + lastPrompts +
+            lastPromptsFromOutputFolder.join("\n");
+        console.log(instructions);
+        return instructions;
     };
 
     await runGenerate(

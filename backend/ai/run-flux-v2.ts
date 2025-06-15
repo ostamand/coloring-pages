@@ -39,8 +39,8 @@ async function main(args: string[]) {
 // --out: output folder for generations
 // --config: path to config input path
 // --gen-file: (optional) generate from a template config file
-// example: deno run --allow-all ai/run-flux-v2.ts --config ai/configs/flux-v2.json --out tmp/VZmYUK27Z0Fj --gen-file tmp/VZmYUK27Z0Fj/VZmYUK27Z0Fj.json
-// example: deno run --allow-all ai/run-flux-v2.ts --config ai/configs/flux-v2.json --out tmp
+// example: deno run --allow-all ai/run-flux-v2.ts --config ai/configs/flux-v3.json --out tmp/hN3nDy1Sb5dB/v3 --gen-file tmp/hN3nDy1Sb5dB/hN3nDy1Sb5dB.json
+// example: deno run --allow-all ai/run-flux-v2.ts --config ai/configs/flux-v3.json --out tmp
 if (import.meta.main) {
     await main(Deno.args);
 }
