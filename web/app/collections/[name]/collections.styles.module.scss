@@ -5,18 +5,15 @@
     width: 100%;
     min-height: 100vh;
     align-items: center;
+    text-align: center;
     h1 {
         font-size: 3rem;
         font-weight: 500;
-       
+        color: var(--color-purple);
     }
     h2 {
-        span {
-            color: var(--color-blue);
-            font-weight: 600 !important;
-        }
         font-size: 2rem;
-        color: var(--color-purple);
+        margin-bottom: 0.5rem;
     }
 
     p {
@@ -64,6 +61,7 @@
 }
 
 .imagesContainer {
+    margin-top: 0.5rem;
 }
 
 .backgroundOverlay {

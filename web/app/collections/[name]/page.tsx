@@ -7,6 +7,7 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { redirect } from "next/navigation";
 
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
@@ -116,6 +117,12 @@ export default async function CollectionPage({
     const pages = await getCollectionPages(collectionName);
     const collection = await getCollection(collectionName);
 
+    console.log(collection);
+
+    if (!collection) {
+        redirect("/not-found");
+    }
+
     return (
         <div className={styles.mainContainer}>
             <NavigationBar currentPage="All Pages" />
@@ -132,14 +139,15 @@ export default async function CollectionPage({
                             </BreadcrumbItem>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
-                                <p>{collection?.display_name || "Unknown"}</p>
+                                <p>{collection.display_name || "Unknown"}</p>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
                 <h1>{`${
-                    collection?.display_name || DEFAULT_COLLECTION_DISPLAY_NAME
+                    collection.display_name || DEFAULT_COLLECTION_DISPLAY_NAME
                 }`}</h1>
+                <h2>{collection.sub_heading || ""}</h2>
                 <div className={styles.collectionContent}>
                     <div
                         className={styles.promoBackground}
