@@ -20,7 +20,17 @@ const DEFAULT_COLLECTION_DISPLAY_NAME = "Thick Lines";
 async function getCollectionPages(collectionName: string) {
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/pages?collection=${collectionName}&random=true`
+            `${process.env.NEXT_PUBLIC_API_URL}/pages?collection=${collectionName}&random=true`,
+            {
+                next: {
+                    revalidate: 60 * 60 * 24,
+                    tags: [
+                        "pages",
+                        "collection-pages",
+                        `collection-${collectionName}`,
+                    ],
+                },
+            }
         );
         if (response.ok) {
             const data = await response.json();
@@ -41,7 +51,7 @@ async function getCollection(collectionName: string) {
                     revalidate: 60 * 60 * 24,
                     tags: [
                         "pages",
-                        "collectons",
+                        "collections",
                         `collection-${collectionName}`,
                     ],
                 },

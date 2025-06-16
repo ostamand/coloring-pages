@@ -11,7 +11,8 @@ export async function POST(req: NextRequest) {
     try {
         await revalidatePath("/sitemap.xml");
         await revalidateTag("page-search-random"); // random pages on /pages (page-search)
-        await revalidateTag("collectons"); // collections
+        await revalidateTag("collections"); // collections
+        await revalidateTag("collection-pages"); // collections
         await revalidatePath("/"); // home
         return NextResponse.json({ revalidated: true });
     } catch (err: any) {
