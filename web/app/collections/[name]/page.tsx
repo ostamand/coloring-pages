@@ -117,8 +117,6 @@ export default async function CollectionPage({
     const pages = await getCollectionPages(collectionName);
     const collection = await getCollection(collectionName);
 
-    console.log(collection);
-
     if (!collection) {
         redirect("/not-found");
     }

@@ -144,7 +144,7 @@ export default async function Home() {
                     <div className={styles.previously}>
                         <div className={styles.previouslyHeading}>
                             <h1>More Coloring Pages!</h1>
-                            <h2>Take A Look At Some of Our Previous Ones</h2>
+                            <h2>A Sample From All our Collections</h2>
                         </div>
 
                         <ImagesGrid pages={pages} />
