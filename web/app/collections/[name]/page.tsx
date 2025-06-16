@@ -39,7 +39,11 @@ async function getCollection(collectionName: string) {
             {
                 next: {
                     revalidate: 60 * 60 * 24,
-                    tags: ["pages", `collection-${collectionName}`],
+                    tags: [
+                        "pages",
+                        "collectons",
+                        `collection-${collectionName}`,
+                    ],
                 },
             }
         );

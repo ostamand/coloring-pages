@@ -9,10 +9,10 @@ export async function POST(req: NextRequest) {
         });
     }
     try {
-        //await revalidatePath("/sitemap.xml");
+        await revalidatePath("/sitemap.xml");
         await revalidateTag("page-search-random"); // random pages on /pages (page-search)
+        await revalidateTag("collectons"); // collections
         await revalidatePath("/"); // home
-        //await revalidateTag("pages");
         return NextResponse.json({ revalidated: true });
     } catch (err: any) {
         return NextResponse.json({ error: err.message }, { status: 500 });
