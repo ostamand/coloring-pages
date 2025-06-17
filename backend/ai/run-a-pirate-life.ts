@@ -47,7 +47,6 @@ async function main(args: string[]) {
     const instructionsFn = (lastPrompts: string) => {
         const instructions = SYSTEM_INSTRUCTIONS_PIRATE_LIFE + lastPrompts +
             lastPromptsFromOutputFolder.join("\n");
-        console.log(instructions);
         return instructions;
     };
 

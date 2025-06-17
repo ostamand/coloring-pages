@@ -174,7 +174,7 @@ export async function getLastPrompts(
     }
     const result = await db.queryArray(
         ` SELECT prompt FROM pages
-          ${collectionName ? `WHERE collection_name = $2` : ""}
+          ${collectionName ? `WHERE upd_collection_name = $2` : ""}
           GROUP BY prompt
           ORDER BY MAX(created_on) DESC
           LIMIT $1;`,
