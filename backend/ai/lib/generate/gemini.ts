@@ -31,7 +31,7 @@ export async function getGenerationConfigsFromGemini(
         if (index > 0) {
             agg += "\n";
         }
-        return agg += `${index + 1}. ${prompt}`;
+        return agg += `- ${prompt}`;
     }, "");
 
     console.log(`⏳ Last prompts:\n${lastPrompts}`);

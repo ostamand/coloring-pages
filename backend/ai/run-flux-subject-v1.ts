@@ -27,7 +27,7 @@ async function main(args: string[]) {
         instructionsFn,
         generateConfig.worflowPath,
         (workflow, prompt, seed, outputPrefix) => {
-            workflow["265"]["inputs"]["value"] = seed;
+            workflow["14"]["inputs"]["seed"] = seed;
             workflow["11"]["inputs"]["text"] =
                 `${generateConfig.trigger}, ${prompt}`;
             workflow["249"]["inputs"]["filename_prefix"] = outputPrefix;
