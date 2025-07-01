@@ -72,6 +72,7 @@ async function getActivePromotions(): Promise<Promotion[] | null> {
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/promotions`
         );
+
         if (!response.ok) {
             throw new Error("Failed to get promotions");
         }
@@ -84,11 +85,11 @@ async function getActivePromotions(): Promise<Promotion[] | null> {
         // all of this is cached daily
         for (const promotion of promotions) {
             try {
-                const reponsePage = await fetch(
+                const responsePage = await fetch(
                     `${process.env.NEXT_PUBLIC_API_URL}/pages?collection=${promotion.collection_name}&limit=1&random=true`
                 );
-                if (reponsePage.ok) {
-                    const page = (await reponsePage.json()) as Page[];
+                if (responsePage.ok) {
+                    const page = (await responsePage.json()) as Page[];
                     promotion.page = page[0];
                 }
             } catch (error) {

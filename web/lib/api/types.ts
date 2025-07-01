@@ -16,6 +16,7 @@ export type Page = {
 export type Promotion = {
     id: number;
     heading: string;
+    heading_url: string | null;
     sub_heading: string;
     background_url: string;
     showcase_page_id: number;

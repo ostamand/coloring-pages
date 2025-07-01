@@ -9,8 +9,23 @@ export default function PromoSection({ promotion }: { promotion: Promotion }) {
     return (
         <div className={styles.promotionContainer}>
             <div className={styles.promotionHeading}>
-                <h2>{`Collection: ${promotion.heading}`}</h2>
-                <h3>{promotion.sub_heading}</h3>
+                {promotion.heading_url ? (
+                    <div className={styles.headingWithImg}>
+                        <img
+                            src={promotion.heading_url}
+                            alt={`Collection: ${promotion.heading}`}
+                        />
+                        <div>
+                            <h2>{`${promotion.heading}`}</h2>
+                            <h3>{promotion.sub_heading}</h3>
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                        <h2>{`Collection: ${promotion.heading}`}</h2>
+                        <h3>{promotion.sub_heading}</h3>
+                    </>
+                )}
             </div>
             <div className={styles.promotionContent}>
                 <div className={styles.backgroundOverlay} />
