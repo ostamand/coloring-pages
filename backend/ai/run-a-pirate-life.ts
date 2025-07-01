@@ -36,7 +36,10 @@ async function main(args: string[]) {
             ) as GenerationConfigs;
             if (data && data.prompt) {
                 if (!lastPromptsFromOutputFolder.includes(data.prompt)) {
-                    lastPromptsFromOutputFolder.push(`- ${data.prompt}`);
+                    const key = `- ${data.prompt}`;
+                    if (!lastPromptsFromOutputFolder.includes(key)) {
+                        lastPromptsFromOutputFolder.push(key);
+                    }
                 }
             }
         } catch (error) {

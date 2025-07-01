@@ -12,7 +12,6 @@ export default function PromoSection({ promotion }: { promotion: Promotion }) {
                 <h2>{`Collection: ${promotion.heading}`}</h2>
                 <h3>{promotion.sub_heading}</h3>
             </div>
-
             <div className={styles.promotionContent}>
                 <div className={styles.backgroundOverlay} />
                 <div className={styles.imageContainer}>

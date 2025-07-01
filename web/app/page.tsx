@@ -76,7 +76,26 @@ async function getActivePromotions(): Promise<Promotion[] | null> {
             throw new Error("Failed to get promotions");
         }
         const data = await response.json();
-        return data as Promotion[];
+
+        const promotions = data as Promotion[];
+
+        // try to get random page for each promotion if possible
+        // else will fall back to showcase_page already in the response
+        // all of this is cached daily
+        for (const promotion of promotions) {
+            try {
+                const reponsePage = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/pages?collection=${promotion.collection_name}&limit=1&random=true`
+                );
+                if (reponsePage.ok) {
+                    const page = (await reponsePage.json()) as Page[];
+                    promotion.page = page[0];
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        return promotions;
     } catch (error) {
         console.error(error);
     }
