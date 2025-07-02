@@ -2,6 +2,7 @@ export type Page = {
     id: number;
     full_path: string;
     thumbnail_path: string;
+    colored_path: string;
     generate_script: string | null;
     prompt: string;
     seed: number | null;

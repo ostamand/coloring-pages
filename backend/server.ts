@@ -27,13 +27,11 @@ app.use(async (ctx, next) => {
         "GET, POST",
     );
     ctx.response.headers.set("Access-Control-Allow-Headers", "Content-Type");
-
     //preflight
     if (ctx.request.method === "OPTIONS") {
         ctx.response.status = 204;
         return;
     }
-
     await next();
 });
 
