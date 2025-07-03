@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Promotion } from "@/lib/api/types";
 
 export default function PromoSection({ promotion }: { promotion: Promotion }) {
+    console.log(promotion);
     return (
         <div className={styles.promotionContainer}>
             <div className={styles.promotionHeading}>
@@ -32,7 +33,10 @@ export default function PromoSection({ promotion }: { promotion: Promotion }) {
                 <div className={styles.imageContainer}>
                     <Link href={`/collections/${promotion.collection_name}`}>
                         <img
-                            src={promotion.page.thumbnail_path}
+                            src={
+                                promotion.page.colored_path ||
+                                promotion.page.thumbnail_path
+                            }
                             alt={promotion.page.prompt}
                         />
                     </Link>

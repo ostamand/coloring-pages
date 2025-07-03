@@ -30,7 +30,6 @@
     flex-direction: row;
     align-items: center;
     column-gap: 1rem;
-
     /* heading text */
     > div {
         display: flex;
@@ -39,7 +38,7 @@
         flex-direction: column;
     }
     h3 {
-        max-width: 600px;
+        max-width: 625px;
     }
 }
 
@@ -131,7 +130,12 @@
         > div {
             justify-content: center;
             align-items: center;
+             >h2 {
+                display: none;
+            }
         }
+
+       
     }
 }
 

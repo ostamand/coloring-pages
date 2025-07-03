@@ -2,6 +2,7 @@ export type Page = {
     id: number;
     full_path: string;
     thumbnail_path: string;
+    colored_path: string | null;
     prompt: string;
     collection_name: string;
     created_on: string;

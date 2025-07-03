@@ -188,7 +188,7 @@ export async function getPageByUniqueName(db: Client, uniqueName: string) {
 
     const result = await db.queryObject(
         `
-        SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
+        SELECT  pages.id, pages.full_path, pages.thumbnail_path, pages.colored_path,
                 pages.prompt, pages.collection_name, pages.created_on, 
                 pages.featured_on, pages.name, tags, pages.overwrite_name,
                 pages.upd_collection_name
@@ -222,7 +222,7 @@ export async function getPagesById(db: Client, ids: number[]) {
     idsStr += ")";
     const result = await db.queryObject(
         `
-        SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
+        SELECT  pages.id, pages.full_path, pages.thumbnail_path, pages.colored_path,
                 pages.prompt, pages.collection_name, pages.created_on, 
                 pages.featured_on, pages.name, tags, pages.unique_name, 
                 pages.overwrite_name, pages.upd_collection_name
@@ -273,7 +273,7 @@ export async function getPages(
             ${random ? "ORDER BY RANDOM()" : "ORDER BY created_on DESC"}
             LIMIT $1
         )
-        SELECT  pages.id, pages.full_path, pages.thumbnail_path, 
+        SELECT  pages.id, pages.full_path, pages.thumbnail_path, pages.colored_path,
                 pages.prompt, pages.collection_name, pages.created_on, 
                 pages.featured_on, pages.name, page_tags.tags, pages.unique_name, pages.overwrite_name, pages.upd_collection_name
         FROM (
@@ -308,7 +308,7 @@ export async function searchPages(db: Client, query: string, limit: number) {
             ORDER BY created_on DESC
             LIMIT $2
         )
-        SELECT pages.id, pages.full_path, pages.thumbnail_path, 
+        SELECT pages.id, pages.full_path, pages.thumbnail_path, pages.colored_path,
                pages.prompt, pages.collection_name, pages.created_on, 
                pages.featured_on, pages.name, page_tags.tags, pages.unique_name, pages.overwrite_name, pages.upd_collection_name
         FROM (
