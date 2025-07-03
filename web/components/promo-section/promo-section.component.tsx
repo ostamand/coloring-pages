@@ -6,20 +6,18 @@ import Link from "next/link";
 import { Promotion } from "@/lib/api/types";
 
 export default function PromoSection({ promotion }: { promotion: Promotion }) {
-    console.log(promotion);
     return (
         <div className={styles.promotionContainer}>
             <div className={styles.promotionHeading}>
                 {promotion.heading_url ? (
-                    <div className={styles.headingWithImg}>
+                    <div
+                        className={styles.headingWithImg}
+                        style={{ backgroundColor: promotion.background_color }}
+                    >
                         <img
                             src={promotion.heading_url}
                             alt={`Collection: ${promotion.heading}`}
                         />
-                        <div>
-                            <h2>{`${promotion.heading}`}</h2>
-                            <h3>{promotion.sub_heading}</h3>
-                        </div>
                     </div>
                 ) : (
                     <>

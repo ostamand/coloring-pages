@@ -20,6 +20,7 @@ export type Promotion = {
     heading_url: string | null;
     sub_heading: string;
     background_url: string;
+    background_color: string;
     showcase_page_id: number;
     collection_name: string;
     active: boolean;
