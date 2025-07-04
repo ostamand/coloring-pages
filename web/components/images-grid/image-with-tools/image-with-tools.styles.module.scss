@@ -1,0 +1,27 @@
+.imageContainer {
+    position: relative;
+}
+
+.colorizeOverlay {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: #9b5de5;
+    z-index: 2;
+    padding: 0.3rem;
+    border-radius: 0.25rem;
+    border: 1px solid;
+    border-color: var(--color-border);
+
+    > svg {
+        color: var(--color-border);
+    }
+
+    &:hover {
+        background-color: #00f5d4;
+
+        > svg {
+            color: black;
+        }
+    }
+}

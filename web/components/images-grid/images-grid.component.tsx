@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 
 import { Page } from "@/lib/api/types";
 import PageTags from "../page-tags/page-tags.component";
+import ImageWithTools from "./image-with-tools/image-with-tools.compontent";
 
 const DEFAULT_LIMIT = 6;
 const DEFAULT_BATCH_SIZE = 3;
@@ -54,12 +55,12 @@ export default function ImagesGrid({
                                 {!hideTags && page.tags && (
                                     <PageTags tags={page.tags} />
                                 )}
-                                <Link href={`/pages/${page.unique_name}`}>
-                                    <img
-                                        src={page.thumbnail_path}
-                                        alt={page.prompt}
-                                    />
-                                </Link>
+                                <ImageWithTools
+                                    thumbnailSrc={page.thumbnail_path}
+                                    coloredSrc={page.colored_path}
+                                    href={`/pages/${page.unique_name}`}
+                                    alt={page.prompt}
+                                />
                             </div>
                         </div>
                     );
