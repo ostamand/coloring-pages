@@ -57,7 +57,11 @@ export default function ImageWithTools({
                 <div className={styles.colorizeOverlay}>
                     <Popover>
                         <PopoverTrigger>
-                            <div className={styles.callToAction}>
+                            <div
+                                className={`${styles.callToAction} ${
+                                    coloredSrc ? styles.colored : ""
+                                }`}
+                            >
                                 <EllipsisVertical size={30} />
                             </div>
                         </PopoverTrigger>

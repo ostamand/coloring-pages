@@ -13,8 +13,12 @@
 .callToAction {
     padding: 0.5rem;
     background-color: white;
-    border: 1px solid;
+    border: 2px solid;
     border-radius: 0.25rem;
     border-color: var(--color-border);
     cursor: pointer;
+}
+
+.callToAction.colored {
+    border-color: var(--color-teal);
 }
