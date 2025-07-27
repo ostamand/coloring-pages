@@ -6,10 +6,7 @@
     display: grid;
     img {
         transition: transform 0.2s ease-in;
-        
-        &:hover {
-            transform: scale(1.02);
-        }
+   
     }
 }
 

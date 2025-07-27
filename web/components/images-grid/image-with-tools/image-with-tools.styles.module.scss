@@ -5,23 +5,16 @@
 .colorizeOverlay {
     position: absolute;
     top: 1rem;
-    left: 1rem;
-    background-color: #9b5de5;
+    right: 1rem;
     z-index: 2;
-    padding: 0.3rem;
-    border-radius: 0.25rem;
+}
+
+/* make bigger so easier to click */
+.callToAction {
+    padding: 0.5rem;
+    background-color: white;
     border: 1px solid;
+    border-radius: 0.25rem;
     border-color: var(--color-border);
-
-    > svg {
-        color: var(--color-border);
-    }
-
-    &:hover {
-        background-color: #00f5d4;
-
-        > svg {
-            color: black;
-        }
-    }
+    cursor: pointer;
 }

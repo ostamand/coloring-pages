@@ -2,9 +2,19 @@
 
 import styles from "./image-with-tools.styles.module.scss";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Palette } from "lucide-react";
+import { EllipsisVertical } from "lucide-react";
+
+import { useIsMobile } from "@/hooks/use-mobile";
+
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+import { useRouter } from "next/navigation";
+import { Command, CommandItem, CommandList } from "@/components/ui/command";
 
 type ImageWithToolsProps = {
     thumbnailSrc: string;
@@ -21,6 +31,18 @@ export default function ImageWithTools({
 }: ImageWithToolsProps) {
     const [onHover, setOnHover] = useState(false);
     const [currentSrc, setCurrentSrc] = useState(thumbnailSrc);
+    const [isColored, setIsColored] = useState(false);
+
+    const isMobile = useIsMobile();
+
+    const router = useRouter();
+
+    useEffect(() => {
+        setIsColored(currentSrc === coloredSrc);
+    }, [currentSrc]);
+
+    const showPopover = isMobile || onHover;
+
     return (
         <div
             className={styles.imageContainer}
@@ -31,18 +53,44 @@ export default function ImageWithTools({
                 <img src={currentSrc} alt={alt} />
             </Link>
 
-            {onHover && coloredSrc && (
-                <div
-                    className={styles.colorizeOverlay}
-                    onClick={() => {
-                        if (currentSrc === thumbnailSrc) {
-                            setCurrentSrc(coloredSrc);
-                        } else if (currentSrc === coloredSrc) {
-                            setCurrentSrc(thumbnailSrc);
-                        }
-                    }}
-                >
-                    <Palette size={25} />
+            {showPopover && (
+                <div className={styles.colorizeOverlay}>
+                    <Popover>
+                        <PopoverTrigger>
+                            <div className={styles.callToAction}>
+                                <EllipsisVertical size={30} />
+                            </div>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <Command>
+                                <CommandList>
+                                    {coloredSrc && (
+                                        <CommandItem
+                                            onSelect={() => {
+                                                if (isColored) {
+                                                    setCurrentSrc(thumbnailSrc);
+                                                } else {
+                                                    setCurrentSrc(coloredSrc);
+                                                }
+                                            }}
+                                        >
+                                            {!isColored
+                                                ? "Colorize"
+                                                : "Coloring"}
+                                        </CommandItem>
+                                    )}
+
+                                    <CommandItem
+                                        onSelect={() => {
+                                            router.push(href);
+                                        }}
+                                    >
+                                        Details
+                                    </CommandItem>
+                                </CommandList>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
                 </div>
             )}
         </div>

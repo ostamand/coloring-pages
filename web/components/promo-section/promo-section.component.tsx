@@ -29,7 +29,9 @@ export default function PromoSection({ promotion }: { promotion: Promotion }) {
                         </>
                     )}
                 </div>
+
                 <div className={styles.backgroundOverlay} />
+
                 <div className={styles.imageContainer}>
                     <Link href={`/collections/${promotion.collection_name}`}>
                         <img
@@ -41,6 +43,7 @@ export default function PromoSection({ promotion }: { promotion: Promotion }) {
                         />
                     </Link>
                 </div>
+
                 <div className={styles.seeCollectionContent}>
                     <Link href={`/collections/${promotion.collection_name}`}>
                         <div className={stylesButton.actionButton}>
