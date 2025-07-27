@@ -4,13 +4,10 @@ import styles from "./detailed-page.styles.module.scss";
 
 import Link from "next/link";
 import { cache } from "react";
+import { redirect } from "next/navigation";
 
 import { Page } from "@/lib/api/types";
-import DownloadButton from "@/components/download-button/download-button.components";
-import PrintButton from "@/components/print-button/print-button.components";
-import PageTags from "@/components/page-tags/page-tags.component";
-
-import { redirect } from "next/navigation";
+import DetailedContent from "./detailed-content/detailed-content.components";
 
 import {
     Breadcrumb,
@@ -48,7 +45,7 @@ const getPage = cache(async (uniqueName: string) => {
 });
 
 export async function generateStaticParams() {
-    // TODO be smarter, cache featured + promoted + ranndom sample of the day
+    // TODO be smarter, cache featured + promoted + random sample of the day
     const endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?limit=10`;
     try {
         const response = await fetch(endpoint);
@@ -147,61 +144,7 @@ export default async function DetailedPage({
                 </div>
 
                 <div className={styles.centerContainer}>
-                    <div className={styles.content}>
-                        <div className={styles.leftSection}>
-                            <div className={styles.imageContainer}>
-                                <img
-                                    src={page.thumbnail_path}
-                                    alt={page.prompt}
-                                />
-                            </div>
-                        </div>
-                        <div className={styles.rightSection}>
-                            {page.name && (
-                                <h1>{page.overwrite_name || page.name}</h1>
-                            )}
-
-                            <div className={styles.actionsPanel}>
-                                <DownloadButton
-                                    pageId={page.id}
-                                    fileUrl={page.full_path}
-                                    name={page.name || "coloring-page"}
-                                    text="Download"
-                                />
-                                <PrintButton
-                                    pageId={page.id}
-                                    fileUrl={page.full_path}
-                                />
-                            </div>
-
-                            <div className="mt-1">
-                                <PageTags tags={page.tags} />
-                            </div>
-
-                            <div className={styles.promptContent}>
-                                <h2>Description</h2>
-                                <p>{page.prompt}</p>
-                            </div>
-                            <div className={styles.labelWithContent}>
-                                <h2>Collection</h2>
-                                <Link
-                                    href={`/collections/${page.upd_collection_name}`}
-                                >
-                                    {page.collection_name}
-                                </Link>
-                            </div>
-                            {page.featured_on && (
-                                <div className={styles.labelWithContent}>
-                                    <h2>Featured On</h2>
-                                    <p>
-                                        {new Date(
-                                            page.featured_on || ""
-                                        ).toLocaleDateString()}
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                    <DetailedContent page={page} />
                 </div>
             </div>
         </>
