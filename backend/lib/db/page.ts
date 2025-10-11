@@ -353,7 +353,7 @@ export async function getCurrentCounts(db: Client) {
         `
         SELECT status, CAST(COUNT(id) as INTEGER), MAX(featured_on) AS last_on FROM (
 	        SELECT featured_on, id, CASE WHEN published=false THEN 'not published' ELSE 'published' END AS status FROM pages
-        )
+        ) AS results
         GROUP BY status;
     `,
     );
