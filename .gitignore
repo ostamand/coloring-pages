@@ -8,3 +8,5 @@ venv
 
 deploy.sh
 deploy-featured.sh
+
+.env
