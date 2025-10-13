@@ -5,3 +5,6 @@ postgres
 reference
 models
 venv
+
+deploy.sh
+deploy-featured.sh
