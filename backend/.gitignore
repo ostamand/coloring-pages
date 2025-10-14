@@ -50,3 +50,5 @@ ai/configs
 ai/prompts
 
 jobs/promotions
+
+deploy-umami.sh
