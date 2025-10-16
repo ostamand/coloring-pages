@@ -18,7 +18,7 @@ async function main() {
         FROM pages
         WHERE featured_on IS NULL 
             AND published=false
-            AND collection_name IN ('Thick Lines')
+            AND collection_name IN ('Thick Lines', 'Halloween')
         ORDER BY RANDOM()
         LIMIT 1;`);
         if (!resultRandom?.rowCount || resultRandom?.rowCount < 1) {
