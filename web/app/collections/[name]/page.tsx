@@ -156,26 +156,24 @@ export default async function CollectionPage({
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
-                <h1>{`${
-                    collection.display_name || DEFAULT_COLLECTION_DISPLAY_NAME
-                }`}</h1>
-                <h2>{collection.sub_heading || ""}</h2>
-                <div className={styles.collectionContent}>
-                    <div
-                        className={styles.promoBackground}
-                        style={{
-                            backgroundImage: `url("${
-                                collection?.background_url ||
-                                DEFAULT_COLLECTION_BACKGROUND
-                            }")`,
-                            backgroundRepeat: "no-repeat",
-                            backgroundPosition: "center center",
-                            backgroundSize: "cover",
-                        }}
-                    >
-                        <div className={styles.backgroundOverlay} />
+                <div
+                    className={styles.heroSection}
+                    style={{
+                        backgroundImage: `url("${
+                            collection?.background_url ||
+                            DEFAULT_COLLECTION_BACKGROUND
+                        }")`,
+                    }}
+                >
+                    <div className={styles.heroContent}>
+                        <h1>{`${
+                            collection.display_name ||
+                            DEFAULT_COLLECTION_DISPLAY_NAME
+                        }`}</h1>
+                        <h2>{collection.sub_heading || ""}</h2>
                     </div>
-
+                </div>
+                <div className={styles.collectionContent}>
                     <div className={styles.imagesContainer}>
                         {pages && <ImagesGrid pages={pages} />}
                     </div>
