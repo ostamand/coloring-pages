@@ -1,164 +1,96 @@
-.promotionContainer {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+.promoContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 4rem;
+    margin: 2rem 0 0;
     align-items: center;
-    width: 100%;
-    max-width: 2000px;
-    margin-top: 0rem;
-    border: 1px solid;
-    margin-top: 1rem;
-    border-radius: 1rem;
-    border-color: var(--color-border);
-}
+    background-color: #f9f9f9;
+    border-radius: 1.5rem;
 
-.promotionHeading {
-    flex-direction: column;
-    align-items: center;
-    display: flex;
-    h2 {
-        font-size: 4rem;
-        font-weight: 500;
-    }
-    h3 {
-        font-size: 2rem;
-        color: var(--color-purple);
-        margin-bottom: 1rem;
-    }
-    height: 100%;
-    width: 100%;
-    z-index: 2;
-    padding: 0rem 0.5rem;
- 
-}
-
-.headingWithImg {
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0rem;
-    img {
-        width: auto;
-        height: 100%;
-        max-height: 300px;
-        -webkit-mask-image: linear-gradient(
-            to right,
-            transparent 0%,
-            black 10%,
-            black 90%,
-            transparent 100%
-        );
-        mask-image: linear-gradient(
-            to right,
-            transparent 0%,
-            black 10%,
-            black 90%,
-            transparent 100%
-        );
-    }
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 1rem;
-    opacity: 100%;
-}
-
-.promotionContent {
-    overflow: hidden;
-    background: url("/promotions/a-pirate-life.webp") no-repeat center center;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    flex-direction: column;
-    align-items: center;
-}
-
-.seeCollectionContent {
-    z-index: 2;
-    width: 400px;
-}
-
-.backgroundOverlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-    opacity: 50%;
-    /* background: url("/blurry-gradient-haikei-3.svg") no-repeat center center;*/
-    background-color: white;
-    background-size: cover;
-}
-
-.imageContainer {
-    display: flex;
-    z-index: 2;
-    margin: 2rem;
-    img {
-        border: 1px solid;
-        border-radius: 0.5rem;
-        border-color: var(--color-border);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        max-height: 600px;
-        transition: transform 0.2s ease-in;
-        &:hover {
-            transform: scale(1.02);
-        }
-    }
-}
-
-.seeCollectionContent {
-    margin-bottom: 2rem;
-}
-
-@media (width<=1200px) {
-}
-
-@media (width<=1000px) {
-    .promotionHeading {
-        h2 {
-            font-size: 3rem;
-            text-align: center;
-        }
-        h3 {
-            font-size: 1.5rem;
-            text-align: center;
-        }
-    }
-}
-
-/* on mobile */
-@media (width<=800px) {
-    .seeCollectionContent {
-        width: 80%;
-    }
-    .promotionHeading {
-        column-gap: 0rem;
-        h2 {
-            font-size: 2.5rem;
-        }
-        h3 {
-            font-size: 1.25rem;
-        }
+    @media (max-width: 992px) {
+        gap: 2rem;
+        padding: 3rem;
     }
 
-    .headingWithImg {
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .leftSection {
+        display: flex;
         flex-direction: column;
-        > div {
-            justify-content: center;
+        justify-content: center;
+        gap: 1.5rem;
+        align-items: flex-start;
+        text-align: left;
+
+        @media (max-width: 768px) {
+            order: 2;
             align-items: center;
-            > h2 {
-                display: none;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #8a2be2;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            @media (max-width: 992px) {
+                font-size: 3.5rem;
+            }
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 500px;
+
+            @media (max-width: 768px) {
+                max-width: 100%;
+            }
+        }
+    }
+
+    .rightSection {
+        @media (max-width: 768px) {
+            order: 1;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            max-width: 500px;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            &:hover {
+                transform: scale(1.05);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             }
         }
     }
 }
 
-@media (width<=1000px) {
-    /* make sure margin on right side of heading */
-    .promotionContainer {
-        max-width: 95%;
-    }
+.leftSection > a > div {
+    transition: transform 0.3s ease, filter 0.3s ease, background-color 0.3s ease;
+    display: inline-block;
+    padding: 1rem 1.5rem;
+}
+
+.buttonHovered {
+    transform: scale(1.05);
+    filter: brightness(1.1);
 }

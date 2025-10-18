@@ -51,6 +51,7 @@
     align-items: start;
     overflow: hidden;
     background-size: cover;
+    gap: 1.5rem;
     h1 {
         font-size: 4rem;
         font-weight: 500;
@@ -99,6 +100,7 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
+        gap: 1.5rem;
         h1 {
             font-size: 4rem;
             font-weight: 500;
@@ -209,6 +211,7 @@
             text-align: center;
         }
         align-items: center;
+        gap: 1rem;
     }
 
     .featuredContent {
@@ -222,8 +225,10 @@
     }
 
     .previously {
+        margin-top: 2rem;
         .previouslyHeading {
             margin: 0px;
+            gap: 1rem;
         }
     }
 
