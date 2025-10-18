@@ -15,12 +15,8 @@ export default function PromoSection({ promotion }: { promotion: Promotion }) {
     return (
         <div className={styles.promoContainer}>
             <div className={styles.leftSection}>
-                <h2>New Collection</h2>
-                <h1>{promotion.title}</h1>
-                <p>
-                    Explore a new world of creativity with our latest collection.
-                    Dozens of new pages to discover.
-                </p>
+                <h2>Collection: {promotion.heading}</h2>
+                <p>{promotion.sub_heading}</p>
                 <Link href={`/collections/${promotion.collection_name}`}>
                     <div
                         className={`${buttonStyles.actionButton} ${
@@ -37,7 +33,10 @@ export default function PromoSection({ promotion }: { promotion: Promotion }) {
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <Link href={`/collections/${promotion.collection_name}`}>
-                    <img src={page.thumbnail_path} alt={page.prompt} />
+                    <img
+                        src={page.colored_path || page.thumbnail_path}
+                        alt={page.prompt}
+                    />
                 </Link>
             </div>
         </div>

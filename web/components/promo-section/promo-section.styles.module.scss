@@ -35,26 +35,14 @@
         }
 
         h2 {
-            font-size: 2rem;
-            font-weight: 600;
+            font-size: 3rem;
             color: #8a2be2;
-            text-transform: uppercase;
-        }
-
-        h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            line-height: 1.1;
-            @media (max-width: 992px) {
-                font-size: 3.5rem;
-            }
         }
 
         p {
-            font-size: 1.2rem;
+            font-size: 2rem;
             color: #555;
             max-width: 500px;
-
             @media (max-width: 768px) {
                 max-width: 100%;
             }
@@ -85,7 +73,8 @@
 }
 
 .leftSection > a > div {
-    transition: transform 0.3s ease, filter 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease,
+        background-color 0.3s ease;
     display: inline-block;
     padding: 1rem 1.5rem;
 }
