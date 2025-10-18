@@ -27,13 +27,6 @@
         align-items: flex-start;
         text-align: left;
 
-        @media (max-width: 768px) {
-            order: 2;
-            align-items: center;
-            text-align: center;
-            gap: 1rem;
-        }
-
         h2 {
             font-size: 3rem;
             color: #8a2be2;
@@ -45,6 +38,22 @@
             max-width: 500px;
             @media (max-width: 768px) {
                 max-width: 100%;
+            }
+        }
+
+        @media (max-width: 800px) {
+            order: 2;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+
+            h2 {
+                font-size: 2rem;
+                text-align: center;
+            }
+
+            p {
+                font-size: 1rem;
             }
         }
     }
