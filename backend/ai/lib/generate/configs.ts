@@ -10,10 +10,19 @@ export type GenerateConfigs = {
     trigger: string;
     height: number;
     width: number;
+    instructionsPath?: string;
+    instructions?: string;
 };
 
 export function loadGenerateConfigs(filePath: string) {
-    return JSON.parse(Deno.readTextFileSync(filePath)) as GenerateConfigs;
+    const config = JSON.parse(
+        Deno.readTextFileSync(filePath),
+    ) as GenerateConfigs;
+    // try to get instructions from file
+    if (config.instructionsPath) {
+        config.instructions = Deno.readTextFileSync(config.instructionsPath);
+    }
+    return config;
 }
 
 export function parseArgs(args: string[]) {

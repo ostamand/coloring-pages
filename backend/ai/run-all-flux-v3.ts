@@ -1,6 +1,5 @@
 import { runGenerate } from "./lib/generate/generate.ts";
 
-import { SYSTEM_INSTRUCTIONS_HALLOWEEN } from "./instructions/flux.ts";
 import { loadGenerateConfigs } from "./lib/generate/configs.ts";
 import { parseArgs } from "./lib/generate/configs.ts";
 import { GenerationConfigs } from "../lib/types.ts";
@@ -13,6 +12,10 @@ async function main(args: string[]) {
     }
 
     const generateConfig = loadGenerateConfigs(inputConfigPath);
+
+    if (!generateConfig.instructions) {
+        throw new Error("Instructions are missing.");
+    }
 
     // get last prompts from output folder
 
@@ -48,7 +51,7 @@ async function main(args: string[]) {
     }
 
     const instructionsFn = (lastPrompts: string) => {
-        const instructions = SYSTEM_INSTRUCTIONS_HALLOWEEN + lastPrompts +
+        const instructions = generateConfig.instructions + lastPrompts +
             lastPromptsFromOutputFolder.join("\n");
         return instructions;
     };
@@ -74,7 +77,10 @@ async function main(args: string[]) {
 
 // --out: output folder for generations
 // --config: path to config input path
-// example: deno run --allow-all ai/run-a-halloween.ts --config ai/configs/halloween.json --out tmp/halloween
+// example:
+//      deno run --allow-all ai/run-all-flux-v3.ts --config ai/configs/halloween.json --out tmp/halloween
+//      deno run --allow-all ai/run-all-flux-v3.ts --config ai/configs/alphabet.json --out tmp/alphabet
+//      deno run --allow-all ai/run-all-flux-v3.ts --config ai/configs/a-pirate-life.json --out tmp/a-pirate-life
 if (import.meta.main) {
     await main(Deno.args);
 }
