@@ -19,6 +19,6 @@
     cursor: pointer;
 }
 
-.callToAction.colored {
-    border-color: var(--color-teal);
+.callToAction.glow {
+    box-shadow: 0 0 10px 3px var(--color-yellow);
 }

@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 import { Page } from "@/lib/api/types";
 import PageTags from "../page-tags/page-tags.component";
-import ImageWithTools from "./image-with-tools/image-with-tools.compontent";
+import ImageWithTools from "./image-with-tools/image-with-tools.component";
 
 const DEFAULT_LIMIT = 6;
 const DEFAULT_BATCH_SIZE = 3;
