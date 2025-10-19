@@ -1,7 +1,7 @@
 import { Router } from "@oak/oak/router";
 
 import { getCollectionByName, getCollections } from "../lib/db/collection.ts";
-import { getClientFromPool } from "../lib/db/db.ts";
+import { getClientFromPool } from "../lib/db/mod.ts";
 
 export const collectionsRouter = new Router();
 

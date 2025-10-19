@@ -1,6 +1,6 @@
 import { join } from "jsr:@std/path";
 
-import { getDatabaseClient } from "../../../lib/db/db.ts";
+import { getClientFromPool, setupDatabasePool } from "../../../lib/db/mod.ts";
 import { loadAppConfigs } from "../../../lib/configs.ts";
 import { getRandomString } from "../../../lib/helpers.ts";
 import { getGenerationConfigsFromGemini } from "./gemini.ts";
@@ -22,6 +22,8 @@ export async function runGenerate(
     genFile?: string,
 ) {
     const configs = loadAppConfigs();
+    setupDatabasePool(configs);
+
     // paths for gemini generatins
     const randomId = getRandomString();
     const generationOutputFolder = join(outputFolder, randomId);
@@ -35,7 +37,7 @@ export async function runGenerate(
         await Deno.mkdir(join(outputFolder, randomId), {
             recursive: true,
         });
-        const db = getDatabaseClient(configs);
+        const db = await getClientFromPool();
         // get generation configs
         let generationConfigs = null;
         try {
@@ -53,7 +55,7 @@ export async function runGenerate(
             console.error(error);
             return;
         } finally {
-            db.end();
+            await db.release();
         }
     }
     // generate images from generation template

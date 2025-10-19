@@ -13,7 +13,7 @@ export function loadAppConfigs(): AppConfigs {
                 user: Deno.env.get("DB_USER") || "",
                 password: Deno.env.get("DB_PASSWORD") || "",
                 hostname: Deno.env.get("DB_HOSTNMAME") || "",
-                poolSize: Number(Deno.env.get("DB_POOL_SIZE")) || 5,
+                poolSize: Number(Deno.env.get("DB_POOL_SIZE")) || 1,
             },
             s3: {
                 region: Deno.env.get("S3_REGION") || "",

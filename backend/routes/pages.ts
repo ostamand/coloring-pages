@@ -1,6 +1,6 @@
 import { Router } from "jsr:@oak/oak";
 
-import { getClientFromPool } from "../lib/db/db.ts";
+import { getClientFromPool } from "../lib/db/mod.ts";
 import {
     getCurrentCounts,
     getPageByUniqueName,

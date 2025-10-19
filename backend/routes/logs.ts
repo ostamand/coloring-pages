@@ -1,5 +1,5 @@
 import { Request, Router } from "@oak/oak";
-import { getClientFromPool } from "../lib/db/db.ts";
+import { getClientFromPool } from "../lib/db/mod.ts";
 
 import { addDownloadLog, DownloadLog } from "../lib/db/download-log.ts";
 import { addPageRequest, PageRequest } from "../lib/db/page.ts";

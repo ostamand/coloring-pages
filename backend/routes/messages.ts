@@ -1,6 +1,6 @@
 import { Router } from "@oak/oak";
 
-import { getClientFromPool } from "../lib/db/db.ts";
+import { getClientFromPool } from "../lib/db/mod.ts";
 import { addNewMessage } from "../lib/db/messages.ts";
 
 export const messagesRouter = new Router();

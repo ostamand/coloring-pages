@@ -1,23 +1,23 @@
 import { S3Client } from "@aws-sdk/client-s3";
 
-import { getDatabaseClient } from "../lib/db/db.ts";
+import { getClientFromPool, setupDatabasePool } from "../lib/db/mod.ts";
 import { loadAppConfigs } from "../lib/configs.ts";
 import { importFromFolder } from "../lib/jobs/page.ts";
 
 async function importFolder(folderPath: string) {
     const configs = loadAppConfigs();
-
-    const s3 = new S3Client({
-        region: configs.s3.region,
-        credentials: {
-            accessKeyId: configs.s3.accessKeyId,
-            secretAccessKey: configs.s3.secretAccessKey,
-        },
-    });
-
-    const db = getDatabaseClient(configs);
+    setupDatabasePool(configs);
+    const db = await getClientFromPool();
 
     try {
+        const s3 = new S3Client({
+            region: configs.s3.region,
+            credentials: {
+                accessKeyId: configs.s3.accessKeyId,
+                secretAccessKey: configs.s3.secretAccessKey,
+            },
+        });
+
         await importFromFolder(
             db,
             s3,
@@ -25,7 +25,7 @@ async function importFolder(folderPath: string) {
             configs.cloudfrontUrl,
         );
     } finally {
-        await db.end();
+        await db.release();
     }
 }
 

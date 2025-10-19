@@ -1,11 +1,12 @@
-import { getDatabaseClient } from "../lib/db/mod.ts";
+import { getClientFromPool, setupDatabasePool } from "../lib/db/mod.ts";
 import { loadAppConfigs } from "../lib/configs.ts";
 
 const WEB_URL = "https://coloritdaily.com";
 
 async function main() {
     const configs = loadAppConfigs();
-    const db = getDatabaseClient(configs);
+    setupDatabasePool(configs);
+    const db = await getClientFromPool();
 
     try {
         await db.queryObject("BEGIN");
@@ -46,11 +47,11 @@ async function main() {
         await db.queryObject("COMMIT");
         console.log(`✅ New page featured`);
     } catch (_) {
-        db.queryObject("ROLLBACK");
+        await db.queryObject("ROLLBACK");
         console.error(`❌ Page was not featured.`);
         return;
     } finally {
-        db.end();
+        await db.release();
     }
 
     // new featured page, let's invalidate web cache

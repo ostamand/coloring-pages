@@ -8,4 +8,4 @@ export {
     getPagesById,
     searchPages,
 } from "./page.ts";
-export { getDatabaseClient, setupDatabasePool } from "./db.ts";
+export { getClientFromPool, getDatabaseClient, setupDatabasePool } from "./db.ts";

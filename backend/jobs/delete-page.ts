@@ -1,7 +1,7 @@
 import { Client } from "@db/postgres";
 import { DeleteObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
-import { getDatabaseClient } from "../lib/db/db.ts";
+import { getClientFromPool, setupDatabasePool } from "../lib/db/mod.ts";
 import { loadAppConfigs } from "../lib/configs.ts";
 import { getS3Client } from "../lib/s3/s3.ts";
 import { AppConfigs } from "../lib/types.ts";
@@ -65,12 +65,16 @@ async function main(args: string[]) {
     const name = Deno.args[idIndex + 1];
 
     const configs = loadAppConfigs();
-    const db = getDatabaseClient(configs);
+    setupDatabasePool(configs);
+    const db = await getClientFromPool();
     const s3 = getS3Client(configs);
 
-    await deletePage(db, s3, configs, name);
-
-    console.log(`✅ Page ${name} deleted successfully`);
+    try {
+        await deletePage(db, s3, configs, name);
+        console.log(`✅ Page ${name} deleted successfully`);
+    } finally {
+        await db.release();
+    }
 }
 
 // example: deno run --allow-all --name

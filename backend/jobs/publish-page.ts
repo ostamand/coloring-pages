@@ -1,4 +1,4 @@
-import { getDatabaseClient } from "../lib/db/mod.ts";
+import { getClientFromPool, setupDatabasePool } from "../lib/db/mod.ts";
 import { loadAppConfigs } from "../lib/configs.ts";
 
 async function main(args: string[]) {
@@ -11,18 +11,22 @@ async function main(args: string[]) {
     const id = Number(Deno.args[indexId + 1]);
 
     const configs = loadAppConfigs();
+    setupDatabasePool(configs);
+    const db = await getClientFromPool();
 
-    const db = await getDatabaseClient(configs);
+    try {
+        const result = await db.queryArray(
+            `UPDATE pages SET published=true WHERE id=${id} RETURNING id;`,
+        );
 
-    const result = await db.queryArray(
-        `UPDATE pages SET published=true WHERE id=${id} RETURNING id;`,
-    );
+        if (result.rowCount !== 1) {
+            console.error(`❌ Failed to publish page with id ${id}`);
+        }
 
-    if (result.rowCount !== 1) {
-        console.error(`❌ Failed to publish page with id ${id}`);
+        console.log(`✅ Published page with id ${id}`);
+    } finally {
+        await db.release();
     }
-
-    console.log(`✅ Published page with id ${id}`);
 }
 
 if (import.meta.main) {
