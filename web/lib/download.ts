@@ -33,16 +33,12 @@ export const useDownloader = () => {
                 console.error(error);
             }
 
-            // download successful, let's log it. no need to wait.
-            fetch("/api/logs/downloads", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    pageId,
+            if (window.umami) {
+                window.umami.track("download", {
+                    pageId: pageId.toString(),
                     url: window.location.href,
-                    actionType: "download",
-                }),
-            });
+                });
+            }
         },
         []
     );

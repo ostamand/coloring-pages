@@ -77,16 +77,12 @@ export const usePrinter = () => {
                         setTimeout(() => {
                             try {
                                 contentWindow.print();
-                                // print successful, let's log it. no need to wait.
-                                fetch("/api/logs/downloads", {
-                                    method: "POST",
-                                    headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({
-                                        pageId,
+                                if (window.umami) {
+                                    window.umami.track("print", {
+                                        pageId: pageId.toString(),
                                         url: window.location.href,
-                                        actionType: "print",
-                                    }),
-                                });
+                                    });
+                                }
                             } catch (error) {
                                 console.error("Print failed", error);
                             }
