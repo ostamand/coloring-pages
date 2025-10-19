@@ -4,15 +4,25 @@ import styles from "./image-with-tools.styles.module.scss";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { EllipsisVertical, Palette, Info } from "lucide-react";
+import {
+    EllipsisVertical,
+    Palette,
+    Info,
+    Download,
+    Printer,
+} from "lucide-react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useRouter } from "next/navigation";
 
 import CustomPopover from "@/components/ui/custom-popover/custom-popover.component";
 import PopoverMenu from "@/components/ui/popover-menu/popover-menu.component";
+import { Page } from "@/lib/api/types";
+import { useDownloader } from "@/lib/download";
+import { usePrinter } from "@/hooks/use-printer";
 
 type ImageWithToolsProps = {
+    page: Page;
     thumbnailSrc: string;
     coloredSrc: string | null;
     alt: string;
@@ -20,6 +30,7 @@ type ImageWithToolsProps = {
 };
 
 export default function ImageWithTools({
+    page,
     thumbnailSrc,
     coloredSrc,
     alt,
@@ -32,6 +43,9 @@ export default function ImageWithTools({
     const isMobile = useIsMobile();
 
     const router = useRouter();
+
+    const { handleDownload } = useDownloader();
+    const { handlePrint, PrintIframe } = usePrinter();
 
     useEffect(() => {
         setIsColored(currentSrc === coloredSrc);
@@ -63,6 +77,18 @@ export default function ImageWithTools({
         icon: <Info size={18} />,
     });
 
+    menuItems.push({
+        label: "Download",
+        onClick: () => handleDownload(page.id, page.full_path, page.name),
+        icon: <Download size={18} />,
+    });
+
+    menuItems.push({
+        label: "Print",
+        onClick: () => handlePrint(page.id, page.full_path),
+        icon: <Printer size={18} />,
+    });
+
     return (
         <div
             className={styles.imageContainer}
@@ -90,6 +116,7 @@ export default function ImageWithTools({
                     </CustomPopover>
                 </div>
             )}
+            {PrintIframe}
         </div>
     );
 }

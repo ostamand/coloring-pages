@@ -56,6 +56,7 @@ export default function ImagesGrid({
                                     <PageTags tags={page.tags} />
                                 )}
                                 <ImageWithTools
+                                    page={page}
                                     thumbnailSrc={page.thumbnail_path}
                                     coloredSrc={page.colored_path}
                                     href={`/pages/${page.unique_name}`}
