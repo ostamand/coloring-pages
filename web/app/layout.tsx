@@ -21,8 +21,8 @@ export default function RootLayout({
                 {children}
                 {/* disable umami tracking: localStorage.setItem("umami.disabled", "true") */}
                 <Script
-                    src="https://umami-analytics-585499903514.us-central1.run.app/script.js"
-                    data-website-id="b7da117a-91f9-4444-b8ca-9fc3d5eb4fca"
+                    src="https://umami-analytics-453586259507.us-central1.run.app/script.js"
+                    data-website-id="0cbab402-a8ed-4da7-a27a-fd0301eb1eb6"
                     strategy="lazyOnload"
                 />
                 <Script

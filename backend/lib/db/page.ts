@@ -54,6 +54,7 @@ export async function addNewPage(
         promptModelName,
         height,
         width,
+        coloringImagePath,
     } = generateConfig;
 
     const pageTags = tags.map((tagName) => {
@@ -109,9 +110,10 @@ export async function addNewPage(
                     height, 
                     width, 
                     unique_name,
-                    upd_collection_name
+                    upd_collection_name,
+                    colored_path
                 ) 
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) 
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) 
                 RETURNING id`,
         [
             fullPath,
@@ -128,6 +130,7 @@ export async function addNewPage(
             width,
             uniqueName,
             collection?.name || collectionName,
+            coloringImagePath,
         ],
     );
 
