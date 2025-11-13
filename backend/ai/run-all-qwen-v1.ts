@@ -1,0 +1,84 @@
+import { runGenerate } from "./lib/generate/generate.ts";
+
+import { loadGenerateConfigs } from "./lib/generate/configs.ts";
+import { parseArgs } from "./lib/generate/configs.ts";
+import { GenerationConfigs } from "../lib/types.ts";
+
+async function main(args: string[]) {
+    const { outputFolder, inputConfigPath, genFile } = parseArgs(args);
+
+    if (!inputConfigPath || !outputFolder) {
+        return;
+    }
+
+    const generateConfig = loadGenerateConfigs(inputConfigPath);
+
+    if (!generateConfig.instructions) {
+        throw new Error("Instructions are missing.");
+    }
+
+    // get last prompts from output folder
+
+    const jsonFiles: string[] = [];
+    for await (const dirEntry of Deno.readDir(outputFolder)) {
+        if (dirEntry.isDirectory) {
+            const subfolder = `${outputFolder}/${dirEntry.name}`;
+            for await (const fileEntry of Deno.readDir(subfolder)) {
+                if (fileEntry.isFile && fileEntry.name.endsWith(".json")) {
+                    jsonFiles.push(`${subfolder}/${fileEntry.name}`);
+                }
+            }
+        }
+    }
+
+    const lastPromptsFromOutputFolder: string[] = [];
+    for (const filePath of jsonFiles) {
+        try {
+            const data = JSON.parse(
+                Deno.readTextFileSync(filePath),
+            ) as GenerationConfigs;
+            if (data && data.prompt) {
+                if (!lastPromptsFromOutputFolder.includes(data.prompt)) {
+                    const key = `- ${data.prompt}`;
+                    if (!lastPromptsFromOutputFolder.includes(key)) {
+                        lastPromptsFromOutputFolder.push(key);
+                    }
+                }
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const instructionsFn = (lastPrompts: string) => {
+        const instructions = generateConfig.instructions + lastPrompts +
+            lastPromptsFromOutputFolder.join("\n");
+        return instructions;
+    };
+
+    await runGenerate(
+        instructionsFn,
+        generateConfig.worflowPath,
+        (workflow, prompt, seed, outputPrefix) => {
+            workflow["3"]["inputs"]["seed"] = seed;
+            workflow["6"]["inputs"]["text"] =
+                `${generateConfig.trigger}, ${prompt}`;
+            workflow["84"]["inputs"]["filename_prefix"] = outputPrefix;
+            return workflow;
+        },
+        generateConfig.numberOfGenerations,
+        outputFolder,
+        {
+            ...generateConfig,
+        },
+        genFile,
+    );
+}
+
+// --out: output folder for generations
+// --config: path to config input path
+// example:
+//      deno run --allow-all ai/run-all-flux-v3.ts --config ai/configs/qwen-v1.json --out tmp/qwen
+if (import.meta.main) {
+    await main(Deno.args);
+}
