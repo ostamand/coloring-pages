@@ -78,7 +78,8 @@ async function main(args: string[]) {
 // --out: output folder for generations
 // --config: path to config input path
 // example:
-//      deno run --allow-all ai/run-all-flux-v3.ts --config ai/configs/qwen-v1.json --out tmp/qwen
+//      deno run --allow-all ai/run-all-qwen-v1.ts --config ai/configs/qwen-v1.json --out tmp/qwen
+//      deno run --allow-all ai/run-all-qwen-v1.ts --config ai/configs/christmas.json --out tmp/christmas
 if (import.meta.main) {
     await main(Deno.args);
 }

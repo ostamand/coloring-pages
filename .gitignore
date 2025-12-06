@@ -8,5 +8,7 @@ venv
 
 deploy.sh
 deploy-featured.sh
+push-umami.sh
+img-import
 
 .env
