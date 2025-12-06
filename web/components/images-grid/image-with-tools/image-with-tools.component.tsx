@@ -2,13 +2,13 @@
 
 import styles from "./image-with-tools.styles.module.scss";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-    EllipsisVertical,
-    Palette,
-    Info,
     Download,
+    EllipsisVertical,
+    Info,
+    Palette,
     Printer,
 } from "lucide-react";
 
@@ -40,6 +40,12 @@ export default function ImageWithTools({
     const [currentSrc, setCurrentSrc] = useState(thumbnailSrc);
     const [isColored, setIsColored] = useState(false);
 
+    useEffect(() => {
+        if (coloredSrc && Math.random() < 0.6) {
+            setCurrentSrc(coloredSrc);
+        }
+    }, [coloredSrc]);
+
     const isMobile = useIsMobile();
 
     const router = useRouter();
@@ -49,7 +55,7 @@ export default function ImageWithTools({
 
     useEffect(() => {
         setIsColored(currentSrc === coloredSrc);
-    }, [currentSrc]);
+    }, [currentSrc, coloredSrc]);
 
     const showPopover = isMobile || onHover;
 
