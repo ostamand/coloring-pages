@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 async function getFeaturedPage() {
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/pages/featured`
+            `${process.env.NEXT_PUBLIC_API_URL}/pages/featured`,
         );
         if (!response.ok) {
             throw new Error("Could not get featured pages.");
@@ -53,7 +53,7 @@ async function getPages() {
     if (!featuredPage) return {};
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=6&ignore=${featuredPage.id}`
+            `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=6&ignore=${featuredPage.id}`,
         );
         if (!response.ok) {
             throw new Error("Could not get previously published pages.");
@@ -70,7 +70,7 @@ async function getPages() {
 async function getActivePromotions(): Promise<Promotion[] | null> {
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/promotions`
+            `${process.env.NEXT_PUBLIC_API_URL}/promotions`,
         );
 
         if (!response.ok) {
@@ -86,7 +86,7 @@ async function getActivePromotions(): Promise<Promotion[] | null> {
         for (const promotion of promotions) {
             try {
                 const responsePage = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/pages?collection=${promotion.collection_name}&limit=1&random=true`
+                    `${process.env.NEXT_PUBLIC_API_URL}/pages?collection=${promotion.collection_name}&limit=1&random=true`,
                 );
                 if (responsePage.ok) {
                     const page = (await responsePage.json()) as Page[];
