@@ -5,8 +5,21 @@
     padding: 4rem;
     margin: 2rem 0 0;
     align-items: center;
-    background-color: #f9f9f9;
+    background: linear-gradient(135deg, #f3e8ff 0%, #e0f7fa 100%);
     border-radius: 1.5rem;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+        pointer-events: none;
+    }
 
     @media (max-width: 992px) {
         gap: 2rem;
@@ -26,16 +39,20 @@
         gap: 1.5rem;
         align-items: flex-start;
         text-align: left;
+        position: relative;
+        z-index: 1;
 
         h2 {
             font-size: 3rem;
             color: #8a2be2;
+            margin: 0;
         }
 
         p {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #555;
             max-width: 500px;
+
             @media (max-width: 768px) {
                 max-width: 100%;
             }
@@ -59,6 +76,9 @@
     }
 
     .rightSection {
+        position: relative;
+        z-index: 1;
+
         @media (max-width: 768px) {
             order: 1;
         }
@@ -66,29 +86,27 @@
         img {
             width: 100%;
             height: auto;
-            max-width: 500px;
+            max-width: 450px;
             border-radius: 1rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* Subtler drop-shadow */
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
             display: block;
             margin: 0 auto;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
             &:hover {
-                transform: scale(1.05);
-                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+                transform: scale(1.03) rotate(2deg);
             }
         }
     }
 }
 
-.leftSection > a > div {
-    transition: transform 0.3s ease, filter 0.3s ease,
-        background-color 0.3s ease;
+.leftSection>a>div {
     display: inline-block;
-    padding: 1rem 1.5rem;
 }
 
 .buttonHovered {
-    transform: scale(1.05);
-    filter: brightness(1.1);
+    /* Mimic standard button hover: background teal, color black */
+    background-color: var(--color-teal) !important;
+    color: black !important;
 }
