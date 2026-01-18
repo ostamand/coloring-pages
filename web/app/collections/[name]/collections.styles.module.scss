@@ -16,17 +16,49 @@
 }
 
 .breadCrumbContent {
-    width: 100%;
-    max-width: 1440px;
-    padding: 0.5rem 0rem 0.5rem 2rem;
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    z-index: 10;
+
+    display: inline-flex;
+    padding: 0.5rem 1.5rem;
+
+    /* Glass Pill Effect */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
     span,
     a,
     p {
-        font-size: 1.25rem;
-        color: black;
+        font-size: 1rem;
+        color: white;
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
+
     svg {
-        color: black;
+        color: rgba(255, 255, 255, 0.8);
+        width: 1rem;
+        height: 1rem;
+    }
+
+    /* List alignment */
+    >ol {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0;
     }
 }
 
@@ -60,14 +92,26 @@
 .heroContent {
     position: relative;
     z-index: 1;
+
     h1 {
         font-size: 4rem;
-        font-weight: 500;
+        font-weight: 800;
+        /* Bolder */
         color: white;
+        letter-spacing: -0.02em;
+        /* Tighter tracking */
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        /* Premium shadow */
+        line-height: 1.1;
+        margin-bottom: 1rem;
     }
+
     h2 {
-        font-size: 2rem;
-        color: white;
+        font-size: 1.5rem;
+        /* Refined size */
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 }
 
@@ -92,10 +136,13 @@
         }
 
         .breadCrumbContent {
-            padding: 0.5rem 0rem 0.5rem 1rem;
+            left: 1rem;
+            top: 1rem;
+            padding: 0.5rem 1rem;
+
             p,
             a {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
         }
     }
@@ -108,8 +155,9 @@
         h1 {
             font-size: 2.5rem;
         }
+
         h2 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
         }
     }
 }

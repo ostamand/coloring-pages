@@ -76,13 +76,11 @@ export async function generateMetadata({
 
     const collection = await getCollection(name);
 
-    const title = `${
-        collection?.display_name || ""
-    } Collection | Free Coloring Page | Color It Daily`;
+    const title = `${collection?.display_name || ""
+        } Collection | Free Coloring Page | Color It Daily`;
 
-    const description = `Check out our unique ${
-        collection?.display_name || ""
-    } collection and start coloring today. Perfect for all ages! Always free.`;
+    const description = `Check out our unique ${collection?.display_name || ""
+        } collection and start coloring today. Perfect for all ages! Always free.`;
 
     const url = `https://coloritdaily.com/collections/${name}`;
 
@@ -156,43 +154,41 @@ export default async function CollectionPage({
 
     return (
         <div className={styles.mainContainer}>
-             <script
+            <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <NavigationBar currentPage="All Pages" />
             <div className={styles.collectionContainer}>
-                <div className={styles.breadCrumbContent}>
-                    <Breadcrumb>
-                        <BreadcrumbList>
-                            <BreadcrumbItem>
-                                <Link href="/">Home</Link>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <p>Collections</p>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <p>{collection.display_name || "Unknown"}</p>
-                            </BreadcrumbItem>
-                        </BreadcrumbList>
-                    </Breadcrumb>
-                </div>
                 <div
                     className={styles.heroSection}
                     style={{
-                        backgroundImage: `url("${
-                            collection?.background_url ||
+                        backgroundImage: `url("${collection?.background_url ||
                             DEFAULT_COLLECTION_BACKGROUND
-                        }")`,
+                            }")`,
                     }}
                 >
+                    <div className={styles.breadCrumbContent}>
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <Link href="/">Home</Link>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                    <p>Collections</p>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                    <p>{collection.display_name || "Unknown"}</p>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
+                    </div>
                     <div className={styles.heroContent}>
-                        <h1>{`${
-                            collection.display_name ||
+                        <h1>{`${collection.display_name ||
                             DEFAULT_COLLECTION_DISPLAY_NAME
-                        }`}</h1>
+                            }`}</h1>
                         <h2>{collection.sub_heading || ""}</h2>
                     </div>
                 </div>
