@@ -6,9 +6,9 @@ import type { Metadata } from "next";
 import { Page, Promotion } from "@/lib/api/types";
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
-import ImagesGrid from "@/components/images-grid/images-grid.component";
 import PromoSection from "@/components/promo-section/promo-section.component";
 import FeaturedSection from "@/components/featured-section/featured-section.component";
+import CollectionSection from "@/components/collection-section/collection-section.component";
 
 export const revalidate = 86400;
 
@@ -123,24 +123,7 @@ export default async function Home() {
                         );
                     })}
 
-                <div className={styles.content}>
-                    <div className={styles.previously}>
-                        <div className={styles.previouslyHeading}>
-                            <h1>More Coloring Pages!</h1>
-                            <h2>A Sample From All our Collections</h2>
-                        </div>
-
-                        <ImagesGrid pages={pages} />
-
-                        <div className={styles.seeMore}>
-                            <Link href="/pages">
-                                <div className={styles.seeMoreButton}>
-                                    See All Coloring Pages
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
+                <CollectionSection pages={pages} />
                 <Footer />
             </div>
         </>
