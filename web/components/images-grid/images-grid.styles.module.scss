@@ -1,12 +1,12 @@
-.imageGrid  {
-}
+.imageGrid {}
 
 .previouslyGridContainer {
     margin: 0rem 1rem;
     display: grid;
+
     img {
         transition: transform 0.2s ease-in;
-   
+
     }
 }
 
@@ -24,7 +24,7 @@
     }
 }
 
-.previouslyGridContainer > div {
+.previouslyGridContainer>div {
     display: flex;
     justify-content: center;
     cursor: pointer;
@@ -47,28 +47,31 @@
 }
 
 .showMoreButton {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
-    padding: 1rem 5rem;
-    background-color: var(--color-purple);
-    color: white;
+    align-items: center;
+    padding: 1rem 3rem;
 
-    border-radius: 0.5rem;
-    font-size: 1.5rem;
+    /* Outlined Pill Style */
+    background-color: transparent;
+    color: var(--color-purple);
+    border: 2px solid var(--color-purple);
+    border-radius: 9999px;
+    font-size: 1.125rem;
+    font-weight: 600;
     cursor: pointer;
-    border: 1px solid;
-    border-color: var(--color-border);
-
     margin: 2rem 0rem;
+    transition: all 0.2s ease;
 
-    transition: color 0.3s ease-in, background-color 0.3s ease-in;
     &:hover {
-        background-color: var(--color-teal);
-        color: black;
+        background-color: var(--color-purple);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(147, 51, 234, 0.2);
     }
 
-    > :first-child {
-        margin-right: 1rem;
+    &:active {
+        transform: translateY(0);
     }
 }
 

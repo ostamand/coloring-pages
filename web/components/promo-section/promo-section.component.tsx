@@ -17,14 +17,8 @@ export default function PromoSection({ promotion }: { promotion: Promotion }) {
             <div className={styles.leftSection}>
                 <h2>Collection: {promotion.heading}</h2>
                 <p>{promotion.sub_heading}</p>
-                <Link href={`/collections/${promotion.collection_name}`}>
-                    <div
-                        className={`${buttonStyles.actionButton} ${
-                            isHovered ? styles.buttonHovered : ""
-                        }`}
-                    >
-                        See Full Collection
-                    </div>
+                <Link href={`/collections/${promotion.collection_name}`} className={styles.ctaButton}>
+                    See Full Collection
                 </Link>
             </div>
             <div
