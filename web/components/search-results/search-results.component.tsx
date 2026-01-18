@@ -9,6 +9,7 @@ import ImagesGrid from "../images-grid/images-grid.component";
 import NoResultRequest from "../no-results-request/no-result-request.component";
 
 import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
 const DEBOUNCE_TIME = 0.25 * 1000;
 
@@ -78,15 +79,20 @@ export default function SearchResults({
             <div className={styles.searchInputContainer}>
                 <div className={styles.searchInputContent}>
                     <h1>Search Coloring Pages</h1>
-                    <Input
-                        type="search"
-                        value={searchValue}
-                        onChange={(event) => {
-                            if (event.target.value !== searchValue) {
-                                setSearchValue(event.target.value);
-                            }
-                        }}
-                    />
+                    <div className={styles.searchWrapper}>
+                        <Search className={styles.searchIcon} size={28} />
+                        <Input
+                            type="search"
+                            className={styles.searchInput}
+                            value={searchValue}
+                            placeholder="What do you want to color?"
+                            onChange={(event) => {
+                                if (event.target.value !== searchValue) {
+                                    setSearchValue(event.target.value);
+                                }
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
             <div className={styles.resultsContent}>

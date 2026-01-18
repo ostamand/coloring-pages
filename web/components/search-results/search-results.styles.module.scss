@@ -22,46 +22,101 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    /* Glass Card Style */
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 2rem;
-    padding: 4rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-    max-width: 900px;
-    /* Constrain width for better card look */
-
-    input {
-        background-color: rgba(255, 255, 255, 0.9);
-        height: 60px;
-        font-size: 1.25rem;
-        text-align: center;
-        margin-bottom: 0;
-        /* Remove margin as it's the last item usually */
-        border-radius: 1rem;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 500px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        transition: all 0.2s ease;
-
-        &:focus {
-            transform: scale(1.02);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-        }
-    }
+    width: 100%;
+    /* Removed Glass Card wrapper to let elements float */
 
     h1 {
         text-align: center;
-        font-size: 3.5rem;
+        font-size: 4rem;
+        /* Larger */
         font-weight: 800;
         color: white;
-        margin: 0 0 2rem 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin: 0 0 3rem 0;
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        /* Stronger shadow for readability on bg */
         letter-spacing: -0.02em;
+        animation: fadeInDown 0.8s ease-out;
+    }
+}
+
+.searchWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-purple);
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.searchInput {
+    /* Glass Pill Style */
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    height: 72px;
+    /* Large height */
+    font-size: 1.5rem;
+    padding-left: 70px;
+    /* Space for icon */
+    padding-right: 2rem;
+    border-radius: 9999px;
+    /* Full pill */
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    width: 100%;
+    box-shadow:
+        0 10px 25px -5px rgba(0, 0, 0, 0.1),
+        0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    color: var(--color-purple);
+    font-weight: 500;
+
+    &::placeholder {
+        color: #9ca3af;
+        font-weight: 400;
+    }
+
+    &:focus {
+        background: rgba(255, 255, 255, 0.95);
+        transform: translateY(-2px) scale(1.01);
+        box-shadow:
+            0 20px 25px -5px rgba(0, 0, 0, 0.15),
+            0 10px 10px -5px rgba(0, 0, 0, 0.1),
+            0 0 0 4px rgba(255, 255, 255, 0.3);
+        outline: none;
+        border-color: white;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
