@@ -29,65 +29,80 @@ export default function About() {
             <NavigationBar currentPage="About" />
 
             <div className={styles.aboutContainer}>
-                <div className={styles.aboutContent}>
-                    <div className={styles.heading}>
-                        <Link href="/">
-                            <img
-                                src="/Visage_ColorItDaily.png"
-                                alt="Coloring Pages Logo"
-                                height="auto"
-                                width="200px"
-                            />
-                        </Link>
-                    </div>
+                <div className={styles.backgroundBlur} />
+                <div className={styles.contentWrapper}>
+                    <div className={styles.glassCard}>
+                        <div className={styles.heading}>
+                            <Link href="/">
+                                <img
+                                    src="/Visage_ColorItDaily.png"
+                                    alt="Coloring Pages Logo"
+                                    height="auto"
+                                    width="200px"
+                                />
+                            </Link>
+                        </div>
 
-                    <h1>Inspiring Creativity, One Page at a Time</h1>
+                        <div className={styles.textContent}>
+                            <h1>Inspiring Creativity, One Page at a Time</h1>
 
-                    <div className={styles.textContent}>
-                        <h2>
-                            Discover a fresh new coloring page every day,
-                            designed to spark joy and creativity for both{" "}
-                            <span>kids </span>
-                            and <span>adults</span>.
-                        </h2>
+                            <h2>
+                                Discover a fresh new coloring page every day,
+                                designed to spark joy and creativity for both{" "}
+                                <span>kids </span>
+                                and <span>adults</span>.
+                            </h2>
+                        </div>
 
-                        <div className={styles.features}>
-                            <div className={styles.featuresTitle}>
-                                Simple, Stylish Designs
+                        <div className={styles.featuresGrid}>
+                            <div className={styles.featureItem}>
+                                <div className={styles.featuresTitle}>
+                                    Simple, Stylish Designs
+                                </div>
+                                <div className={styles.featuresDescription}>
+                                    Bold lines and thoughtfully crafted styles make
+                                    our pages perfect for coloring.
+                                </div>
                             </div>
-                            <div className={styles.featuresDescription}>
-                                Bold lines and thoughtfully crafted styles make
-                                our pages perfect for coloring.
+
+                            <div className={styles.featureItem}>
+                                <div className={styles.featuresTitle}>
+                                    100% Free
+                                </div>
+                                <div className={styles.featuresDescription}>
+                                    No ads, no sign-ups, no distractions—just pure
+                                    creative fun.
+                                </div>
                             </div>
-                            <div className={styles.featuresTitle}>
-                                100% Free
+
+                            <div className={styles.featureItem}>
+                                <div className={styles.featuresTitle}>
+                                    No Frills, No Fuss
+                                </div>
+                                <div className={styles.featuresDescription}>
+                                    Say goodbye to watermarks, borders, and
+                                    unnecessary margins. It's all about your
+                                    creativity.
+                                </div>
                             </div>
-                            <div className={styles.featuresDescription}>
-                                No ads, no sign-ups, no distractions—just pure
-                                creative fun.
-                            </div>
-                            <div className={styles.featuresTitle}>
-                                No Frills, No Fuss
-                            </div>
-                            <div className={styles.featuresDescription}>
-                                Say goodbye to watermarks, borders, and
-                                unnecessary margins. It's all about your
-                                creativity.
-                            </div>
-                            <div className={styles.featuresTitle}>
-                                Print-Ready Excellence
-                            </div>
-                            <div className={styles.featuresDescription}>
-                                Full-sized, high-definition images optimized for
-                                effortless printing. Simply save and print, no
-                                extra setup needed.
+
+                            <div className={styles.featureItem}>
+                                <div className={styles.featuresTitle}>
+                                    Print-Ready Excellence
+                                </div>
+                                <div className={styles.featuresDescription}>
+                                    Full-sized, high-definition images optimized for
+                                    effortless printing. Simply save and print.
+                                </div>
                             </div>
                         </div>
 
-                        <h2>
-                            Color It Daily is your go-to source for quality
-                            coloring pages that let your imagination run free.
-                        </h2>
+                        <div className={`${styles.textContent} ${styles.finalMessage}`}>
+                            <h2>
+                                Color It Daily is your go-to source for quality
+                                coloring pages that let your imagination run free.
+                            </h2>
+                        </div>
                     </div>
                 </div>
             </div>

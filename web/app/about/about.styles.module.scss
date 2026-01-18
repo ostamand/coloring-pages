@@ -1,87 +1,195 @@
 .mainContainer {
     display: flex;
     width: 100%;
-    flex-direction: column;
-    height: 100%;
     min-height: 100vh;
-    align-items: center;
-  
-    h1 {
-        font-size: 3rem;
-        font-weight: 500;
-    }
-    h2 {
-        span {
-            color: var(--color-blue);
-            font-weight: 600 !important;
-        }
-        font-size: 2rem;
-        color: var(--color-purple);
-    }
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Dark overlay within the about section */
+.backgroundBlur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 1;
+    pointer-events: none;
 }
 
 .aboutContainer {
-    margin: 1rem 0rem;
+    position: relative;
+    width: 100%;
     flex-grow: 1;
-}
-
-.heading {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    > :first-child {
-        margin-right: 0.25rem;
-    }
-    span {
-        font-size: 2rem;
-    }
-}
-
-.aboutContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    text-align: center;
+    align-items: center;
+    padding: 4rem 2rem;
+
+    /* Background moved here */
+    background: url("/blurry-gradient-haikei-4.svg") no-repeat center center;
+    background-size: cover;
     overflow: hidden;
 }
 
-.textContent {
-    max-width: 1024px;
-    > :last-child {
-        margin: 1rem 0rem;
-    }
+.contentWrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    justify-content: center;
 }
 
-.features {
-    margin-top: 1rem;
+.glassCard {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    padding: 4rem;
     display: flex;
     flex-direction: column;
-    text-align: start;
+    align-items: center;
+    animation: fadeIn 0.6s ease-out;
+}
 
-    .featuresTitle {
+.heading {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+
+    img {
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+}
+
+.textContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+
+    h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 3rem;
+        line-height: 1.2;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        max-width: 900px;
+    }
+
+    h2 {
         font-size: 1.5rem;
-        font-weight: 600;
-    }
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.95);
+        margin-bottom: 3rem;
+        line-height: 1.6;
+        max-width: 800px;
 
-    .featuresDescription {
-        margin-left: 2rem;
-        font-size: 1.25rem;
+        span {
+            color: #fcd34d;
+            /* Amber-300 */
+            font-weight: 700 !important;
+            text-shadow: 0 0 20px rgba(252, 211, 77, 0.4);
+        }
     }
 }
 
-@media (width<=1024px) {
-    .textContent {
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.featureItem {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: left;
+    transition: transform 0.3s ease, background 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.1);
     }
 }
 
-/* on mobile */
-@media (width<=800px) {
+.featuresTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
 }
 
+.featuresDescription {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+}
 
-@media (width<=1200px) { 
+.finalMessage {
+    margin-top: 4rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #ffffff;
+    max-width: 800px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1024px) {
+    .glassCard {
+        padding: 3rem 2rem;
+    }
+
+    .textContent h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 640px) {
     .aboutContainer {
-        width: 90%;
+        padding: 1rem;
+    }
+
+    .glassCard {
+        padding: 2rem 1.5rem;
+        border-radius: 1.5rem;
+    }
+
+    .textContent h1 {
+        font-size: 2rem;
+    }
+
+    .textContent h2 {
+        font-size: 1.2rem;
+    }
+
+    .featuresGrid {
+        grid-template-columns: 1fr;
     }
 }
