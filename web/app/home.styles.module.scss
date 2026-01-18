@@ -14,98 +14,7 @@
 }
 
 .featured {
-    display: flex;
-    overflow: hidden;
-    background: url("/blurry-gradient-haikei_christmas.jpeg") no-repeat center center;
-    background-size: cover;
-    background-position: left;
-    height: 100%;
     width: 100%;
-    justify-content: center;
-}
-
-.featuredContent {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-    max-width: 1600px;
-
-    img {
-        border: 1px solid;
-        border-radius: 0.5rem;
-        border-color: var(--color-border);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        transition: transform 0.2s ease-in;
-
-        &:hover {
-            transform: scale(1.02);
-        }
-    }
-}
-
-.leftSection {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: start;
-    overflow: hidden;
-    background-size: cover;
-    gap: 1.5rem;
-
-    /* Glassmorphism Card styles */
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(4px);
-    border-radius: 1.5rem;
-    padding: 2.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-
-    h1 {
-        font-size: 4rem;
-        color: white;
-        letter-spacing: 1px;
-        margin: 0;
-    }
-
-    h2 {
-        font-size: 2rem;
-        color: white;
-        /* Removed heavy text-shadow */
-        margin: 0;
-    }
-}
-
-.actionsPanel {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-
-    > :first-child {
-        margin-bottom: 0.5rem;
-    }
-
-    width: 75%;
-    min-width: 350px;
-}
-
-.rightSection {
-    margin-bottom: 2rem;
-    /* size of featured image */
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.imageContainer {
-    img {
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
-        cursor: pointer;
-    }
 }
 
 .previously {
@@ -177,24 +86,7 @@
     }
 }
 
-@media (width<=1200px) {
-    .rightSection {
-        /* size of featured image */
-        width: 40%;
-    }
-}
-
 @media (width<=1000px) {
-    .leftSection {
-        h1 {
-            font-size: 3rem;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            text-align: center;
-        }
-    }
 
     /* Heading More Coloring Pages */
     .previously {
@@ -207,11 +99,6 @@
                 font-size: 1rem;
             }
         }
-    }
-
-    /* featured image size */
-    .rightSection {
-        width: 40%;
     }
 
     /* width see all coloring pages */
@@ -229,31 +116,6 @@
         padding: 1rem 0rem;
     }
 
-    .leftSection {
-        h1 {
-            font-size: 2.5rem;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 1.25rem;
-            text-align: center;
-        }
-
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .featuredContent {
-        flex-direction: column;
-    }
-
-    /* featured image size */
-    .rightSection {
-        width: 90%;
-        margin-top: 1rem;
-    }
-
     .previously {
         margin-top: 2rem;
 
@@ -262,9 +124,5 @@
             gap: 1rem;
             margin-bottom: 2rem;
         }
-    }
-
-    .tagsContainer {
-        display: none !important;
     }
 }

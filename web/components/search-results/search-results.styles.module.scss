@@ -8,6 +8,7 @@
 .searchInputContainer {
     display: flex;
     flex-direction: column;
+
     background: url("/blurry-gradient-haikei-4.svg") no-repeat center center;
     background-size: cover;
     width: 100%;
@@ -51,7 +52,7 @@
     grid-template-columns: repeat(3, 1fr);
 }
 
-.previouslyGridContainer > div {
+.previouslyGridContainer>div {
     display: flex;
     justify-content: center;
     cursor: pointer;

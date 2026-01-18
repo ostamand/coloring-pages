@@ -1,0 +1,252 @@
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    background: url("/blurry-gradient-haikei-4.svg") no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.backgroundBlur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    /* Darker overlay for better text contrast */
+    z-index: 1;
+    pointer-events: none;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1280px;
+
+    /* Single Unified Glass Card */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem;
+    gap: 4rem;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.textContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 600px;
+}
+
+.visualContent {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(var(--color-purple-rgb), 0.8);
+    background: #d8b4fe;
+    /* Fallback or specific color matching theme */
+    color: #4c1d95;
+    font-weight: 800;
+    font-size: 0.9rem;
+    border-radius: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 4rem;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+    .highlight {
+        color: #fcd34d;
+        /* Amber-300 fits well with purple/teal */
+        text-shadow: 0 0 20px rgba(252, 211, 77, 0.4);
+    }
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 3rem;
+    font-weight: 400;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.actions {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    align-items: center;
+
+    /* Target the wrapper divs from component */
+    &>div {
+        flex: 1;
+        max-width: 200px;
+        /* Constrain button width */
+    }
+
+    /* 
+       Deep selector to override the external button component styles.
+       We target the div inside our wrapper.
+    */
+    &>div>div {
+        width: 100%;
+        padding: 1rem 1.5rem !important;
+        /* Override massive padding */
+        font-size: 1.1rem !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        /* Make them look consistent */
+        height: 3.5rem;
+    }
+}
+
+/* Specific overrides if we can distinguish them, but generic fits for now as both are primary actions here */
+
+.card {
+    /* The image container inside the right section */
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    aspect-ratio: 3/4;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    background: rgba(0, 0, 0, 0.2);
+    transform: rotate(2deg);
+    /* Artistic tilt */
+    transition: transform 0.4s ease;
+
+    &:hover {
+        transform: rotate(0deg) scale(1.02);
+    }
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cardFooter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fileName {
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%;
+}
+
+.tags {
+    /* Ensure tags fit or hide elegantly */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+    .content {
+        flex-direction: column;
+        padding: 3rem 2rem;
+        gap: 3rem;
+    }
+
+    .textContent {
+        align-items: center;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .actions {
+        justify-content: center;
+    }
+
+    .card {
+        transform: rotate(0deg);
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .content {
+        padding: 2rem 1rem;
+        border-radius: 1.5rem;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .actions {
+        flex-direction: column;
+
+        &>div {
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+}

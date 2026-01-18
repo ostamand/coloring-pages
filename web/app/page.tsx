@@ -6,11 +6,9 @@ import type { Metadata } from "next";
 import { Page, Promotion } from "@/lib/api/types";
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
-import DownloadButton from "@/components/download-button/download-button.components";
-import PrintButton from "@/components/print-button/print-button.components";
 import ImagesGrid from "@/components/images-grid/images-grid.component";
-import PageTags from "@/components/page-tags/page-tags.component";
 import PromoSection from "@/components/promo-section/promo-section.component";
+import FeaturedSection from "@/components/featured-section/featured-section.component";
 
 export const revalidate = 86400;
 
@@ -115,42 +113,7 @@ export default async function Home() {
                 <NavigationBar currentPage="Home" />
 
                 <div className={styles.featured}>
-                    <div className={styles.featuredContent}>
-                        <div className={styles.leftSection}>
-                            <h1>New Coloring Page</h1>
-                            <h2>Each day, a new coloring page.</h2>
-                            <h2>It's free, grab it!</h2>
-                            <div className={styles.actionsPanel}>
-                                <DownloadButton
-                                    pageId={featuredPage.id}
-                                    text="Download"
-                                    fileUrl={featuredPage.full_path}
-                                    name={featuredPage.name || "coloring-page"}
-                                />
-                                <PrintButton
-                                    pageId={featuredPage.id}
-                                    fileUrl={featuredPage.full_path}
-                                />
-                            </div>
-                        </div>
-                        <div className={styles.rightSection}>
-                            <PageTags
-                                tags={featuredPage.tags}
-                                className={styles.tagsContainer}
-                            />
-
-                            <div className={styles.imageContainer}>
-                                <Link
-                                    href={`/pages/${featuredPage.unique_name}`}
-                                >
-                                    <img
-                                        src={featuredPage.thumbnail_path}
-                                        alt={featuredPage.prompt}
-                                    />
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
+                    <FeaturedSection featuredPage={featuredPage} />
                 </div>
 
                 {promotions &&
