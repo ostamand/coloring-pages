@@ -28,26 +28,32 @@ export default function ContactPage() {
     return (
         <div className={styles.mainContainer}>
             <NavigationBar currentPage="Contact" />
+
             <div className={styles.contactContainer}>
-                <div className={styles.contactContent}>
-                    <Link href="/">
-                        <img
-                            src="/Visage_ColorItDaily.png"
-                            alt="Coloring Pages Logo"
-                            height="auto"
-                            width="200px"
-                        />
-                    </Link>
+                <div className={styles.backgroundBlur} />
+                <div className={styles.contentWrapper}>
+                    <div className={styles.glassCard}>
+                        <div className={styles.heading}>
+                            <Link href="/">
+                                <img
+                                    src="/Visage_ColorItDaily.png"
+                                    alt="Coloring Pages Logo"
+                                    height="auto"
+                                    width="200px"
+                                />
+                            </Link>
+                        </div>
 
-                    <div className={styles.textContent}>
-                        <h2>We'd love to hear from you!</h2>
-                        <p>
-                            Whether you have questions, feedback, or ideas for
-                            new coloring pages, feel free to reach out to us.
-                        </p>
+                        <div className={styles.textContent}>
+                            <h2>We'd love to hear from you!</h2>
+                            <p>
+                                Whether you have questions, feedback, or ideas for
+                                new coloring pages, feel free to reach out to us.
+                            </p>
+                        </div>
+
+                        <ContactForm />
                     </div>
-
-                    <ContactForm />
                 </div>
             </div>
 
