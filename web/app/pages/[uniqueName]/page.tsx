@@ -98,6 +98,14 @@ export async function generateMetadata({
             title,
             description,
             url,
+            images: [
+                {
+                    url: page?.thumbnail_path || "/Logo_ColorItDaily.png",
+                    width: 1024,
+                    height: 1024,
+                    alt: title,
+                },
+            ],
         },
         alternates: {
             canonical: url,
@@ -118,8 +126,29 @@ export default async function DetailedPage({
         redirect("/not-found");
     }
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "ImageObject",
+        contentUrl: page.full_path,
+        license: "https://coloritdaily.com/license", // Assuming a license page exists or generic
+        acquireLicensePage: `https://coloritdaily.com/pages/${uniqueName}`,
+        creditText: "Color It Daily",
+        creator: {
+            "@type": "Organization",
+            "name": "Color It Daily",
+        },
+        copyrightNotice: "Color It Daily",
+        name: page.name || page.prompt,
+        description: page.prompt,
+        datePublished: page.created_on, // Assuming created_at exists on Page type, if not check type definition
+    };
+
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <div className={styles.detailedContainer}>
                 <div className={styles.breadCrumbContent}>
                     <Breadcrumb>

@@ -93,6 +93,16 @@ export async function generateMetadata({
             title,
             description,
             url,
+            images: [
+                {
+                    url:
+                        collection?.background_url ||
+                        DEFAULT_COLLECTION_BACKGROUND,
+                    width: 1200,
+                    height: 630,
+                    alt: title,
+                },
+            ],
         },
         alternates: {
             canonical: url,
@@ -135,8 +145,21 @@ export default async function CollectionPage({
         redirect("/not-found");
     }
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: collection.display_name,
+        description: collection.sub_heading || `Collection of ${collection.display_name} coloring pages`,
+        url: `https://coloritdaily.com/collections/${collectionName}`,
+        image: collection.background_url,
+    };
+
     return (
         <div className={styles.mainContainer}>
+             <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <NavigationBar currentPage="All Pages" />
             <div className={styles.collectionContainer}>
                 <div className={styles.breadCrumbContent}>

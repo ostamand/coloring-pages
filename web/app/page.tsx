@@ -107,8 +107,19 @@ export default async function Home() {
 
     if (!pages || !featuredPage) return <></>;
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Color It Daily",
+        url: "https://coloritdaily.com",
+    };
+
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <div className={styles.mainContainer}>
                 <NavigationBar currentPage="Home" />
 
