@@ -16,16 +16,16 @@ export default function FeaturedSection({ featuredPage }: FeaturedSectionProps) 
         <div className={styles.container}>
             <div className={styles.content}>
                 <div className={styles.textContent}>
-                    <div className={styles.badge}>Daily Freebie</div>
-                    <h1 className={styles.title}>
-                        Today&apos;s Collection: <span className={styles.highlight}>Fresh & Fun</span>
+                    <div className={`${styles.badge} ${styles.animateFadeInUp}`}>Always Free</div>
+                    <h1 className={`${styles.title} ${styles.animateFadeInUp} ${styles.delay1}`}>
+                        New Coloring Page: <span className={styles.highlight}>{featuredPage.name}</span>
                     </h1>
-                    <p className={styles.subtitle}>
+                    <p className={`${styles.subtitle} ${styles.animateFadeInUp} ${styles.delay2}`}>
                         Unleash your creativity with our daily curated coloring page.
                         Perfect for all ages and skill levels.
                     </p>
 
-                    <div className={styles.actions}>
+                    <div className={`${styles.actions} ${styles.animateFadeInUp} ${styles.delay3}`}>
                         <div>
                             <DownloadButton
                                 pageId={featuredPage.id}
@@ -55,7 +55,7 @@ export default function FeaturedSection({ featuredPage }: FeaturedSectionProps) 
                             </div>
                         </Link>
                         <div className={styles.cardFooter}>
-                            <span className={styles.fileName}>{featuredPage.name || "Untitled"}</span>
+
                             <PageTags tags={featuredPage.tags} className={styles.tags} />
                         </div>
                     </div>
