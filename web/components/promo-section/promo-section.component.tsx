@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
+
 import Link from "next/link";
 import styles from "./promo-section.styles.module.scss";
-import buttonStyles from "../../styles/button.styles.module.scss";
+
 import { Promotion } from "@/lib/api/types";
 
 export default function PromoSection({ promotion }: { promotion: Promotion }) {
-    const [isHovered, setIsHovered] = useState(false);
     const page = promotion.page;
 
     if (!page) return <></>;
@@ -23,8 +22,6 @@ export default function PromoSection({ promotion }: { promotion: Promotion }) {
             </div>
             <div
                 className={styles.rightSection}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
             >
                 <Link href={`/collections/${promotion.collection_name}`}>
                     <img

@@ -1,6 +1,6 @@
 import styles from "./home.styles.module.scss";
 
-import Link from "next/link";
+
 import type { Metadata } from "next";
 
 import { Page, Promotion } from "@/lib/api/types";

@@ -81,7 +81,7 @@ export default function About() {
                                 </div>
                                 <div className={styles.featuresDescription}>
                                     Say goodbye to watermarks, borders, and
-                                    unnecessary margins. It's all about your
+                                    unnecessary margins. It&apos;s all about your
                                     creativity.
                                 </div>
                             </div>

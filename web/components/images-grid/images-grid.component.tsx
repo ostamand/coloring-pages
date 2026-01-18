@@ -2,7 +2,7 @@
 
 import styles from "./images-grid.styles.module.scss";
 
-import Link from "next/link";
+
 import { useState, useEffect } from "react";
 
 import { Page } from "@/lib/api/types";
@@ -41,9 +41,8 @@ export default function ImagesGrid({
     return (
         <>
             <div
-                className={`${styles.previouslyGridContainer} ${
-                    gridTemplateClassName || styles.imageGridTemplateContainer
-                } ${showBorder ? styles.previouslyGridContainerBorder : ""}`}
+                className={`${styles.previouslyGridContainer} ${gridTemplateClassName || styles.imageGridTemplateContainer
+                    } ${showBorder ? styles.previouslyGridContainerBorder : ""}`}
             >
                 {pagesToShow.map((page) => {
                     return (

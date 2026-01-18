@@ -68,7 +68,7 @@ export default function ContactForm() {
             if (!response.ok) {
                 // TODO add logging
             }
-        } catch (error) {
+        } catch {
         } finally {
             setMessageSent(true);
         }

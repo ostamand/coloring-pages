@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         await revalidateTag("collection-pages"); // collections
         await revalidatePath("/"); // home
         return NextResponse.json({ revalidated: true });
-    } catch (err: any) {
-        return NextResponse.json({ error: err.message }, { status: 500 });
+    } catch (err: unknown) {
+        return NextResponse.json({ error: (err as Error).message }, { status: 500 });
     }
 }

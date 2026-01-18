@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         const url = `${process.env.NEXT_PUBLIC_API_URL}/pages/count`;
         const response = await fetch(url);

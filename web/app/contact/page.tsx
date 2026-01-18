@@ -45,7 +45,7 @@ export default function ContactPage() {
                         </div>
 
                         <div className={styles.textContent}>
-                            <h2>We'd love to hear from you!</h2>
+                            <h2>We&apos;d love to hear from you!</h2>
                             <p>
                                 Whether you have questions, feedback, or ideas for
                                 new coloring pages, feel free to reach out to us.

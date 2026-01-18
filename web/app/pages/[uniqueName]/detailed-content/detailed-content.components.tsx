@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "../detailed-page.styles.module.scss";
-import stylesButton from "../../../../styles/button.styles.module.scss";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";

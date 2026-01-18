@@ -26,7 +26,7 @@ export default function NotFound() {
                         width="600px"
                     />
                     <h2>
-                        <span>Don't worry, we have plenty more!</span>
+                        <span>Don&apos;t worry, we have plenty more!</span>
                     </h2>
                     <Link href="/">
                         <div className={styles.actionContainer}>

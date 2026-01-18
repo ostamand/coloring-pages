@@ -64,7 +64,7 @@ async function getPages(searchValue: string | null) {
 export default async function SearchForPages({
     searchParams,
 }: {
-    searchParams: Promise<any>;
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
     const searchValue = (await searchParams)["search"] as string | undefined;
 

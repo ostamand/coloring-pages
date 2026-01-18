@@ -48,7 +48,7 @@ export default function NoResultRequest({
                                 if (!response.ok) {
                                     //TODO!
                                 }
-                            } catch (error) {}
+                            } catch { }
                             setRequestSent(true);
                         }}
                     >
