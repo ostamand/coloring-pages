@@ -1,169 +1,248 @@
 .imageContainer img {
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
 }
 
+/* Main Container */
 .detailedContainer {
     display: flex;
     flex-direction: column;
     background: url("/blurry-gradient-haikei-3.svg") no-repeat center center;
     background-size: cover;
-    height: 100%;
+
+    /* Layout to fill remaining space in parent (mainContainer) */
     width: 100%;
     flex-grow: 1;
-
+    /* We want to constrain height to fit in viewport if possible, 
+       but mainContainer is min-h-screen. 
+       To force NO scrollbar on window, we need mainContainer to be h-screen fixed?
+       We can't change mainContainer easily. 
+       But current detailedContainer pushes footer down.
+       
+       If we DO NOT want scrollbar, we can try to fit content.
+    */
+    overflow: hidden;
+    /* Hide overflow from this container */
+    padding-bottom: 1rem;
 }
 
 
 .breadCrumbContent {
-    padding: 0.5rem 0rem 0.5rem 2rem;
+    padding: 1rem 0rem 0.5rem 3rem;
+    flex-shrink: 0;
+
     span,
     a,
     p {
-        font-size: 1.25rem;
-        color: white;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
+
     svg {
-        color: white;
+        color: rgba(255, 255, 255, 0.9);
     }
 }
 
 .centerContainer {
     width: 100%;
+    /* Take up remaining height */
+    flex: 1;
+    min-height: 0;
+    /* Important for nested flex scroll */
+
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* gap with footer */
-    margin-bottom: 60px;
+    padding: 0 2rem;
 }
 
-.content {
+/* The Glass Card Container */
+.glassCard {
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    gap: 40px;
-    max-width: 1440px;
+    max-width: 1100px;
+    gap: 32px;
+    /* reduced from 40 */
+
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    padding: 2rem;
+    /* reduced from 3rem */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+
+    /* Constraint height to parent */
+    max-height: 100%;
+
+    /* Scroll internally if needed */
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .leftSection {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    .imageContainer {
+        max-width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            max-width: 100%;
+            max-height: 70vh;
+            /* Constrain height so it fits! */
+            height: auto;
+            width: auto;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+    }
 }
 
 .rightSection {
-    max-width: 30%;
-    height: 100%;
+    flex: 0 0 380px;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    /* Allow right text to scroll independently if image is tall? */
+    /* Actually better to let the card scroll if needed, right section just flows */
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
         color: white;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        line-height: 1.2;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
-        font-size: 1.5rem;
-        color: white;
-        font-weight: 500;
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.25rem;
     }
 
     .promptContent {
-        font-size: 1.25rem;
-        color: white;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+        margin-bottom: 2rem;
     }
 
     .labelWithContent {
-        margin-top: 1rem;
+        margin-top: 1.5rem;
         display: flex;
-        justify-content: space-between;
-        color: white;
-        font-size: 1.25rem;
-        align-items: center;
+        flex-direction: column;
+        /* Stack label and value */
+        align-items: flex-start;
+
+        a,
+        p {
+            font-size: 1.35rem;
+            color: white;
+            font-weight: 500;
+        }
     }
 
     .actionsPanel {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        row-gap: 0.25rem;
-        column-gap: 0.25rem;
-        align-items: center;
-        /* download, print button override */
-        div {
-            padding: 0.75rem 1rem;
-            min-width: 200px;
+        flex-direction: column;
+        /* Stack buttons */
+        gap: 1rem;
+        margin-bottom: 2rem;
+        margin-top: 1rem;
+
+        /* download, print button override to be pill shaped */
+        >div {
+            border-radius: 9999px !important;
+            width: 100%;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            }
         }
     }
 }
 
 /* on mobile */
-@media (width<=1200px) {
-    .content {
+@media (width<=1024px) {
+    .glassCard {
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        gap: 0px;
-        margin-top: 0.5rem;
-    }
-
-    .leftSection {
-        width: 60%;
-        margin-bottom: 1rem;
+        padding: 2rem;
+        gap: 2rem;
     }
 
     .rightSection {
-        max-width: unset;
-        width: 90%;
+        flex: unset;
+        width: 100%;
+        max-width: 600px;
     }
 
     .breadCrumbContent {
-        margin-left: 0.5rem;
-        position: unset;
-        top: unset;
-        left: unset;
-    }
-
-    .detailedContainer {
-        flex-direction: column;
+        padding-left: 2rem;
     }
 }
 
-@media (width<=800px) {
 
-    .actionsPanel {
-        div {
-            width: 100%;
-        }
+@media (width<=600px) {
+    .detailedContainer {
+        padding: 0;
     }
 
-    .leftSection {
-        width: 80%;
+    .breadCrumbContent {
+        padding: 1rem;
+    }
+
+    .centerContainer {
+        padding: 0 1rem;
+    }
+
+    .glassCard {
+        padding: 1.5rem;
+        border-radius: 20px;
     }
 
     .rightSection {
         h1 {
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 0.5rem;
-        }
-
-        h2 {
-            font-size: 1.25rem;
-            color: white;
-            font-weight: 500;
-        }
-
-        p,
-        a {
-            font-size: 1rem;
+            font-size: 2rem;
         }
     }
 
-    .breadCrumbContent {
-        p,
-        a {
-            font-size: 1.1rem;
+    .actionsPanel {
+        >div {
+            padding: 0.875rem 1.5rem;
         }
     }
 }

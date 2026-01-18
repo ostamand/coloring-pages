@@ -21,7 +21,7 @@ export default function DetailedContent({ page }: { page: Page }) {
     }, [imageSrc]);
 
     return (
-        <div className={styles.content}>
+        <div className={styles.glassCard}>
             <div className={styles.leftSection}>
                 <div className={styles.imageContainer}>
                     <img src={imageSrc} alt={page.prompt} />
