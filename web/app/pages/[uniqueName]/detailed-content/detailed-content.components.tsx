@@ -40,7 +40,7 @@ export default function DetailedContent({ page }: { page: Page }) {
                     <PrintButton pageId={page.id} fileUrl={page.full_path} />
                     {page.colored_path && (
                         <div
-                            className={stylesButton.actionButton}
+                            className={`${styles.colorizeButtonElement} ${isColored ? styles.activeState : ''}`}
                             onClick={() => {
                                 if (isColored) {
                                     setImageSrc(page.thumbnail_path);
@@ -52,7 +52,7 @@ export default function DetailedContent({ page }: { page: Page }) {
                             }}
                         >
                             <Palette />
-                            {isColored ? "Coloring" : "Colorize"}
+                            {isColored ? "Reset (Original)" : "Colorize!"}
                         </div>
                     )}
                 </div>

@@ -210,8 +210,8 @@
         margin-bottom: 2rem;
         margin-top: 1rem;
 
-        /* download, print button override to be pill shaped */
-        >div {
+        /* Standard buttons (Download, Print) */
+        >div:not(.colorizeButtonElement) {
             border-radius: 9999px !important;
             width: 100%;
             padding: 1rem 2rem;
@@ -222,6 +222,73 @@
             &:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* New Fun Colorize Button */
+        .colorizeButtonElement {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            width: 100%;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            gap: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            /* Bouncy spring */
+
+            /* Default "Colorize" State - Fun & Vibrant (Site Palette) */
+            /* Gradient using Purple -> Pink -> Yellow */
+            background: linear-gradient(135deg, var(--color-purple) 0%, var(--color-pink) 50%, var(--color-yellow) 100%);
+            box-shadow: 0 4px 15px rgba(241, 91, 181, 0.4);
+            /* Pinkish shadow */
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            svg {
+                transition: transform 0.4s ease;
+            }
+
+            &:hover {
+                transform: scale(1.03) translateY(-2px);
+                box-shadow: 0 8px 25px rgba(241, 91, 181, 0.6);
+                filter: brightness(1.1);
+
+                svg {
+                    transform: rotate(15deg) scale(1.1);
+                }
+            }
+
+            &:active {
+                transform: scale(0.98);
+            }
+
+            /* "Opposite" State - Reset / Clear */
+            &.activeState {
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                /* Border using Teal to singify "fresh/clean" but subtle */
+                border: 2px solid rgba(255, 255, 255, 0.6);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                color: white;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.25);
+                    box-shadow: 0 8px 20px rgba(0, 245, 212, 0.2);
+                    /* Teal glow */
+                    border-color: white;
+
+                    svg {
+                        transform: rotate(-180deg);
+                        /* Spin back */
+                    }
+                }
             }
         }
     }
