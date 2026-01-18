@@ -19,7 +19,7 @@ export function Footer() {
                 </div>
             </div>
             <div className={styles.foorterRight}>
-                © 2025 All rights reserved.
+                © 2026 All rights reserved.
             </div>
         </div>
     );
