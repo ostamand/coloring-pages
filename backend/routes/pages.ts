@@ -8,7 +8,7 @@ import {
     getPagesById,
     searchPages,
 } from "../lib/db/mod.ts";
-import { getFeatured } from "../lib/db/page.ts";
+import { getFeatured, getFeaturedHistory } from "../lib/db/page.ts";
 
 export const pagesRouter = new Router();
 
@@ -35,6 +35,25 @@ pagesRouter.get("/featured", async (ctx) => {
         console.error(error);
         ctx.response.status = 500;
         ctx.response.body = {};
+    } finally {
+        client.release();
+    }
+});
+
+pagesRouter.get("/featured/history", async (ctx) => {
+    const client = await getClientFromPool();
+    const { searchParams } = ctx.request.url;
+
+    const limit = Number(searchParams.get("limit")) || 6;
+    const offset = Number(searchParams.get("offset")) || 0;
+
+    try {
+        const history = await getFeaturedHistory(client, limit, offset);
+        ctx.response.body = history;
+    } catch (error) {
+        console.error(error);
+        ctx.response.status = 500;
+        ctx.response.body = [];
     } finally {
         client.release();
     }

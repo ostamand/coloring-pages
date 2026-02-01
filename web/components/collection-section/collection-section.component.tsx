@@ -15,7 +15,7 @@ export default function CollectionSection({ pages }: CollectionSectionProps) {
             <div className={styles.content}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>More Coloring Pages!</h2>
-                    <p className={styles.subtitle}>A Sample From All our Collections</p>
+                    <p className={styles.subtitle}>Previously Featured Pages</p>
                 </div>
 
                 <div className={styles.gridWrapper}>

@@ -48,20 +48,19 @@ async function getFeaturedPage() {
 
 async function getPages() {
     const featuredPage = await getFeaturedPage();
-    if (!featuredPage) return {};
     try {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/pages?random=true&limit=6&ignore=${featuredPage.id}`,
+            `${process.env.NEXT_PUBLIC_API_URL}/pages/featured/history?limit=6&offset=1`,
         );
         if (!response.ok) {
             throw new Error("Could not get previously published pages.");
         }
         const data = await response.json();
         const pages = data as Page[];
-        return { featuredPage, pages };
+        return { pages, featuredPage };
     } catch (error) {
         console.error(error);
-        return {};
+        return { featuredPage };
     }
 }
 

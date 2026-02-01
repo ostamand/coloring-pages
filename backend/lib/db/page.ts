@@ -36,6 +36,35 @@ export async function getFeatured(db: Client): Promise<Page> {
     return (await getPagesById(db, [id]))[0] as Page;
 }
 
+export async function getFeaturedHistory(
+    db: Client,
+    limit: number,
+    offset: number,
+): Promise<Page[]> {
+    const { isDev } = loadAppConfigs();
+
+    const result = await db.queryArray(
+        `SELECT id FROM pages 
+         WHERE featured_on IS NOT NULL 
+         ${!isDev ? "AND published=true" : ""}
+         ORDER BY featured_on DESC 
+         LIMIT $1 OFFSET $2;`,
+        [limit, offset],
+    );
+    const ids = result.rows.map((row) => Number(row[0]));
+
+    if (ids.length === 0) {
+        return [];
+    }
+
+    const pages = (await getPagesById(db, ids)) as Page[];
+
+    // sort by order of ids
+    return ids
+        .map((id) => pages.find((p) => p.id === id))
+        .filter((p) => p !== undefined) as Page[];
+}
+
 export async function addNewPage(
     db: Client,
     fullPath: string,
