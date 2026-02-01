@@ -189,10 +189,16 @@
     }
 }
 
+.imageWrapper {
+    width: 100%;
+    height: 100%;
+}
+
 .image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .cardFooter {
@@ -276,10 +282,21 @@
     .card {
         transform: rotate(0deg);
         max-width: 400px;
+        background: transparent;
+        box-shadow: none;
+        border: none;
+
+        .image {
+            border-radius: 1.5rem;
+        }
+    }
+
+    .cardFooter {
+        display: none !important;
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 800px) {
     .container {
         padding: 1rem;
     }
