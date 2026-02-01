@@ -2,7 +2,7 @@
 
 import styles from "./search-results.styles.module.scss";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Page } from "@/lib/api/types";
@@ -26,9 +26,7 @@ export default function SearchResults({
         useState<NodeJS.Timeout | null>(null);
     const [pages, setPages] = useState(initialResults);
     const [searchValue, setSearchValue] = useState(initialSearchValue || "");
-    const [lastSearchValue, setLastSearchValue] = useState(
-        initialSearchValue || ""
-    );
+    const lastSearchValue = useRef(initialSearchValue || "");
     const [error, setError] = useState<string | null>(null);
 
     const updateUrl = (value: string) => {
@@ -54,7 +52,7 @@ export default function SearchResults({
             const data = await response.json();
             const pages = data as Page[];
             setPages(pages);
-            setLastSearchValue(searchValue);
+            lastSearchValue.current = searchValue;
             updateUrl(searchValue);
         } catch (error) {
             console.error(error);
@@ -63,7 +61,7 @@ export default function SearchResults({
     };
 
     useEffect(() => {
-        if (lastSearchValue === searchValue) {
+        if (lastSearchValue.current === searchValue) {
             return; // no need to fetch
         }
         if (debounceTimerId) {
@@ -81,9 +79,13 @@ export default function SearchResults({
     }, [searchValue]);
 
     useEffect(() => {
-        if (searchValue !== initialSearchValue) {
-            setSearchValue(initialSearchValue || "");
+        const normalizedInitial = initialSearchValue || "";
+        if (normalizedInitial === lastSearchValue.current) {
+            return;
         }
+
+        setSearchValue(normalizedInitial);
+        lastSearchValue.current = normalizedInitial;
     }, [initialSearchValue]);
 
     useEffect(() => {
