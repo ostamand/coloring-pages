@@ -3,6 +3,7 @@
 import styles from "./search-results.styles.module.scss";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Page } from "@/lib/api/types";
 import ImagesGrid from "../images-grid/images-grid.component";
@@ -20,6 +21,7 @@ export default function SearchResults({
     initialResults: Page[];
     initialSearchValue: string | null;
 }) {
+    const router = useRouter();
     const [debounceTimerId, setDebounceTimerId] =
         useState<NodeJS.Timeout | null>(null);
     const [pages, setPages] = useState(initialResults);
@@ -27,10 +29,19 @@ export default function SearchResults({
     const [lastSearchValue, setLastSearchValue] = useState(
         initialSearchValue || ""
     );
+    const [error, setError] = useState<string | null>(null);
+
+    const updateUrl = (value: string) => {
+        if (value) {
+            router.push(`?search=${encodeURIComponent(value)}`, { scroll: false });
+        } else {
+            router.push(`/pages`, { scroll: false });
+        }
+    };
 
     const getPages = async (searchValue: string) => {
-        console.log("get pages");
         try {
+            setError(null);
             //! maybe add limit?
             let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`;
             if (!searchValue) {
@@ -43,9 +54,11 @@ export default function SearchResults({
             const data = await response.json();
             const pages = data as Page[];
             setPages(pages);
+            setLastSearchValue(searchValue);
+            updateUrl(searchValue);
         } catch (error) {
             console.error(error);
-            //TODO display error on page
+            setError("Something went wrong while fetching pages. Please try again.");
         }
     };
 
@@ -58,7 +71,6 @@ export default function SearchResults({
         }
         const timerId = setTimeout(async () => {
             await getPages(searchValue);
-            setLastSearchValue(searchValue);
         }, DEBOUNCE_TIME);
         setDebounceTimerId(timerId);
         return () => {
@@ -74,6 +86,19 @@ export default function SearchResults({
         }
     }, [initialSearchValue]);
 
+    useEffect(() => {
+        setPages(initialResults);
+    }, [initialResults]);
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            if (debounceTimerId) {
+                clearTimeout(debounceTimerId);
+            }
+            getPages(searchValue);
+        }
+    };
+
     return (
         <div className={styles.searchResultsContainer}>
             <div className={styles.searchInputContainer}>
@@ -86,6 +111,7 @@ export default function SearchResults({
                             className={styles.searchInput}
                             value={searchValue}
                             placeholder="What do you want to color?"
+                            onKeyDown={handleKeyDown}
                             onChange={(event) => {
                                 if (event.target.value !== searchValue) {
                                     setSearchValue(event.target.value);
@@ -96,7 +122,9 @@ export default function SearchResults({
                 </div>
             </div>
             <div className={styles.resultsContent}>
-                {pages.length > 0 ? (
+                {error ? (
+                    <div className="text-center text-red-500 mt-4">{error}</div>
+                ) : pages.length > 0 ? (
                     <ImagesGrid pages={pages} limit={6} />
                 ) : (
                     <NoResultRequest searchValue={searchValue} />
