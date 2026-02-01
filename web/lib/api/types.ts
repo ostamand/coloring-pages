@@ -12,6 +12,7 @@ export type Page = {
     unique_name: string;
     overwrite_name: string;
     upd_collection_name: string;
+    reasoning?: string;
 };
 
 export type Promotion = {

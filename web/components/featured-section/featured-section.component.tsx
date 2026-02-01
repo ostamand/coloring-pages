@@ -6,6 +6,14 @@ import { Page } from "@/lib/api/types";
 import DownloadButton from "@/components/download-button/download-button.components";
 import PrintButton from "@/components/print-button/print-button.components";
 import PageTags from "@/components/page-tags/page-tags.component";
+import { Sparkles } from "lucide-react";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface FeaturedSectionProps {
     featuredPage: Page;
@@ -54,6 +62,27 @@ export default function FeaturedSection({ featuredPage }: FeaturedSectionProps) 
                                 />
                             </div>
                         </Link>
+
+                        {featuredPage.reasoning && (
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <button className={styles.reasoningButton} title="Why this page?">
+                                        <Sparkles className={styles.sparkleIcon} />
+                                    </button>
+                                </DialogTrigger>
+                                <DialogContent className={styles.dialogContent}>
+                                    <DialogHeader>
+                                        <DialogTitle className={styles.dialogTitle}>
+                                            <Sparkles className={styles.titleIcon} /> Why this page?
+                                        </DialogTitle>
+                                    </DialogHeader>
+                                    <div className={styles.reasoningText}>
+                                        {featuredPage.reasoning}
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
+                        )}
+
                         <div className={styles.cardFooter}>
 
                             <PageTags tags={featuredPage.tags} className={styles.tags} />

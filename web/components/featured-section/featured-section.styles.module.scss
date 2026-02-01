@@ -201,6 +201,69 @@
     display: block;
 }
 
+.reasoningButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgba(155, 93, 229, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+        background: rgba(155, 93, 229, 1);
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(155, 93, 229, 0.4);
+        color: #fcd34d;
+    }
+
+    .sparkleIcon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
+
+.dialogContent {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(155, 93, 229, 0.2);
+    border-radius: 1.5rem;
+    color: #1e1b4b;
+}
+
+.dialogTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4c1d95;
+    font-size: 1.5rem;
+    font-weight: 700;
+
+    .titleIcon {
+        color: #9B5DE5;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+
+.reasoningText {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #374151;
+    margin-top: 1rem;
+}
+
 .cardFooter {
     position: absolute;
     bottom: 0;
