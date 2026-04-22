@@ -29,6 +29,8 @@ type ImageWithToolsProps = {
     href: string;
 };
 
+const PROB_COLORED = 0.4;
+
 export default function ImageWithTools({
     page,
     thumbnailSrc,
@@ -41,7 +43,7 @@ export default function ImageWithTools({
     const [isColored, setIsColored] = useState(false);
 
     useEffect(() => {
-        if (coloredSrc && Math.random() < 0.6) {
+        if (coloredSrc && Math.random() < PROB_COLORED) {
             setCurrentSrc(coloredSrc);
         }
     }, [coloredSrc]);
