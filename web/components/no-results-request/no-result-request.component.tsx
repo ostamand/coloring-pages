@@ -9,8 +9,10 @@ import stylesButton from "../../styles/button.styles.module.scss";
 
 export default function NoResultRequest({
     searchValue,
+    hideHomeLink,
 }: {
     searchValue: string;
+    hideHomeLink?: boolean;
 }) {
     const [requestSent, setRequestSent] = useState(false);
 
@@ -65,14 +67,16 @@ export default function NoResultRequest({
                         </h1>
                         <Send />
                     </div>
-                    <h2>Search for something else</h2>
-                    <Link href="/">
-                        <div className={styles.buttonContainer}>
-                            <div className={stylesButton.actionButton}>
-                                or Go Back to Home
+                    <h2>Try searching for something else!</h2>
+                    {!hideHomeLink && (
+                        <Link href="/">
+                            <div className={styles.buttonContainer}>
+                                <div className={stylesButton.actionButton}>
+                                    or Go Back to Home
+                                </div>
                             </div>
-                        </div>
-                    </Link>
+                        </Link>
+                    )}
                 </div>
             )}
         </div>

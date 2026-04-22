@@ -6,9 +6,8 @@ import type { Metadata } from "next";
 import { Page, Promotion } from "@/lib/api/types";
 import NavigationBar from "@/components/navigation-bar/navigation-bar.components";
 import { Footer } from "@/components/footer/footer.component";
-import PromoSection from "@/components/promo-section/promo-section.component";
 import FeaturedSection from "@/components/featured-section/featured-section.component";
-import CollectionSection from "@/components/collection-section/collection-section.component";
+import HomeSearchSection from "@/components/home-search-section/home-search-section.component";
 
 export const revalidate = 86400;
 
@@ -126,14 +125,11 @@ export default async function Home() {
                     <FeaturedSection featuredPage={featuredPage} />
                 </div>
 
-                {promotions &&
-                    promotions.map((promotion, index) => {
-                        return (
-                            <PromoSection key={index} promotion={promotion} />
-                        );
-                    })}
+                <HomeSearchSection
+                    promotions={promotions}
+                    initialPages={pages}
+                />
 
-                <CollectionSection pages={pages} />
                 <Footer />
             </div>
         </>
