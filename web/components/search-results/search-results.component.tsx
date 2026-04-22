@@ -10,7 +10,7 @@ import ImagesGrid from "../images-grid/images-grid.component";
 import NoResultRequest from "../no-results-request/no-result-request.component";
 
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 
 const DEBOUNCE_TIME = 0.25 * 1000;
 
@@ -28,6 +28,7 @@ export default function SearchResults({
     const [searchValue, setSearchValue] = useState(initialSearchValue || "");
     const lastSearchValue = useRef(initialSearchValue || "");
     const [error, setError] = useState<string | null>(null);
+    const [isSearching, setIsSearching] = useState(false);
 
     const updateUrl = (value: string) => {
         if (value) {
@@ -40,6 +41,7 @@ export default function SearchResults({
     const getPages = async (searchValue: string) => {
         try {
             setError(null);
+            setIsSearching(true);
             //! maybe add limit?
             let endpoint = `${process.env.NEXT_PUBLIC_API_URL}/pages?search=${searchValue}`;
             if (!searchValue) {
@@ -57,6 +59,8 @@ export default function SearchResults({
         } catch (error) {
             console.error(error);
             setError("Something went wrong while fetching pages. Please try again.");
+        } finally {
+            setIsSearching(false);
         }
     };
 
@@ -67,6 +71,9 @@ export default function SearchResults({
         if (debounceTimerId) {
             clearTimeout(debounceTimerId);
         }
+
+        setIsSearching(true);
+
         const timerId = setTimeout(async () => {
             await getPages(searchValue);
         }, DEBOUNCE_TIME);
@@ -126,6 +133,11 @@ export default function SearchResults({
             <div className={styles.resultsContent}>
                 {error ? (
                     <div className="text-center text-red-500 mt-4">{error}</div>
+                ) : isSearching ? (
+                    <div className={styles.searchingContainer}>
+                        <Loader2 className={styles.spinner} size={48} />
+                        <p>Searching for &quot;{searchValue}&quot;...</p>
+                    </div>
                 ) : pages.length > 0 ? (
                     <ImagesGrid pages={pages} limit={6} />
                 ) : (

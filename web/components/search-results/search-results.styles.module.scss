@@ -122,6 +122,49 @@
 
 .resultsContent {
     max-width: 1440px;
+    width: 100%;
+}
+
+.searchingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 1rem;
+    color: var(--color-purple);
+    gap: 1.5rem;
+    animation: fadeIn 0.3s ease-out;
+
+    p {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #6b7280;
+    }
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+    color: var(--color-purple);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .resultsGridContainer {
@@ -148,6 +191,13 @@
 
         h1 {
             font-size: 2rem;
+        }
+    }
+
+    .searchingContainer {
+        padding: 4rem 1rem;
+        p {
+            font-size: 1.25rem;
         }
     }
 }

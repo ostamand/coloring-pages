@@ -118,7 +118,7 @@ export default function HomeSearchSection({
                     ) : isSearching ? (
                         <div className={styles.searchingContainer}>
                             <Loader2 className={styles.spinner} size={48} />
-                            <p>Searching for "{searchValue}"...</p>
+                            <p>Searching for &quot;{searchValue}&quot;...</p>
                         </div>
                     ) : searchResults.length > 0 ? (
                         <ImagesGrid pages={searchResults} />

@@ -1,43 +1,109 @@
 .noResultContainer {
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
+    padding: 2rem 1rem;
+    width: 100%;
 }
 
 .noResultContent {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    max-width: 600px;
+    gap: 1.5rem;
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 2.25rem;
+        font-weight: 800;
+        color: #111827;
+        margin: 0;
+        line-height: 1.2;
     }
 
-    h2 {
-        font-size: 1.5rem;
+    p {
+        font-size: 1.125rem;
+        color: #6b7280;
+        line-height: 1.6;
+        margin: 0;
     }
 
     span {
         color: var(--color-purple);
+        font-weight: 700;
     }
 }
 
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    background: rgba(155, 93, 229, 0.05);
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+}
+
+.mainIcon {
+    color: var(--color-purple);
+    opacity: 0.8;
+}
+
 .buttonContainer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .requestSent {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    > :first-child {
-        margin-right: 0.5rem;
-    }
-    svg {
+    gap: 1.5rem;
+    
+    h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
     }
 }
 
-@media (width<=800px) {
+.successIcon {
+    color: #10b981; /* Emerald-500 for success */
+    animation: bounce 1s infinite;
+}
+
+.successSubtitle {
+    font-size: 1.25rem !important;
+    font-weight: 500;
+    color: #4b5563 !important;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@media (max-width: 800px) {
     .noResultContent {
-        width: 80%;
+        width: 100%;
+
+        h1 {
+            font-size: 1.75rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+    }
+
+    .iconWrapper {
+        width: 100px;
+        height: 100px;
     }
 }

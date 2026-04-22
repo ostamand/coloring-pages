@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Send } from "lucide-react";
+import { Send, FileSearch } from "lucide-react";
 import Link from "next/link";
 
 import styles from "./no-result-request.styles.module.scss";
@@ -24,13 +24,16 @@ export default function NoResultRequest({
         <div className={styles.noResultContainer}>
             {!requestSent ? (
                 <div className={styles.noResultContent}>
+                    <div className={styles.iconWrapper}>
+                        <FileSearch size={64} className={styles.mainIcon} />
+                    </div>
                     <h1>
-                        Oups! No Results Found for <span>{searchValue}</span>
+                        No results for &quot;<span>{searchValue}</span>&quot;
                     </h1>
-                    <h2>
-                        Send a Request. Your idea could be the next{" "}
-                        <span>Featured</span> Coloring Page.
-                    </h2>
+                    <p>
+                        Can&apos;t find what you&apos;re looking for? Request it and your
+                        idea could be the next <span>Featured</span> page!
+                    </p>
                     <div
                         className={styles.buttonContainer}
                         onClick={async () => {
@@ -55,6 +58,7 @@ export default function NoResultRequest({
                         }}
                     >
                         <div className={stylesButton.actionButton}>
+                            <Send size={20} className="mr-2" />
                             Send Request
                         </div>
                     </div>
@@ -65,9 +69,9 @@ export default function NoResultRequest({
                         <h1>
                             Request sent for <span>{searchValue}</span>
                         </h1>
-                        <Send />
+                        <Send size={32} className={styles.successIcon} />
                     </div>
-                    <h2>Try searching for something else!</h2>
+                    <p className={styles.successSubtitle}>Try searching for something else!</p>
                     {!hideHomeLink && (
                         <Link href="/">
                             <div className={styles.buttonContainer}>
